@@ -18,10 +18,16 @@ plugins: [
     port: 5174,
     open: false,
   },
+  esbuild: {
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+    legalComments: 'none',
+  },
   build: {
     target: 'es2020',
     cssCodeSplit: true,
+    assetsInlineLimit: 4096,
     chunkSizeWarningLimit: 1200,
+    reportCompressedSize: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -29,6 +35,7 @@ plugins: [
           if (id.includes('framer-motion') || id.includes('gsap')) return 'vendor-motion';
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'vendor-react';
           if (id.includes('react-router')) return 'vendor-router';
+          if (id.includes('lucide-react') || id.includes('react-icons')) return 'vendor-icons';
           if (id.includes('node_modules')) return 'vendor-misc';
         },
         chunkFileNames: 'assets/[name]-[hash].js',

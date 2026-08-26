@@ -67,9 +67,10 @@ export default function ImageSlider3D({
 
   const maskStyles = withMask
     ? {
-      WebkitMask:
-        "linear-gradient(90deg, transparent 0%, #000 3% 97%, transparent 100%)",
-      mask: "linear-gradient(90deg, transparent 0%, #000 3% 97%, transparent 100%)",
+      WebkitMaskImage:
+        "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.95) 24%, #000 50%, rgba(0,0,0,0.95) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)",
+      maskImage:
+        "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.95) 24%, #000 50%, rgba(0,0,0,0.95) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)",
     }
     : {};
 

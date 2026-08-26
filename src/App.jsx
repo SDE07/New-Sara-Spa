@@ -7,6 +7,7 @@ import PageLoader from "./common/PageLoader";
 import BookingModal from "./components/BookingModal";
 import CustomCursor from "./common/CustomCursor";
 import ScrollProgressBar from "./common/ScrollProgressBar";
+import FloatingServiceWidget from "./common/FloatingServiceWidget";
 
 // ── Lazy-loaded page components ──────────────────────────────────────────────
 const LandingPage             = lazy(() => import("./components/Landingpage"));
@@ -85,6 +86,9 @@ function App() {
 
         {/* Global Luxury Footer */}
         <Footer onOpenBooking={() => setIsBookingOpen(true)} />
+
+        {/* Global Floating Quick Access Services Widget */}
+        <FloatingServiceWidget />
 
         {/* Global Booking Modal */}
         <BookingModal

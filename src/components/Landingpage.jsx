@@ -23,6 +23,7 @@ import {
   Smile,
   Layers,
   ChevronRight,
+  ChevronLeft,
   Play,
   X,
   Waves,
@@ -56,29 +57,234 @@ export default function Landingpage() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const categoryCarouselRef = useRef(null);
   const [isCategoryPaused, setIsCategoryPaused] = useState(false);
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
 
-  // Auto-scroll the 3 Category cards smoothly on mobile / small screens with hover & touch pause
-  useEffect(() => {
+  // Scroll to a specific category card index smoothly with exact center snap
+  const scrollToCategory = (index, manual = false) => {
+    if (manual) {
+      setIsCategoryPaused(true);
+    }
     const el = categoryCarouselRef.current;
     if (!el) return;
+    const cards = el.querySelectorAll(".category-card-slide");
+    if (cards && cards[index]) {
+      const card = cards[index];
+      const targetLeft = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
+      el.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+      setActiveCategoryIndex(index);
+    }
+  };
 
-    let animId;
-    const speed = 0.55;
+  const handleCategoryNext = () => {
+    setIsCategoryPaused(true); // Stop auto-sliding immediately on manual click
+    const nextIdx = (activeCategoryIndex + 1) % 3;
+    scrollToCategory(nextIdx, true);
+  };
 
-    const autoSlide = () => {
-      if (!isCategoryPaused && el && el.scrollWidth > el.clientWidth) {
-        el.scrollLeft += speed;
-        // Loop back when reaching end
-        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
-          el.scrollLeft = 0;
-        }
+  const handleCategoryPrev = () => {
+    setIsCategoryPaused(true); // Stop auto-sliding immediately on manual click
+    const prevIdx = (activeCategoryIndex - 1 + 3) % 3;
+    scrollToCategory(prevIdx, true);
+  };
+
+  // Update activeCategoryIndex with center-distance algorithm during touch swipe
+  const handleCategoryScroll = () => {
+    const el = categoryCarouselRef.current;
+    if (!el) return;
+    const scrollCenter = el.scrollLeft + el.clientWidth / 2;
+    const cards = el.querySelectorAll(".category-card-slide");
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, idx) => {
+      const cardCenter = card.offsetLeft + card.clientWidth / 2;
+      const distance = Math.abs(scrollCenter - cardCenter);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = idx;
       }
-      animId = requestAnimationFrame(autoSlide);
-    };
+    });
 
-    animId = requestAnimationFrame(autoSlide);
-    return () => cancelAnimationFrame(animId);
+    setActiveCategoryIndex(closestIndex);
+  };
+
+  // Auto-scroll the 3 Category cards on mobile every 3.5s only until the user manually interacts
+  useEffect(() => {
+    if (isCategoryPaused) return;
+
+    const interval = setInterval(() => {
+      if (window.innerWidth < 768) {
+        setActiveCategoryIndex((prev) => {
+          const next = (prev + 1) % 3;
+          const el = categoryCarouselRef.current;
+          if (el) {
+            const cards = el.querySelectorAll(".category-card-slide");
+            if (cards && cards[next]) {
+              const card = cards[next];
+              const targetLeft = card.offsetLeft - (el.clientWidth - card.clientWidth) / 2;
+              el.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+            }
+          }
+          return next;
+        });
+      }
+    }, 3500);
+
+    return () => clearInterval(interval);
   }, [isCategoryPaused]);
+
+  // 9 Signature Experience Cards in Section 4
+  const experienceCards = [
+    {
+      num: "01",
+      tag: "Ancient Thai Ritual",
+      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      title: "Thai Massage",
+      desc: "Traditional passive yoga stretches and rhythmic acupressure along energy pathways to restore full vitality.",
+      badge: "Energy & Flexibility",
+      icon: Flame,
+      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
+      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
+      badgeColor: "text-[#E3BA8F]",
+      haloGlow: "bg-[#D4A373]/25",
+      accentBorder: "from-transparent via-[#D4A373] to-transparent",
+      iconColor: "text-[#E3BA8F]",
+    },
+    {
+      num: "02",
+      tag: "Deep Tension Relief",
+      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      title: "Deep Tissue Massage",
+      desc: "Targeted slow strokes and firm pressure on deeper muscle layers to alleviate chronic soreness and knots.",
+      badge: "Chronic Pain Relief",
+      icon: Shield,
+      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
+      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
+      badgeColor: "text-[#A7E8CD]",
+      haloGlow: "bg-[#52B788]/25",
+      accentBorder: "from-transparent via-[#52B788] to-transparent",
+      iconColor: "text-[#A7E8CD]",
+    },
+    {
+      num: "03",
+      tag: "Private Romantic Suite",
+      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      title: "Couples Massage",
+      desc: "Side-by-side restorative massage rituals in a candlelit luxury suite accompanied by aromatic botanicals.",
+      badge: "Private Couples Sanctuary",
+      icon: Heart,
+      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
+      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
+      badgeColor: "text-[#E3BA8F]",
+      haloGlow: "bg-[#D4A373]/25",
+      accentBorder: "from-transparent via-[#D4A373] to-transparent",
+      iconColor: "text-[#E3BA8F]",
+    },
+    {
+      num: "04",
+      tag: "Holistic Healing",
+      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      title: "Balinese Massage",
+      desc: "Gentle palm pressure, skin rolling, and floral essential oils boosting circulation and relieving tension.",
+      badge: "Deep Circulation",
+      icon: Flower2,
+      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
+      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
+      badgeColor: "text-[#A7E8CD]",
+      haloGlow: "bg-[#52B788]/25",
+      accentBorder: "from-transparent via-[#52B788] to-transparent",
+      iconColor: "text-[#A7E8CD]",
+    },
+    {
+      num: "05",
+      tag: "Dual Therapist",
+      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      title: "Four Hand Massage",
+      desc: "Synchronized dual-therapist choreography creating an immersive wave of deep full-body relaxation.",
+      badge: "2 Master Therapists",
+      icon: Sparkles,
+      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
+      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
+      badgeColor: "text-[#E3BA8F]",
+      haloGlow: "bg-[#D4A373]/25",
+      accentBorder: "from-transparent via-[#D4A373] to-transparent",
+      iconColor: "text-[#E3BA8F]",
+    },
+    {
+      num: "06",
+      tag: "Royal Hydro Luxury",
+      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      title: "Jacuzzi Milk & Honey Bath",
+      desc: "Whirlpool hydro-massage soak infused with raw golden honey, nourishing botanicals, and warm mineral milk.",
+      badge: "Private Jacuzzi Hydro Soak",
+      icon: Gem,
+      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
+      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
+      badgeColor: "text-[#A7E8CD]",
+      haloGlow: "bg-[#52B788]/25",
+      accentBorder: "from-transparent via-[#52B788] to-transparent",
+      iconColor: "text-[#A7E8CD]",
+    },
+    {
+      num: "07",
+      tag: "Volcanic Warmth",
+      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      title: "Hot Stone Massage",
+      desc: "Heated volcanic basalt stones placed along energy points to melt away stiffness and restore harmony.",
+      badge: "Basalt Thermal Stones",
+      icon: Flame,
+      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
+      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
+      badgeColor: "text-[#E3BA8F]",
+      haloGlow: "bg-[#D4A373]/25",
+      accentBorder: "from-transparent via-[#D4A373] to-transparent",
+      iconColor: "text-[#E3BA8F]",
+    },
+    {
+      num: "08",
+      tag: "Botanical Essence",
+      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      title: "Aromatherapy Massage",
+      desc: "Custom blends of pure organic essential oils curated to soothe the nervous system and calm the mind.",
+      badge: "100% Organic Oils",
+      icon: Droplets,
+      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
+      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
+      badgeColor: "text-[#A7E8CD]",
+      haloGlow: "bg-[#52B788]/25",
+      accentBorder: "from-transparent via-[#52B788] to-transparent",
+      iconColor: "text-[#A7E8CD]",
+    },
+    {
+      num: "09",
+      tag: "Herbal Poultice",
+      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      title: "Potli Massage",
+      desc: "Warm muslin pouches packed with therapeutic herbs rhythmically stamped to relieve joint stiffness.",
+      badge: "Warm Herbal Poultice",
+      icon: Layers,
+      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
+      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
+      badgeColor: "text-[#E3BA8F]",
+      haloGlow: "bg-[#D4A373]/25",
+      accentBorder: "from-transparent via-[#D4A373] to-transparent",
+      iconColor: "text-[#E3BA8F]",
+    },
+  ];
+
+  const [activeExpCardIndex, setActiveExpCardIndex] = useState(0);
+  const [isExpCardPaused, setIsExpCardPaused] = useState(false);
+
+  // Auto-advance the single experience card on mobile view
+  useEffect(() => {
+    if (isExpCardPaused) return;
+    const interval = setInterval(() => {
+      if (window.innerWidth < 768) {
+        setActiveExpCardIndex((prev) => (prev + 1) % experienceCards.length);
+      }
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isExpCardPaused]);
 
   useSEO({
     title: "NEW SARA SPA — A Sanctuary for Your Body & Mind | Luxury Wellness",
@@ -223,14 +429,6 @@ export default function Landingpage() {
 
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 opacity-50 hover:opacity-100 transition-opacity">
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[#8C7364] font-medium">Scroll</span>
-          <div className="w-4 h-7 rounded-full border border-[#D8C7B5] flex items-start justify-center p-0.5">
-            <div className="w-1 h-2 bg-[#B07D54] rounded-full animate-bounce" />
-          </div>
-        </div>
       </section>
 
 
@@ -268,12 +466,12 @@ export default function Landingpage() {
               </h2>
 
               {/* Lead Paragraph */}
-             <p className="text-base sm:text-lg text-[#F5ECE1] font-light leading-relaxed">
-  Relax, refresh and rejuvenate at Sara Spa with soothing treatments, natural care and a peaceful atmosphere designed for your complete wellness.
-</p>
+              <p className="text-base sm:text-lg text-[#F5ECE1] font-light leading-relaxed">
+                Relax, refresh and rejuvenate at Sara Spa with soothing treatments, natural care and a peaceful atmosphere designed for your complete wellness.
+              </p>
               {/* Description */}
               <p className="text-sm sm:text-base text-[#D4C3B3] leading-relaxed">
-               From relaxing massages to personalized spa treatments, we help you feel refreshed, relaxed, and renewed in a peaceful environment.
+                From relaxing massages to personalized spa treatments, we help you feel refreshed, relaxed, and renewed in a peaceful environment.
               </p>
 
               {/* Highlights Feature Pills */}
@@ -364,211 +562,193 @@ export default function Landingpage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14 xl:gap-20 items-center">
 
-            {/* LEFT COLUMN: 3D Cylindrical Experience Card Slider (order-2 on mobile, order-1 on desktop) */}
-            <div className="order-2 lg:order-1 lg:col-span-7 xl:col-span-7 w-full flex flex-col items-center justify-center relative min-h-[380px] sm:min-h-[460px] md:min-h-[540px] -mt-2 sm:mt-0 overflow-hidden" style={{ touchAction: 'pan-y' }}>
-              <ImageSlider3D
-                duration={48}
-                cardWidth="17.5em"
-                cardAspectRatio="7.5/10"
-                perspective="40em"
-                withMask={false}
-                onCardClick={(c) => setActiveCardDetail(c)}
-                items={[
-                  {
-                    num: "01",
-                    tag: "Ancient Thai Ritual",
-                    tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
-                    title: "Thai Massage",
-                    desc: "Traditional passive yoga stretches and rhythmic acupressure along energy pathways to restore full vitality.",
-                    badge: "Energy & Flexibility",
-                    icon: Flame,
-                    cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-                    borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-                    badgeColor: "text-[#E3BA8F]",
-                    haloGlow: "bg-[#D4A373]/25",
-                    accentBorder: "from-transparent via-[#D4A373] to-transparent",
-                    iconColor: "text-[#E3BA8F]",
-                  },
-                  {
-                    num: "02",
-                    tag: "Deep Tension Relief",
-                    tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
-                    title: "Deep Tissue Massage",
-                    desc: "Targeted slow strokes and firm pressure on deeper muscle layers to alleviate chronic soreness and knots.",
-                    badge: "Chronic Pain Relief",
-                    icon: Shield,
-                    cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-                    borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-                    badgeColor: "text-[#A7E8CD]",
-                    haloGlow: "bg-[#52B788]/25",
-                    accentBorder: "from-transparent via-[#52B788] to-transparent",
-                    iconColor: "text-[#A7E8CD]",
-                  },
-                  {
-                    num: "03",
-                    tag: "Private Romantic Suite",
-                    tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
-                    title: "Couples Massage",
-                    desc: "Side-by-side restorative massage rituals in a candlelit luxury suite accompanied by aromatic botanicals.",
-                    badge: "Private Couples Sanctuary",
-                    icon: Heart,
-                    cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-                    borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-                    badgeColor: "text-[#E3BA8F]",
-                    haloGlow: "bg-[#D4A373]/25",
-                    accentBorder: "from-transparent via-[#D4A373] to-transparent",
-                    iconColor: "text-[#E3BA8F]",
-                  },
-                  {
-                    num: "04",
-                    tag: "Holistic Healing",
-                    tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
-                    title: "Balinese Massage",
-                    desc: "Gentle palm pressure, skin rolling, and floral essential oils boosting circulation and relieving tension.",
-                    badge: "Deep Circulation",
-                    icon: Flower2,
-                    cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-                    borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-                    badgeColor: "text-[#A7E8CD]",
-                    haloGlow: "bg-[#52B788]/25",
-                    accentBorder: "from-transparent via-[#52B788] to-transparent",
-                    iconColor: "text-[#A7E8CD]",
-                  },
-                  {
-                    num: "05",
-                    tag: "Dual Therapist",
-                    tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
-                    title: "Four Hand Massage",
-                    desc: "Synchronized dual-therapist choreography creating an immersive wave of deep full-body relaxation.",
-                    badge: "2 Master Therapists",
-                    icon: Sparkles,
-                    cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-                    borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-                    badgeColor: "text-[#E3BA8F]",
-                    haloGlow: "bg-[#D4A373]/25",
-                    accentBorder: "from-transparent via-[#D4A373] to-transparent",
-                    iconColor: "text-[#E3BA8F]",
-                  },
-                  {
-                    num: "06",
-                    tag: "Royal Hydro Luxury",
-                    tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
-                    title: "Jacuzzi Milk & Honey Bath",
-                    desc: "Whirlpool hydro-massage soak infused with raw golden honey, nourishing botanicals, and warm mineral milk.",
-                    badge: "Private Jacuzzi Hydro Soak",
-                    icon: Gem,
-                    cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-                    borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-                    badgeColor: "text-[#A7E8CD]",
-                    haloGlow: "bg-[#52B788]/25",
-                    accentBorder: "from-transparent via-[#52B788] to-transparent",
-                    iconColor: "text-[#A7E8CD]",
-                  },
-                  {
-                    num: "07",
-                    tag: "Volcanic Warmth",
-                    tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
-                    title: "Hot Stone Massage",
-                    desc: "Heated volcanic basalt stones placed along energy points to melt away stiffness and restore harmony.",
-                    badge: "Basalt Thermal Stones",
-                    icon: Flame,
-                    cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-                    borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-                    badgeColor: "text-[#E3BA8F]",
-                    haloGlow: "bg-[#D4A373]/25",
-                    accentBorder: "from-transparent via-[#D4A373] to-transparent",
-                    iconColor: "text-[#E3BA8F]",
-                  },
-                  {
-                    num: "08",
-                    tag: "Botanical Essence",
-                    tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
-                    title: "Aromatherapy Massage",
-                    desc: "Custom blends of pure organic essential oils curated to soothe the nervous system and calm the mind.",
-                    badge: "100% Organic Oils",
-                    icon: Droplets,
-                    cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-                    borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-                    badgeColor: "text-[#A7E8CD]",
-                    haloGlow: "bg-[#52B788]/25",
-                    accentBorder: "from-transparent via-[#52B788] to-transparent",
-                    iconColor: "text-[#A7E8CD]",
-                  },
-                  {
-                    num: "09",
-                    tag: "Herbal Poultice",
-                    tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
-                    title: "Potli Massage",
-                    desc: "Warm muslin pouches packed with therapeutic herbs rhythmically stamped to relieve joint stiffness.",
-                    badge: "Warm Herbal Poultice",
-                    icon: Layers,
-                    cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-                    borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-                    badgeColor: "text-[#E3BA8F]",
-                    haloGlow: "bg-[#D4A373]/25",
-                    accentBorder: "from-transparent via-[#D4A373] to-transparent",
-                    iconColor: "text-[#E3BA8F]",
-                  },
-                ]}
-                renderItem={(c) => {
-                  const IconComponent = c.icon || Sparkles;
-                  return (
-                    <div
-                      onClick={() => setActiveCardDetail(c)}
-                      style={{
-                        backfaceVisibility: "hidden",
-                        WebkitBackfaceVisibility: "hidden",
+            {/* LEFT COLUMN: Single-Card Showcase on Mobile & 3D Cylindrical Slider on Desktop */}
+            <div className="order-2 lg:order-1 lg:col-span-7 xl:col-span-7 w-full flex flex-col items-center justify-center relative -mt-2 sm:mt-0">
+              
+              {/* MOBILE VIEW (< md:): Strictly 1 Card at a Time */}
+              <div className="block md:hidden w-full max-w-[340px] mx-auto">
+                {/* Mobile Header & Controls */}
+                <div className="flex items-center justify-between gap-3 mb-3 px-1">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#8C6A43] flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#B07D54] animate-ping shrink-0" />
+                    <span>Therapy {experienceCards[activeExpCardIndex].num} of 09</span>
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsExpCardPaused(true);
+                        setActiveExpCardIndex((prev) => (prev - 1 + experienceCards.length) % experienceCards.length);
                       }}
-                      className={`w-full h-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-700 hover:shadow-[0_25px_60px_-10px_rgba(0,0,0,0.6)] backdrop-blur-md`}
+                      className="w-8 h-8 rounded-full bg-white border border-[#D4A373]/60 shadow-xs text-[#2D241E] hover:bg-[#2D241E] hover:text-[#E3BA8F] transition-all flex items-center justify-center cursor-pointer active:scale-90"
+                      aria-label="Previous Therapy"
                     >
-                      {/* Top Accent Border */}
-                      <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-40 group-hover:opacity-100 transition-opacity duration-500`} />
+                      <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsExpCardPaused(true);
+                        setActiveExpCardIndex((prev) => (prev + 1) % experienceCards.length);
+                      }}
+                      className="w-8 h-8 rounded-full bg-white border border-[#D4A373]/60 shadow-xs text-[#2D241E] hover:bg-[#2D241E] hover:text-[#E3BA8F] transition-all flex items-center justify-center cursor-pointer active:scale-90"
+                      aria-label="Next Therapy"
+                    >
+                      <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                    </button>
+                  </div>
+                </div>
 
-                      {/* Watermark Numeral */}
-                      <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/10 group-hover:text-white/20 transition-colors select-none pointer-events-none">
-                        {c.num}
-                      </span>
+                {/* Single Active Therapy Card with Smooth Transitions */}
+                <AnimatePresence mode="wait">
+                  {(() => {
+                    const c = experienceCards[activeExpCardIndex];
+                    const IconComponent = c.icon || Sparkles;
+                    return (
+                      <motion.div
+                        key={c.num}
+                        initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.96, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        onClick={() => setActiveCardDetail(c)}
+                        className={`w-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-300 min-h-[420px] backdrop-blur-md`}
+                      >
+                        {/* Top Accent Border */}
+                        <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-60`} />
 
-                      {/* Top Tag & Header */}
-                      <div className="space-y-3 relative z-10">
-                        <div className="flex items-center justify-between">
-                          <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-xs`}>
-                            {c.tag}
+                        {/* Watermark Numeral */}
+                        <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/10 select-none pointer-events-none">
+                          {c.num}
+                        </span>
+
+                        {/* Top Tag & Header */}
+                        <div className="space-y-3 relative z-10">
+                          <div className="flex items-center justify-between">
+                            <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-xs`}>
+                              {c.tag}
+                            </span>
+                          </div>
+
+                          <h3 className="text-2xl font-serif-luxury font-bold text-white leading-snug">
+                            {c.title}
+                          </h3>
+
+                          <p className="text-xs text-white/75 font-light leading-relaxed">
+                            {c.desc}
+                          </p>
+                        </div>
+
+                        {/* Middle Lucide Icon Luxury Medallion Emblem */}
+                        <div className="my-4 relative flex items-center justify-center">
+                          <div className="relative w-22 h-22 rounded-full bg-gradient-to-b from-white/10 via-white/[0.03] to-transparent border border-white/20 flex items-center justify-center shadow-2xl backdrop-blur-md">
+                            <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-40 pointer-events-none`} />
+                            <IconComponent className={`w-10 h-10 ${c.iconColor} relative z-10 drop-shadow-md`} />
+                          </div>
+                        </div>
+
+                        {/* Bottom Feature Badge & Action */}
+                        <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 text-[11px]">
+                          <div className={`flex items-center gap-1.5 font-medium ${c.badgeColor}`}>
+                            <Sparkles className="w-3 h-3" />
+                            <span className="truncate max-w-[150px]">{c.badge}</span>
+                          </div>
+                          <span className="px-3.5 py-1 rounded-full bg-white/15 text-white text-[10.5px] font-bold uppercase tracking-wider flex items-center gap-1">
+                            Details <ArrowRight className="w-3 h-3" />
                           </span>
                         </div>
+                      </motion.div>
+                    );
+                  })()}
+                </AnimatePresence>
 
-                        <h3 className="text-xl font-serif-luxury font-bold text-white leading-snug group-hover:text-white transition-colors duration-300">
-                          {c.title}
-                        </h3>
+                {/* Mobile Pagination Dot Indicators */}
+                <div className="flex items-center justify-center gap-1.5 pt-4">
+                  {experienceCards.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        setIsExpCardPaused(true);
+                        setActiveExpCardIndex(idx);
+                      }}
+                      aria-label={`Go to Therapy ${idx + 1}`}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${activeExpCardIndex === idx ? "w-6 bg-[#B07D54]" : "w-1.5 bg-[#D4A373]/40"}`}
+                    />
+                  ))}
+                </div>
+              </div>
 
-                        <p className="text-xs text-white/70 font-light leading-relaxed line-clamp-3">
-                          {c.desc}
-                        </p>
-                      </div>
+              {/* DESKTOP VIEW (≥ md:): Rich 3D Cylindrical Experience Card Slider */}
+              <div className="hidden md:flex w-full flex-col items-center justify-center relative min-h-[460px] md:min-h-[540px] overflow-hidden" style={{ touchAction: 'pan-y' }}>
+                <ImageSlider3D
+                  duration={48}
+                  cardWidth="17.5em"
+                  cardAspectRatio="7.5/10"
+                  perspective="40em"
+                  withMask={true}
+                  onCardClick={(c) => setActiveCardDetail(c)}
+                  items={experienceCards}
+                  renderItem={(c) => {
+                    const IconComponent = c.icon || Sparkles;
+                    return (
+                      <div
+                        onClick={() => setActiveCardDetail(c)}
+                        style={{
+                          backfaceVisibility: "hidden",
+                          WebkitBackfaceVisibility: "hidden",
+                        }}
+                        className={`w-full h-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-700 hover:shadow-[0_25px_60px_-10px_rgba(0,0,0,0.6)] backdrop-blur-md`}
+                      >
+                        {/* Top Accent Border */}
+                        <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-40 group-hover:opacity-100 transition-opacity duration-500`} />
 
-                      {/* Middle Lucide Icon Luxury Medallion Emblem */}
-                      <div className="my-2 relative flex items-center justify-center">
-                        <div className="relative w-22 h-22 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-white/10 via-white/[0.03] to-transparent border border-white/20 group-hover:border-white/40 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500 backdrop-blur-md">
-                          {/* Soft Ambient Glow Halo */}
-                          <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-                          <IconComponent className={`w-10 h-10 ${c.iconColor} group-hover:text-white transition-colors relative z-10 drop-shadow-md`} />
-                        </div>
-                      </div>
-
-                      {/* Bottom Feature Badge & Action */}
-                      <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 text-[11px]">
-                        <div className={`flex items-center gap-1.5 font-medium ${c.badgeColor}`}>
-                          <Sparkles className="w-3 h-3" />
-                          <span className="truncate max-w-[120px]">{c.badge}</span>
-                        </div>
-                        <span className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 whitespace-nowrap">
-                          Details <ArrowRight className="w-2.5 h-2.5" />
+                        {/* Watermark Numeral */}
+                        <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/10 group-hover:text-white/20 transition-colors select-none pointer-events-none">
+                          {c.num}
                         </span>
+
+                        {/* Top Tag & Header */}
+                        <div className="space-y-3 relative z-10">
+                          <div className="flex items-center justify-between">
+                            <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-xs`}>
+                              {c.tag}
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl font-serif-luxury font-bold text-white leading-snug group-hover:text-white transition-colors duration-300">
+                            {c.title}
+                          </h3>
+
+                          <p className="text-xs text-white/70 font-light leading-relaxed line-clamp-3">
+                            {c.desc}
+                          </p>
+                        </div>
+
+                        {/* Middle Lucide Icon Luxury Medallion Emblem */}
+                        <div className="my-2 relative flex items-center justify-center">
+                          <div className="relative w-22 h-22 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-white/10 via-white/[0.03] to-transparent border border-white/20 group-hover:border-white/40 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500 backdrop-blur-md">
+                            {/* Soft Ambient Glow Halo */}
+                            <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
+                            <IconComponent className={`w-10 h-10 ${c.iconColor} group-hover:text-white transition-colors relative z-10 drop-shadow-md`} />
+                          </div>
+                        </div>
+
+                        {/* Bottom Feature Badge & Action */}
+                        <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 text-[11px]">
+                          <div className={`flex items-center gap-1.5 font-medium ${c.badgeColor}`}>
+                            <Sparkles className="w-3 h-3" />
+                            <span className="truncate max-w-[120px]">{c.badge}</span>
+                          </div>
+                          <span className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 whitespace-nowrap">
+                            Details <ArrowRight className="w-2.5 h-2.5" />
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  );
-                }}
-              />
+                    );
+                  }}
+                />
+              </div>
             </div>
 
             {/* RIGHT COLUMN: Heading, Subtitle, Highlights & Action */}
@@ -590,7 +770,7 @@ export default function Landingpage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-serif-luxury font-bold text-[#2D241E]">Master Therapists</h4>
-                  
+
                   </div>
                 </div>
 
@@ -600,7 +780,7 @@ export default function Landingpage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-serif-luxury font-bold text-[#14261C]">Private Luxury Suites</h4>
-                    
+
                   </div>
                 </div>
               </div>
@@ -650,8 +830,8 @@ export default function Landingpage() {
                   {/* Top Accent Line */}
                   <div
                     className={`h-1.5 bg-gradient-to-r ${isGreen
-                        ? "from-[#2D6A4F] via-[#74C69D] to-[#2D6A4F]"
-                        : "from-[#D4A373] via-[#F3D7B8] to-[#B07D54]"
+                      ? "from-[#2D6A4F] via-[#74C69D] to-[#2D6A4F]"
+                      : "from-[#D4A373] via-[#F3D7B8] to-[#B07D54]"
                       }`}
                   />
 
@@ -789,15 +969,15 @@ export default function Landingpage() {
       {/* ─────────────────────────────────────────────────────────────────────────
           SECTION 5: 3 MAIN SPA CATEGORIES — Direct Category Navigation
       ───────────────────────────────────────────────────────────────────────── */}
-      <section id="services" className="py-24 md:py-32 bg-[#F5EFE6] border-t border-[#EAE0D3] relative">
+      <section id="services" className="py-12 sm:py-16 md:py-18 bg-[#F5EFE6] border-t border-[#EAE0D3] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 md:mb-10">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-[#8C6A43] font-semibold">
                 Curated Therapies
               </span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E] mt-2">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif-luxury font-bold text-[#2D241E] mt-1">
                 Discover Your Perfect Treatment
               </h2>
             </div>
@@ -810,17 +990,52 @@ export default function Landingpage() {
             </button>
           </div>
 
-          {/* 3 Main Category Showcase Cards — Auto-Scrolling & Swipeable on Mobile, 3-Col Grid on Desktop */}
-          <div 
+          {/* Mobile Swiper Navigation Header / Controls */}
+          <div className="flex md:hidden items-center justify-between gap-3 mb-4 px-2">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#8C6A43] flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#B07D54] animate-ping shrink-0" />
+              <span>Category {activeCategoryIndex + 1} of 3</span>
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCategoryPrev();
+                }}
+                className="w-9 h-9 rounded-full bg-white border border-[#D4A373]/60 shadow-xs text-[#2D241E] hover:bg-[#2D241E] hover:text-[#E3BA8F] transition-all flex items-center justify-center cursor-pointer active:scale-90"
+                aria-label="Previous Category"
+                title="Previous Category"
+              >
+                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCategoryNext();
+                }}
+                className="w-9 h-9 rounded-full bg-white border border-[#D4A373]/60 shadow-xs text-[#2D241E] hover:bg-[#2D241E] hover:text-[#E3BA8F] transition-all flex items-center justify-center cursor-pointer active:scale-90"
+                aria-label="Next Category"
+                title="Next Category"
+              >
+                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
+          </div>
+
+          {/* 3 Main Category Showcase Cards — Compact Height on Desktop & Swiper on Mobile */}
+          <div
             ref={categoryCarouselRef}
+            onScroll={handleCategoryScroll}
             onMouseEnter={() => setIsCategoryPaused(true)}
             onMouseLeave={() => setIsCategoryPaused(false)}
             onTouchStart={() => setIsCategoryPaused(true)}
             onTouchEnd={() => setIsCategoryPaused(false)}
-            className="flex md:grid md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8 overflow-x-auto pb-6 md:pb-0 pt-2 snap-x snap-mandatory scrollbar-none items-stretch -mx-4 px-4 sm:mx-0 sm:px-0 select-none cursor-grab active:cursor-grabbing"
+            className="flex md:grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-6 overflow-x-auto pb-4 md:pb-0 pt-1 snap-x snap-mandatory scrollbar-none items-stretch px-4 sm:px-0 select-none scroll-smooth"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            
+
             {/* 1. DRY MASSAGES */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -828,10 +1043,10 @@ export default function Landingpage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               onClick={() => navigate("/services?category=dry")}
-              className="w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center group bg-white rounded-3xl overflow-hidden border border-[#EAE0D3] shadow-[0_10px_30px_rgba(45,36,30,0.06)] hover:shadow-2xl transition-all duration-400 cursor-pointer flex flex-col justify-between hover:-translate-y-2"
+              className="category-card-slide w-[88vw] max-w-[340px] md:w-auto shrink-0 snap-center group bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-[#EAE0D3] shadow-[0_10px_30px_rgba(45,36,30,0.06)] hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5"
             >
               <div>
-                <div className="relative h-60 sm:h-72 w-full overflow-hidden bg-[#2D241E]">
+                <div className="relative h-44 sm:h-48 md:h-48 lg:h-52 w-full overflow-hidden bg-[#2D241E]">
                   <img
                     src={thaiStretchImg}
                     alt="Dry Massages"
@@ -839,26 +1054,26 @@ export default function Landingpage() {
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter brightness-95"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3.5 py-1 rounded-full bg-[#2D241E]/90 backdrop-blur-md text-[#E3BA8F] border border-[#E3BA8F]/30 text-[10px] font-bold uppercase tracking-widest">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="px-3 py-0.5 rounded-full bg-[#2D241E]/90 backdrop-blur-md text-[#E3BA8F] border border-[#E3BA8F]/30 text-[9.5px] font-bold uppercase tracking-widest">
                       Oil-Free & Yoga Stretch
                     </span>
                   </div>
 
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#E3BA8F]">
+                  <div className="absolute bottom-3 left-3.5 right-3.5 text-white">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#E3BA8F]">
                       4 Signature Therapies
                     </span>
-                    <h3 className="text-2xl font-serif-luxury font-bold leading-tight mt-0.5 text-white">
+                    <h3 className="text-xl sm:text-2xl font-serif-luxury font-bold leading-tight mt-0.5 text-white">
                       DRY MASSAGES
                     </h3>
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7 space-y-4">
-                  <div className="flex items-center justify-between text-xs font-bold text-[#8C6A43] pb-3 border-b border-[#EAE0D3]">
+                <div className="p-4 sm:p-5 md:p-5 space-y-2.5 sm:space-y-3">
+                  <div className="flex items-center justify-between text-xs font-bold text-[#8C6A43] pb-2 sm:pb-2.5 border-b border-[#EAE0D3]">
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
                       45 – 90 Mins
@@ -868,34 +1083,34 @@ export default function Landingpage() {
                     </span>
                   </div>
 
-                  <p className="text-xs sm:text-[13px] text-[#6B5A4E] leading-relaxed font-light">
+                  <p className="text-xs text-[#6B5A4E] leading-relaxed font-light line-clamp-2">
                     Deep Indian Champi Head Massage, Acupressure Foot Reflexology, Spine Release Back Massage, and assisted Thai Yoga Stretch.
                   </p>
 
-                  <div className="space-y-1.5 pt-1">
-                    <div className="text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788]" />
+                  <div className="space-y-1 pt-0.5">
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
                       <span>Head Massages (Indian Champ)</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788]" />
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
                       <span>Foot Reflexology & Acupressure</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788]" />
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
                       <span>Thai Dry Assisted Stretch</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-7 pt-0">
+              <div className="p-4 sm:p-5 md:p-5 pt-0">
                 <button
                   type="button"
-                  className="w-full py-3.5 rounded-full bg-[#FAF4ED] group-hover:bg-[#2D241E] text-[#2D241E] group-hover:text-white border border-[#E8DFD5] group-hover:border-[#2D241E] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 sm:py-3 rounded-full bg-[#FAF4ED] group-hover:bg-[#2D241E] text-[#2D241E] group-hover:text-white border border-[#E8DFD5] group-hover:border-[#2D241E] font-bold text-xs uppercase tracking-[0.18em] transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <span>Explore Dry Massages</span>
-                  <ArrowRight className="w-4 h-4 text-[#B07D54] group-hover:text-[#E3BA8F] group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#B07D54] group-hover:text-[#E3BA8F] group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </motion.div>
@@ -907,10 +1122,10 @@ export default function Landingpage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
               onClick={() => navigate("/services?category=signature")}
-              className="w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center group bg-[#1F1712] rounded-3xl overflow-hidden border-2 border-[#D4A373]/60 shadow-[0_16px_40px_rgba(45,36,30,0.25)] hover:shadow-[0_20px_50px_rgba(212,163,115,0.4)] transition-all duration-400 cursor-pointer flex flex-col justify-between hover:-translate-y-2 md:-translate-y-3"
+              className="category-card-slide w-[88vw] max-w-[340px] md:w-auto shrink-0 snap-center group bg-[#1F1712] rounded-2xl md:rounded-3xl overflow-hidden border-2 border-[#D4A373]/60 shadow-[0_16px_40px_rgba(45,36,30,0.25)] hover:shadow-[0_20px_50px_rgba(212,163,115,0.4)] transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5 md:-translate-y-2"
             >
               <div>
-                <div className="relative h-60 sm:h-72 w-full overflow-hidden bg-[#2D241E]">
+                <div className="relative h-44 sm:h-48 md:h-48 lg:h-52 w-full overflow-hidden bg-[#2D241E]">
                   <img
                     src={fourHandJacuzziScrubImg}
                     alt="Signature Massage"
@@ -919,25 +1134,25 @@ export default function Landingpage() {
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter brightness-95"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1F1712] via-black/30 to-transparent" />
-                  
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3.5 py-1 rounded-full bg-[#D4A373] text-[#2D241E] text-[10px] font-extrabold uppercase tracking-widest shadow-md">
+
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="px-3 py-0.5 rounded-full bg-[#D4A373] text-[#2D241E] text-[9.5px] font-extrabold uppercase tracking-widest shadow-md">
                       ★ Combos & Bangkok Jacuzzi
                     </span>
                   </div>
 
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#E3BA8F]">
+                  <div className="absolute bottom-3 left-3.5 right-3.5 text-white">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#E3BA8F]">
                       6 Elite Combinations
                     </span>
-                    <h3 className="text-2xl font-serif-luxury font-bold leading-tight mt-0.5 text-white">
+                    <h3 className="text-xl sm:text-2xl font-serif-luxury font-bold leading-tight mt-0.5 text-white">
                       SIGNATURE MASSAGE
                     </h3>
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7 space-y-4 text-white">
-                  <div className="flex items-center justify-between text-xs font-bold text-[#E3BA8F] pb-3 border-b border-white/10">
+                <div className="p-4 sm:p-5 md:p-5 space-y-2.5 sm:space-y-3 text-white">
+                  <div className="flex items-center justify-between text-xs font-bold text-[#E3BA8F] pb-2 sm:pb-2.5 border-b border-white/10">
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
                       60 – 120 Mins
@@ -947,34 +1162,34 @@ export default function Landingpage() {
                     </span>
                   </div>
 
-                  <p className="text-xs sm:text-[13px] text-white/80 leading-relaxed font-light">
+                  <p className="text-xs text-white/80 leading-relaxed font-light line-clamp-2">
                     Synchronized 2-Therapist Four-Hand Massage, Turkish Steam Chamber Hammam Scrub, and Private Bangkok Jacuzzi Hydrotherapy.
                   </p>
 
-                  <div className="space-y-1.5 pt-1">
-                    <div className="text-[11px] font-semibold text-white/90 flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#E3BA8F]" />
+                  <div className="space-y-1 pt-0.5">
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-white/90 flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#E3BA8F] shrink-0" />
                       <span>Four Hand Massage + Jacuzzi + Scrub</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-white/90 flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#E3BA8F]" />
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-white/90 flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#E3BA8F] shrink-0" />
                       <span>Turkish Hammam Steam + Scrub</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-white/90 flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#E3BA8F]" />
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-white/90 flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#E3BA8F] shrink-0" />
                       <span>Thai Massage + Bangkok Jacuzzi</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-7 pt-0">
+              <div className="p-4 sm:p-5 md:p-5 pt-0">
                 <button
                   type="button"
-                  className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-[#2D241E] font-bold text-xs uppercase tracking-[0.2em] shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-[#2D241E] font-bold text-xs uppercase tracking-[0.18em] shadow-md transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <span>Explore Signature Massages</span>
-                  <ArrowRight className="w-4 h-4 text-[#2D241E] group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#2D241E] group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </motion.div>
@@ -986,10 +1201,10 @@ export default function Landingpage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
               onClick={() => navigate("/services?category=rejuvenate")}
-              className="w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center group bg-white rounded-3xl overflow-hidden border border-[#EAE0D3] shadow-[0_10px_30px_rgba(45,36,30,0.06)] hover:shadow-2xl transition-all duration-400 cursor-pointer flex flex-col justify-between hover:-translate-y-2"
+              className="category-card-slide w-[88vw] max-w-[340px] md:w-auto shrink-0 snap-center group bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-[#EAE0D3] shadow-[0_10px_30px_rgba(45,36,30,0.06)] hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between hover:-translate-y-1.5"
             >
               <div>
-                <div className="relative h-60 sm:h-72 w-full overflow-hidden bg-[#2D241E]">
+                <div className="relative h-44 sm:h-48 md:h-48 lg:h-52 w-full overflow-hidden bg-[#2D241E]">
                   <img
                     src={specialCoupleImg}
                     alt="Rejuvenate and Relaxing"
@@ -997,26 +1212,26 @@ export default function Landingpage() {
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter brightness-95"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3.5 py-1 rounded-full bg-[#2D241E]/90 backdrop-blur-md text-[#E3BA8F] border border-[#E3BA8F]/30 text-[10px] font-bold uppercase tracking-widest">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                  <div className="absolute top-3.5 left-3.5">
+                    <span className="px-3 py-0.5 rounded-full bg-[#2D241E]/90 backdrop-blur-md text-[#E3BA8F] border border-[#E3BA8F]/30 text-[9.5px] font-bold uppercase tracking-widest">
                       Botanical Scrubs & Sanctuary
                     </span>
                   </div>
 
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-[#E3BA8F]">
+                  <div className="absolute bottom-3 left-3.5 right-3.5 text-white">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#E3BA8F]">
                       11 Luxury Rituals
                     </span>
-                    <h3 className="text-2xl font-serif-luxury font-bold leading-tight mt-0.5 text-white">
+                    <h3 className="text-xl sm:text-2xl font-serif-luxury font-bold leading-tight mt-0.5 text-white">
                       REJUVENATE & RELAXING
                     </h3>
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7 space-y-4">
-                  <div className="flex items-center justify-between text-xs font-bold text-[#8C6A43] pb-3 border-b border-[#EAE0D3]">
+                <div className="p-4 sm:p-5 md:p-5 space-y-2.5 sm:space-y-3">
+                  <div className="flex items-center justify-between text-xs font-bold text-[#8C6A43] pb-2 sm:pb-2.5 border-b border-[#EAE0D3]">
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
                       60 – 120 Mins
@@ -1026,51 +1241,60 @@ export default function Landingpage() {
                     </span>
                   </div>
 
-                  <p className="text-xs sm:text-[13px] text-[#6B5A4E] leading-relaxed font-light">
+                  <p className="text-xs text-[#6B5A4E] leading-relaxed font-light line-clamp-2">
                     Pure Sandalwood Scrub & Polish, Hawaiian Lomi Lomi wave massage, romantic Special Couple suites, and Volcanic Mud Wraps.
                   </p>
 
-                  <div className="space-y-1.5 pt-1">
-                    <div className="text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788]" />
+                  <div className="space-y-1 pt-0.5">
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
                       <span>Sandalwood Scrub + Body Massage</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788]" />
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
                       <span>Special Couple Treatment + Jacuzzi</span>
                     </div>
-                    <div className="text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788]" />
+                    <div className="text-[10.5px] sm:text-[11px] font-semibold text-[#2D241E] flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#52B788] shrink-0" />
                       <span>Hawaiian Lomi Lomi & Swedish</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-7 pt-0">
+              <div className="p-4 sm:p-5 md:p-5 pt-0">
                 <button
                   type="button"
-                  className="w-full py-3.5 rounded-full bg-[#FAF4ED] group-hover:bg-[#2D241E] text-[#2D241E] group-hover:text-white border border-[#E8DFD5] group-hover:border-[#2D241E] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 sm:py-3 rounded-full bg-[#FAF4ED] group-hover:bg-[#2D241E] text-[#2D241E] group-hover:text-white border border-[#E8DFD5] group-hover:border-[#2D241E] font-bold text-xs uppercase tracking-[0.18em] transition-all duration-300 flex items-center justify-center gap-2"
                 >
                   <span>Explore Rejuvenate Rituals</span>
-                  <ArrowRight className="w-4 h-4 text-[#B07D54] group-hover:text-[#E3BA8F] group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#B07D54] group-hover:text-[#E3BA8F] group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </motion.div>
 
           </div>
 
-          {/* Mobile Swipe Hint */}
-          <div className="flex md:hidden items-center justify-center gap-1.5 pt-4 text-xs font-semibold text-[#8C7364]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#8C6A43]" />
-            <span>Swipe horizontally to view all 3 categories</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#8C6A43]" />
+          {/* Swiper Pagination Indicator Bullets on Mobile */}
+          <div className="flex md:hidden items-center justify-center gap-2 pt-5 pb-1">
+            {[0, 1, 2].map((idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => scrollToCategory(idx)}
+                aria-label={`Go to Category ${idx + 1}`}
+                className={`transition-all duration-300 rounded-full h-2 cursor-pointer ${activeCategoryIndex === idx
+                    ? "w-8 bg-[#B07D54] shadow-xs"
+                    : "w-2.5 bg-[#D4A373]/40 hover:bg-[#D4A373]/70"
+                  }`}
+              />
+            ))}
           </div>
 
-          <div className="text-center mt-14">
+          <div className="text-center mt-8 md:mt-10">
             <button
               onClick={() => navigate("/services")}
-              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-white hover:bg-[#FAF7F2] border border-[#E5D6C4] text-[#2D241E] text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-xs hover:border-[#B07D54] hover:shadow-md cursor-pointer"
+              className="inline-flex items-center gap-3 px-7 py-3 rounded-full bg-white hover:bg-[#FAF7F2] border border-[#E5D6C4] text-[#2D241E] text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-xs hover:border-[#B07D54] hover:shadow-md cursor-pointer"
             >
               <span>Explore All Services</span>
               <ArrowRight className="w-4 h-4 text-[#B07D54]" />
@@ -1093,9 +1317,7 @@ export default function Landingpage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8C6A43] font-semibold">
-              The Spaces
-            </span>
+
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E]">
               Designed for Complete Relaxation
             </h2>
@@ -1205,9 +1427,7 @@ export default function Landingpage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8C6A43] font-semibold">
-              Membership & Rituals
-            </span>
+
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E]">
               Make Wellness a Ritual
             </h2>

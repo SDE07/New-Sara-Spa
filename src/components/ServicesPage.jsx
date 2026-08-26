@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import useSEO from "../hooks/useSEO";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Sparkles, Clock, Heart, Flower2, ShieldCheck, ArrowRight
+  Sparkles, Clock, Heart, Flower2, ShieldCheck, ArrowRight, Flame, Star, Layers
 } from "lucide-react";
 import BookingModal from "./BookingModal";
 
@@ -59,12 +59,12 @@ export default function ServicesPage() {
     canonical: "/services"
   });
 
-  // 3 Primary Spa Categories
+  // 3 Primary Spa Categories with Lucide React Icons
   const categories = [
-    { id: "all", label: "All Treatments" },
-    { id: "dry", label: "DRY MASSAGES" },
-    { id: "signature", label: "SIGNATURE MASSAGE" },
-    { id: "rejuvenate", label: "REJUVENATE AND RELAXING" },
+    { id: "all", label: "All Treatments", icon: Layers, count: 21 },
+    { id: "dry", label: "Dry Massages", icon: Flame, count: 4 },
+    { id: "signature", label: "Signature Massage", icon: Star, count: 6 },
+    { id: "rejuvenate", label: "Rejuvenate & Relaxing", icon: Flower2, count: 11 },
   ];
 
   // All Authentic Services Organized into the 3 Main Types
@@ -275,40 +275,52 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="bg-[#FAF7F2] text-[#2D241E] pt-28 pb-24 relative overflow-hidden min-h-screen">
+    <div className="bg-[#FAF7F2] text-[#2D241E] pt-20 sm:pt-24 pb-20 relative overflow-hidden min-h-screen">
       
       {/* Subtle Ambient Radial Halos */}
       <div className="absolute top-20 left-1/4 -translate-x-1/2 w-[550px] h-[550px] bg-[#D4A373]/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute top-96 right-1/4 translate-x-1/2 w-[550px] h-[550px] bg-[#52B788]/10 rounded-full blur-[140px] pointer-events-none" />
 
       {/* ── Page Header ── */}
-      <section className="relative py-10 md:py-14 text-center">
-        <div className="max-w-4xl mx-auto px-4 space-y-4 relative z-10">
+      <section className="relative pt-3 sm:pt-5 pb-6 sm:pb-8 text-center">
+        <div className="max-w-4xl mx-auto px-4 space-y-3 relative z-10">
         
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#D4A373]/15 border border-[#D4A373]/30 text-[#8C6A43] text-[10.5px] font-bold uppercase tracking-[0.25em]">
+            <Sparkles className="w-3.5 h-3.5 text-[#B07D54]" />
+            <span>Curated Sanctuary Menu</span>
+          </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif-luxury font-bold tracking-tight text-[#2D241E]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold tracking-tight text-[#2D241E]">
             Treatments & <span className="skin-gradient-text italic font-normal">Therapies</span>
           </h1>
 
-          <p className="text-[#6B5A4E] max-w-2xl mx-auto text-sm sm:text-base leading-relaxed font-light">
+          <p className="text-[#6B5A4E] max-w-2xl mx-auto text-xs sm:text-sm leading-relaxed font-light">
             Discover our curated menu of traditional Dry Massages, elite Signature Combos with Jacuzzi, and deeply relaxing botanical body rituals.
           </p>
 
-          {/* 3 Main Type Category Filter Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-4 sm:pt-6">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleCategoryChange(cat.id)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                  selectedCategory === cat.id
-                    ? "bg-[#2D241E] text-white shadow-lg shadow-[#2D241E]/20 scale-105"
-                    : "bg-white text-[#6B5A4E] border border-[#E8DFD5] hover:border-[#D4A373] hover:text-[#2D241E]"
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+          {/* 3 Main Type Category Filter Buttons: 2-per-row on mobile, Flex Row on Desktop */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-3 sm:pt-4 max-w-[380px] sm:max-w-none mx-auto">
+            {categories.map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => handleCategoryChange(cat.id)}
+                  className={`w-full sm:w-auto px-2.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5 sm:gap-2 shadow-xs ${
+                    isSelected
+                      ? "bg-[#2D241E] text-white shadow-md shadow-[#2D241E]/25 border-2 border-[#D4A373] scale-102"
+                      : "bg-white text-[#6B5A4E] border border-[#E8DFD5] hover:border-[#D4A373] hover:text-[#2D241E] hover:bg-[#FAF7F2]"
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isSelected ? "text-[#E3BA8F]" : "text-[#B07D54]"}`} />
+                  <span className="truncate">{cat.label}</span>
+                  <span className={`text-[9.5px] sm:text-[10px] px-1.5 py-0.5 rounded-full font-semibold shrink-0 ${isSelected ? "bg-white/20 text-[#E3BA8F]" : "bg-[#FAF4ED] text-[#8C7364]"}`}>
+                    {cat.count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>

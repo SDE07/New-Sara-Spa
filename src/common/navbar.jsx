@@ -36,47 +36,48 @@ export default function Navbar({ onOpenBooking }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#FAF7F2]/90 backdrop-blur-xl border-b border-[#E8DFD5] py-3.5 shadow-sm shadow-[#D4A373]/10"
-          : "bg-gradient-to-b from-[#FAF7F2]/80 via-[#FAF7F2]/40 to-transparent py-5"
+          ? "bg-[#FAF7F2]/95 backdrop-blur-xl border-b border-[#E8DFD5] shadow-sm shadow-[#D4A373]/5 py-1.5 sm:py-2"
+          : "bg-gradient-to-b from-[#FAF7F2]/95 via-[#FAF7F2]/85 to-transparent py-2 sm:py-2.5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* Brand Logo */}
+          {/* Brand Logo & Name (Cleanly Contained within Navbar) */}
           <Link
             to="/"
-            className="flex items-center gap-3 sm:gap-3.5 group cursor-pointer"
+            className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer"
           >
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-full bg-gradient-to-br from-[#D4A373]/15 to-transparent p-1 transition-all duration-300 group-hover:scale-105 group-hover:from-[#D4A373]/25 shadow-xs shrink-0">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-15 md:h-15 lg:w-16 lg:h-16 flex items-center justify-center rounded-full bg-gradient-to-br from-[#D4A373]/20 via-[#D4A373]/5 to-transparent p-0.5 transition-all duration-300 group-hover:scale-105 group-hover:from-[#D4A373]/30 shrink-0">
               <img
                 src={logo}
                 alt="NEW SARA SPA Logo"
-                className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(180,130,80,0.38)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.12)] contrast-[1.06] brightness-[0.98] transition-transform duration-300"
+                className="w-full h-full object-contain filter drop-shadow-[0_2px_10px_rgba(180,130,80,0.35)] contrast-[1.08] brightness-[1.02] transition-transform duration-300"
               />
             </div>
 
             <div className="flex flex-col justify-center">
-              <span className="text-sm sm:text-base md:text-lg font-serif-luxury font-bold tracking-[0.22em] text-[#2D241E] group-hover:text-[#B07D54] transition-colors leading-tight">
+              <span className="text-sm sm:text-base md:text-lg font-serif-luxury font-bold tracking-[0.2em] text-[#2D241E] group-hover:text-[#B07D54] transition-colors leading-tight">
                 NEW SARA SPA
               </span>
 
-              <span className="block text-[8px] sm:text-[9px] uppercase tracking-[0.28em] text-[#8C6A43] font-sans font-semibold mt-0.5">
+              <span className="block text-[7.5px] sm:text-[8.5px] md:text-[9.5px] uppercase tracking-[0.25em] text-[#8C6A43] font-sans font-semibold mt-0.5">
                 Sanctuary of Wellness
               </span>
             </div>
           </Link>
+
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7 lg:gap-9">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.to}
                 className={`text-xs lg:text-sm uppercase tracking-[0.15em] font-medium transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-[#B07D54] after:transition-all after:duration-300 ${
                   isActive(item.to)
-                    ? "text-[#B07D54] after:w-full"
+                    ? "text-[#B07D54] after:w-full font-semibold"
                     : "text-[#4A3B32] hover:text-[#B07D54] after:w-0 hover:after:w-full"
                 }`}
               >
@@ -89,7 +90,7 @@ export default function Navbar({ onOpenBooking }) {
           <div className="hidden sm:flex items-center gap-4">
             <button
               onClick={onOpenBooking}
-              className="group relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full overflow-hidden text-xs uppercase tracking-widest font-bold text-white bg-[#2D241E] hover:bg-[#4A3B32] shadow-md shadow-[#2D241E]/15 hover:shadow-lg hover:shadow-[#2D241E]/25 transition-all duration-300 transform hover:scale-[1.03]"
+              className="group relative inline-flex items-center gap-2 px-5 py-2 rounded-full overflow-hidden text-xs uppercase tracking-widest font-bold text-white bg-[#2D241E] hover:bg-[#4A3B32] shadow-md shadow-[#2D241E]/15 hover:shadow-lg hover:shadow-[#2D241E]/25 transition-all duration-300 transform hover:scale-[1.02] cursor-pointer"
             >
               <Calendar className="w-3.5 h-3.5 text-[#E3BA8F]" />
               <span>Book Appointment</span>

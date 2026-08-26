@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Sparkles, Calendar, Clock, User, Phone, CheckCircle2 } from 'lucide-react';
+import { X, Sparkles, Calendar, Clock, User, Phone, Mail, CheckCircle2 } from 'lucide-react';
 
 export default function BookingModal({ isOpen, onClose, defaultService = "Signature Experience" }) {
   const [formData, setFormData] = useState({
@@ -26,9 +26,12 @@ export default function BookingModal({ isOpen, onClose, defaultService = "Signat
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/65 backdrop-blur-md animate-in fade-in duration-200">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/70 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
+      onClick={onClose}
+    >
       <div 
-        className="relative w-full max-w-xl rounded-[32px] p-8 sm:p-10 md:p-12 bg-[#FAF7F2] border border-[#E5D6C4] shadow-2xl shadow-black/30 text-[#2D241E] overflow-hidden"
+        className="relative w-full max-w-lg md:max-w-xl my-6 sm:my-8 rounded-[28px] sm:rounded-[32px] p-6 sm:p-8 md:p-9 bg-[#FAF7F2] border border-[#E5D6C4] shadow-2xl shadow-black/40 text-[#2D241E] max-h-[calc(100vh-3.5rem)] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Subtle Ambient Radial Glow */}
@@ -37,7 +40,7 @@ export default function BookingModal({ isOpen, onClose, defaultService = "Signat
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2.5 rounded-full bg-[#F0E6DA] hover:bg-[#E5D6C4] text-[#6B5A4E] hover:text-[#2D241E] transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-full bg-[#F0E6DA] hover:bg-[#E5D6C4] text-[#6B5A4E] hover:text-[#2D241E] transition-colors cursor-pointer z-10"
           aria-label="Close Modal"
         >
           <X className="w-5 h-5" />
@@ -56,12 +59,12 @@ export default function BookingModal({ isOpen, onClose, defaultService = "Signat
         ) : (
           <div>
             {/* Header */}
-            <div className="space-y-2 mb-8">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#E5D6C4] text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-[#8C6A43]">
+            <div className="space-y-1.5 mb-5 pr-8">
+              <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white border border-[#E5D6C4] text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-[#8C6A43]">
                 <Sparkles className="w-3.5 h-3.5 text-[#B07D54]" />
                 <span>Sanctuary Reservation</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif-luxury font-bold text-[#2D241E] leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#2D241E] leading-tight">
                 Book Your Sara Spa Moment
               </h2>
               <p className="text-xs sm:text-sm text-[#6B5A4E] leading-relaxed">
@@ -69,91 +72,131 @@ export default function BookingModal({ isOpen, onClose, defaultService = "Signat
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Row 1: Name & Phone */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-2">
-                    Your Full Name
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-1.5">
+                    Your Full Name *
                   </label>
                   <div className="relative">
-                    <User className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#8C7364]" />
+                    <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7364]" />
                     <input
                       type="text"
                       required
                       placeholder="Sophia Laurent"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full pl-11 pr-4 py-3.5 bg-white/90 border border-[#E5D6C4] rounded-2xl text-sm text-[#2D241E] placeholder-[#9E8A7C] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all"
+                      className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-white/90 border border-[#E5D6C4] rounded-xl text-sm text-[#2D241E] placeholder-[#9E8A7C] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-2">
-                    Phone Number
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-1.5">
+                    Phone Number *
                   </label>
                   <div className="relative">
-                    <Phone className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#8C7364]" />
+                    <Phone className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7364]" />
                     <input
                       type="tel"
                       required
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+91 98343 66828"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pl-11 pr-4 py-3.5 bg-white/90 border border-[#E5D6C4] rounded-2xl text-sm text-[#2D241E] placeholder-[#9E8A7C] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all"
+                      className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-white/90 border border-[#E5D6C4] rounded-xl text-sm text-[#2D241E] placeholder-[#9E8A7C] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Row 2: Select Treatment */}
-              <div>
-                <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-2">
-                  Select Treatment
-                </label>
-                <select
-                  value={formData.service}
-                  onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  className="w-full px-4 py-3.5 bg-white/90 border border-[#E5D6C4] rounded-2xl text-sm text-[#2D241E] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all cursor-pointer"
-                >
-                  <option value="Signature Experience">Signature Jacuzzi & Massage Experience</option>
-                  <option value="Swedish Massage">Swedish Relaxing Massage (60 / 90 Mins)</option>
-                  <option value="Deep Tissue Massage">Deep Tissue Tension Release (60 / 90 Mins)</option>
-                  <option value="Thai Massage">Traditional Thai Massage (75 / 120 Mins)</option>
-                  <option value="Couple Experience">Romantic Couple Spa Sanctuary (For 2 Guests)</option>
-                  <option value="Hydrating Facial">Hydrating & Botanical Glow Facial</option>
-                </select>
+              {/* Row 2: Email & Select Treatment */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-1.5">
+                    Email Address *
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7364]" />
+                    <input
+                      type="email"
+                      required
+                      placeholder="sophia@sanctuary.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-white/90 border border-[#E5D6C4] rounded-xl text-sm text-[#2D241E] placeholder-[#9E8A7C] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-1.5">
+                    Select Treatment
+                  </label>
+                  <select
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    className="w-full px-3.5 py-2.5 sm:py-3 bg-white/90 border border-[#E5D6C4] rounded-xl text-sm text-[#2D241E] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all cursor-pointer truncate"
+                  >
+                    <optgroup label="── 1. DRY MASSAGES ──">
+                      <option value="Head Massages (Indian Champ)">Head Massages (Indian Champ)</option>
+                      <option value="Foot Reflexology">Foot Reflexology</option>
+                      <option value="Back Massages">Back Massages</option>
+                      <option value="Thai Dry Stretch Massage">Thai Dry Stretch Massage</option>
+                    </optgroup>
+                    <optgroup label="── 2. SIGNATURE MASSAGE ──">
+                      <option value="Hammam Massage + Scrub">Hammam Massage + Scrub</option>
+                      <option value="Body Thai Massage + Scrub">Body Thai Massage + Scrub</option>
+                      <option value="Body Massage + Scrub + Jacuzzi">Body Massage + Scrub + Jacuzzi</option>
+                      <option value="Thai Massage + Jacuzzi">Thai Massage + Jacuzzi</option>
+                      <option value="Four Hand Massage + Jacuzzi">Four Hand Massage + Jacuzzi</option>
+                      <option value="Four Hand Massage + Jacuzzi + Scrub">Four Hand Massage + Jacuzzi + Scrub</option>
+                    </optgroup>
+                    <optgroup label="── 3. REJUVENATE AND RELAXING ──">
+                      <option value="Lomi Lomi Massage">Lomi Lomi Massage</option>
+                      <option value="Sandalwood Scrub + Massage">Sandalwood Scrub + Massage</option>
+                      <option value="Special Couple Treatment">Special Couple Treatment</option>
+                      <option value="Couple Treatment + Jacuzzi">Couple Treatment + Jacuzzi</option>
+                      <option value="Heritage Ladies Special">Heritage Ladies Special</option>
+                      <option value="French Aroma Massage">French Aroma Massage</option>
+                      <option value="Swedish Massage">Swedish Massage</option>
+                      <option value="Deep Tissue Massage">Deep Tissue Massage</option>
+                      <option value="Baliness Massage">Baliness Massage</option>
+                      <option value="Jasmin Scrub">Jasmin Scrub</option>
+                      <option value="Mud Wraps">Mud Wraps</option>
+                    </optgroup>
+                  </select>
+                </div>
               </div>
 
               {/* Row 3: Date & Time */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-2">
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-1.5">
                     Preferred Date
                   </label>
                   <div className="relative">
-                    <Calendar className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#8C7364]" />
+                    <Calendar className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7364]" />
                     <input
                       type="date"
                       required
                       value={formData.date}
                       onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full pl-11 pr-4 py-3.5 bg-white/90 border border-[#E5D6C4] rounded-2xl text-sm text-[#2D241E] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all cursor-pointer"
+                      className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-white/90 border border-[#E5D6C4] rounded-xl text-sm text-[#2D241E] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all cursor-pointer"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-2">
+                  <label className="block text-[11px] uppercase tracking-wider font-semibold text-[#5C4D44] mb-1.5">
                     Preferred Time
                   </label>
                   <div className="relative">
-                    <Clock className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#8C7364]" />
+                    <Clock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C7364]" />
                     <select
                       value={formData.time}
                       onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                      className="w-full pl-11 pr-4 py-3.5 bg-white/90 border border-[#E5D6C4] rounded-2xl text-sm text-[#2D241E] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all cursor-pointer"
+                      className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-white/90 border border-[#E5D6C4] rounded-xl text-sm text-[#2D241E] shadow-xs focus:outline-none focus:border-[#B07D54] focus:ring-2 focus:ring-[#D4A373]/20 transition-all cursor-pointer"
                     >
                       <option value="10:00">10:00 AM — Morning Serenity</option>
                       <option value="12:00">12:00 PM — Midday Renewal</option>
@@ -167,10 +210,10 @@ export default function BookingModal({ isOpen, onClose, defaultService = "Signat
               </div>
 
               {/* Submit Button */}
-              <div className="pt-3">
+              <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-4 px-8 rounded-full bg-[#2D241E] hover:bg-[#4A3B32] text-white font-bold text-xs uppercase tracking-[0.22em] shadow-xl shadow-[#2D241E]/20 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-6 rounded-full bg-[#2D241E] hover:bg-[#4A3B32] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl shadow-[#2D241E]/20 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Confirm Appointment →</span>
                 </button>

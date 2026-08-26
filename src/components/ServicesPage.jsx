@@ -1,276 +1,398 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import useSEO from "../hooks/useSEO";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Sparkles, Clock, CheckCircle2, Star, Calendar, ArrowRight,
-  ShieldCheck, Heart, Sparkle, Flame, Waves, Flower2, Droplets, Gem
+  Sparkles, Clock, Heart, Flower2, ShieldCheck, ArrowRight
 } from "lucide-react";
 import BookingModal from "./BookingModal";
-import spa8Img from "../assets/spa8.png";
-import spa9Img from "../assets/spa9.png";
-import spa10Img from "../assets/spa10.png";
-import spa11Img from "../assets/spa11.png";
-import spa12Img from "../assets/spa12.png";
-import spa13Img from "../assets/spa13.png";
-import service3DImg from "../assets/service-3d.png";
-import WalkingServiceCarriers from "./3d/WalkingServiceCarriers";
+
+// Luxury Spa Assets
+import headChampiImg from "../assets/service-head-champi.jpg";
+import footReflexologyImg from "../assets/service-foot-reflexology.png";
+import backMassageImg from "../assets/service-back-massage.png";
+import thaiStretchImg from "../assets/service-thai-stretch.png";
+import hammamScrubImg from "../assets/service-hammam-scrub.png";
+import bodyThaiScrubImg from "../assets/service-body-thai-scrub.jpg";
+import bodyMassageScrubJacuzziImg from "../assets/service-body-massage-scrub-jacuzzi.jpg";
+import thaiMassageJacuzziImg from "../assets/service-thai-massage-jacuzzi.png";
+import fourHandJacuzziImg from "../assets/service-four-hand-jacuzzi.jpg";
+import fourHandJacuzziScrubImg from "../assets/service-four-hand-jacuzzi-scrub.jpg";
+import lomiLomiImg from "../assets/service-lomi-lomi.jpg";
+import sandalwoodScrubImg from "../assets/service-sandalwood-scrub.png";
+import specialCoupleImg from "../assets/service-special-couple.png";
+import coupleJacuzziImg from "../assets/service-couple-jacuzzi.png";
+import heritageLadiesImg from "../assets/service-heritage-ladies.png";
+import frenchAromaImg from "../assets/service-french-aroma.png";
+import swedishMassageImg from "../assets/service-swedish-massage.png";
+import deepTissueImg from "../assets/service-deep-tissue.jpg";
+import balineseMassageImg from "../assets/service-balinese-massage.png";
+import jasmineScrubImg from "../assets/service-jasmine-scrub.jpg";
+import mudWrapsImg from "../assets/service-mud-wraps.png";
 
 export default function ServicesPage() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryParam = searchParams.get("category");
+  const [selectedCategory, setSelectedCategory] = useState(categoryParam || "all");
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [bookingService, setBookingService] = useState("Ayurvedic Shirodhara Therapy");
+  const [bookingService, setBookingService] = useState("Head Massages (Indian Champ)");
+
+  useEffect(() => {
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [categoryParam]);
+
+  const handleCategoryChange = (catId) => {
+    setSelectedCategory(catId);
+    if (catId === "all") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ category: catId });
+    }
+  };
 
   useSEO({
-    title: "Treatments & Therapies — Sara Spa | Luxury Wellness Services",
-    description: "Explore Sara Spa's complete menu of traditional Ayurvedic treatments, European massages, body scrubs, and rejuvenating facial therapies.",
+    title: "Treatments & Therapies — NEW SARA SPA Wakad Pune",
+    description: "Explore New Sara Spa's complete menu of Dry Massages, Signature Massages, and Rejuvenating & Relaxing Rituals in Wakad, Pune.",
     canonical: "/services"
   });
 
+  // 3 Primary Spa Categories
   const categories = [
     { id: "all", label: "All Treatments" },
-    { id: "ayurvedic", label: "Ayurvedic Rituals" },
-    { id: "massage", label: "Holistic Massages" },
-    { id: "hydro", label: "Hydro & Jacuzzi" },
-    { id: "facial", label: "Botanical Facials" },
+    { id: "dry", label: "DRY MASSAGES" },
+    { id: "signature", label: "SIGNATURE MASSAGE" },
+    { id: "rejuvenate", label: "REJUVENATE AND RELAXING" },
   ];
 
+  // All Authentic Services Organized into the 3 Main Types
   const services = [
+    // ── 1. DRY MASSAGES (Exact User Screenshots) ──
     {
       id: 1,
-      title: "Ayurvedic Shirodhara Therapy",
-      category: "ayurvedic",
-      duration: "75 Mins",
-      price: "$140",
-      rating: "4.9",
-      description: "A continuous, gentle stream of warm medicated herbal oil poured over the third-eye chakra to dissolve mental fatigue, soothe insomnia, and restore deep calm.",
-      highlights: ["Warm Herbal Oil Flow", "Head & Scalp Massage", "Third-Eye Balance"],
-      image: spa10Img,
-      badge: "Signature",
-      badgeTheme: "bg-[#E3BA8F]/25 text-[#7C5841] border-[#E3BA8F]/40",
-      accentGlow: "group-hover:border-[#D4A373]",
-      icon: Droplets,
+      title: "Head Massages (Indian Champ)",
+      category: "dry",
+      duration: "45 – 60 Mins",
+      pricing: "₹ 2500 /- 3000/-",
+      description: "Deeply relaxing Indian champi massage focusing on your head, scalp, neck, and shoulders to relieve tension, migraine, and mental fatigue.",
+      image: headChampiImg,
     },
     {
       id: 2,
-      title: "Abhyanga Full-Body Harmony",
-      category: "ayurvedic",
-      duration: "90 Mins",
-      price: "$165",
-      rating: "5.0",
-      description: "Traditional 2-hand synchronized rhythmic massage using heated herbal oils tailored to your unique Dosha constitution.",
-      highlights: ["Dosha Tailored Oils", "Synchronized Strokes", "Toxin Elimination"],
-      image: spa9Img,
-      badge: "Popular",
-      badgeTheme: "bg-[#A7E8CD]/25 text-[#1B4332] border-[#A7E8CD]/40",
-      accentGlow: "group-hover:border-[#52B788]",
-      icon: Heart,
+      title: "Foot Reflexology",
+      category: "dry",
+      duration: "45 – 60 Mins",
+      pricing: "₹ 2500 /- 3000/-",
+      description: "Holistic acupressure pressure therapy applied to feet and lower legs to relieve chronic stress and restore natural body balance.",
+      image: footReflexologyImg,
     },
     {
       id: 3,
-      title: "Deep Tissue & Warm Stone Fusion",
-      category: "massage",
-      duration: "60 Mins",
-      price: "$125",
-      rating: "4.8",
-      description: "Targeted therapeutic pressure combined with smooth volcanic basalt stones to melt chronic muscular tension and relieve stiff joints.",
-      highlights: ["Heated Basalt Stones", "Targeted Trigger Release", "Aromatic Oils"],
-      image: spa11Img,
-      badge: "Therapeutic",
-      badgeTheme: "bg-[#E3BA8F]/25 text-[#7C5841] border-[#E3BA8F]/40",
-      accentGlow: "group-hover:border-[#D4A373]",
-      icon: Flame,
+      title: "Back Massages",
+      category: "dry",
+      duration: "45 – 60 Mins",
+      pricing: "₹ 2500 /- 3000/-",
+      description: "Targeted therapeutic massage performed along the spine and upper/lower back to release knots, relieve pain, and promote relaxation.",
+      image: backMassageImg,
     },
     {
       id: 4,
-      title: "Private Jacuzzi & Rose Bath Ritual",
-      category: "hydro",
-      duration: "60 Mins",
-      price: "$110",
-      rating: "4.9",
-      description: "Hydrotherapy hydro-massage infused with Himalayan pink salts, organic rose petals, and calming lavender essential oils in a private suite.",
-      highlights: ["Rose Petals & Salts", "Hydro Jet Massage", "Complimentary Herbal Tea"],
-      image: spa12Img,
-      badge: "Couples Choice",
-      badgeTheme: "bg-[#A7E8CD]/25 text-[#1B4332] border-[#A7E8CD]/40",
-      accentGlow: "group-hover:border-[#52B788]",
-      icon: Waves,
+      title: "Thai Dry Stretch Massage",
+      category: "dry",
+      duration: "60 – 90 Mins",
+      pricing: "₹ 3500 /- 4500/-",
+      description: "Traditional oil-free Thai rhythmic compression and assisted yoga stretching to enhance flexibility and posture alignment.",
+      image: thaiStretchImg,
     },
+
+    // ── 2. SIGNATURE MASSAGE (Exact User Screenshots) ──
     {
       id: 5,
-      title: "Organic Kumkumadi Radiance Facial",
-      category: "facial",
-      duration: "60 Mins",
-      price: "$95",
-      rating: "4.9",
-      description: "Precious saffron & 26 rare Ayurvedic herbs formulated to brighten skin tone, smooth fine lines, and impart an ethereal natural glow.",
-      highlights: ["Pure Saffron Elixir", "Kansa Wand Facial Massage", "Herbal Mask"],
-      image: spa13Img,
-      badge: "Radiance",
-      badgeTheme: "bg-[#E3BA8F]/25 text-[#7C5841] border-[#E3BA8F]/40",
-      accentGlow: "group-hover:border-[#D4A373]",
-      icon: Sparkles,
+      title: "Hammam Massage + Scrub",
+      category: "signature",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 12000/- 15000/- 18000/-",
+      description: "Authentic Turkish-inspired hammam foam and steam chamber ritual using hot mist, deep exfoliating scrub, and full body rejuvenation.",
+      image: hammamScrubImg,
     },
     {
       id: 6,
-      title: "Udwarthanam Herbal Powder Scrub",
-      category: "ayurvedic",
-      duration: "60 Mins",
-      price: "$115",
-      rating: "4.8",
-      description: "Invigorating dry scrub using warm herbal grains and powders to improve lymphatic drainage, smooth skin texture, and promote metabolism.",
-      highlights: ["Lymphatic Drainage", "Skin Polishing", "Metabolism Boost"],
-      image: spa8Img,
-      badge: "Detox Ritual",
-      badgeTheme: "bg-[#A7E8CD]/25 text-[#1B4332] border-[#A7E8CD]/40",
-      accentGlow: "group-hover:border-[#52B788]",
-      icon: Flower2,
+      title: "Body Thai Massage + Scrub",
+      category: "signature",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 7000/- 9000/- 12000/-",
+      description: "Full body Thai rhythmic massage works muscles deeply while botanical body scrub eliminates dead cells for radiant, velvety skin.",
+      image: bodyThaiScrubImg,
+    },
+    {
+      id: 7,
+      title: "Body Massage + Scrub + Jacuzzi",
+      category: "signature",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 15000/- 18000/- 20000/-",
+      description: "Luxury full body massage combined with organic exfoliating scrub and private hydrotherapy Bangkok Jacuzzi hot tub relaxation.",
+      image: bodyMassageScrubJacuzziImg,
+    },
+    {
+      id: 8,
+      title: "Thai Massage + Jacuzzi",
+      category: "signature",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 15000/- 18000/- 20000/-",
+      description: "Traditional Thai rhythmic muscle compression and stretching therapy followed by relaxing private hydro-jet Jacuzzi bath.",
+      image: thaiMassageJacuzziImg,
+    },
+    {
+      id: 9,
+      title: "Four Hand Massage + Jacuzzi",
+      category: "signature",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 18000/- 20000/- 22000/-",
+      description: "Two master therapists performing synchronized 4-hand massage harmony followed by a private soothing Jacuzzi bath.",
+      image: fourHandJacuzziImg,
+    },
+    {
+      id: 10,
+      title: "Four Hand Massage + Jacuzzi + Scrub",
+      category: "signature",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 20000/- 22000/- 24000/-",
+      description: "The ultimate VIP indulgence: synchronized dual therapist four-hand massage, full body scrub, and private Bangkok Jacuzzi suite.",
+      image: fourHandJacuzziScrubImg,
+    },
+
+    // ── 3. REJUVENATE AND RELAXING (Exact User Screenshots) ──
+    {
+      id: 11,
+      title: "Lomi Lomi Massage",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 3500 /- 4500 /- 5500 /-",
+      description: "Traditional Hawaiian rhythmic forearm wave massage that melts physical tension, frees energy pathways, and instills deep tranquility.",
+      image: lomiLomiImg,
+    },
+    {
+      id: 12,
+      title: "Sandalwood Scrub + Massage",
+      category: "rejuvenate",
+      duration: "60–90 Mins",
+      pricing: "₹ 4500 /- 5500 /-",
+      description: "Aromatic pure Chandan (sandalwood) herbal body scrub followed by soothing warm oil massage to brighten skin and soothe inflammation.",
+      image: sandalwoodScrubImg,
+    },
+    {
+      id: 13,
+      title: "Special Couple Treatment",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 10000 /- 12000 /- 14000 /-",
+      description: "Side-by-side synchronized couple therapy in our private sanctuary room with calming essential oils, scalp touch, and hot towels.",
+      image: specialCoupleImg,
+    },
+    {
+      id: 14,
+      title: "Couple Treatment + Jacuzzi",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 14000 /- 16000 /- 18000 /-",
+      description: "Romantic dual relaxation experience with full body aromatherapy massage followed by a rose petal infused Jacuzzi soak.",
+      image: coupleJacuzziImg,
+    },
+    {
+      id: 15,
+      title: "Heritage Ladies Special",
+      category: "rejuvenate",
+      duration: "60–90 Mins",
+      pricing: "₹ 6000 /- 8000 /-",
+      description: "Exclusive royal treatment for women with precious herbal oils, rich moisturizing creams, and soothing head-to-toe relaxation.",
+      image: heritageLadiesImg,
+    },
+    {
+      id: 16,
+      title: "French Aroma Massage",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 3500 /- 4500 /- 5500 /-",
+      description: "Sensory aromatherapy blend of lavender, eucalyptus, and rose oils designed to soothe emotional stress and revitalize your energy.",
+      image: frenchAromaImg,
+    },
+    {
+      id: 17,
+      title: "Swedish Massage",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 3500 /- 4500 /- 5500 /-",
+      description: "Classic European massage using long gliding strokes, gentle kneading, and joint mobilization for deep muscle easing and serenity.",
+      image: swedishMassageImg,
+    },
+    {
+      id: 18,
+      title: "Deep Tissue Massage",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 3800 /- 4800 /- 5800 /-",
+      description: "Targeted deep pressure therapy focusing on deeper layers of muscle and connective tissue to release chronic aches and severe stiffness.",
+      image: deepTissueImg,
+    },
+    {
+      id: 19,
+      title: "Baliness Massage",
+      category: "rejuvenate",
+      duration: "60–90–120 Mins",
+      pricing: "₹ 3500 /- 4500 /- 5500 /-",
+      description: "Traditional Indonesian Bali ritual combining gentle stretching, acupressure, reflexology, and aromatherapy for full body revival.",
+      image: balineseMassageImg,
+    },
+    {
+      id: 20,
+      title: "Jasmin Scrub",
+      category: "rejuvenate",
+      duration: "60–90 Mins",
+      pricing: "₹ 3000 /- 4500 /-",
+      description: "Gentle exfoliating scrub infused with natural jasmine essence that cleanses, polishes, and reveals smoother, radiant skin.",
+      image: jasmineScrubImg,
+    },
+    {
+      id: 21,
+      title: "Mud Wraps",
+      category: "rejuvenate",
+      duration: "60–90 Mins",
+      pricing: "₹ 3500 /- 4500 /-",
+      description: "Mineral-rich therapeutic volcanic mud applied to the whole body to detoxify pores, hydrate deep dermal layers, and firm the skin.",
+      image: mudWrapsImg,
     },
   ];
 
-  const filtered = selectedCategory === "all" ? services : services.filter(s => s.category === selectedCategory);
+  const filteredServices = selectedCategory === "all"
+    ? services
+    : services.filter((s) => s.category === selectedCategory);
 
-  const handleBook = (name) => {
-    setBookingService(name);
+  const handleOpenBooking = (serviceTitle) => {
+    setBookingService(serviceTitle);
     setIsBookingOpen(true);
   };
 
   return (
-    <div className="bg-[#FAF7F2] text-[#2D241E] pt-28 pb-24 relative overflow-hidden">
+    <div className="bg-[#FAF7F2] text-[#2D241E] pt-28 pb-24 relative overflow-hidden min-h-screen">
       
-      {/* Ambient Radial Background Glows */}
+      {/* Subtle Ambient Radial Halos */}
       <div className="absolute top-20 left-1/4 -translate-x-1/2 w-[550px] h-[550px] bg-[#D4A373]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-80 right-1/4 translate-x-1/2 w-[550px] h-[550px] bg-[#52B788]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-96 right-1/4 translate-x-1/2 w-[550px] h-[550px] bg-[#52B788]/10 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* ── Luxury 3D Animated Walking Service Hero Banner (Compact Size) ── */}
-      <section className="relative pt-0 pb-6 md:pb-8 text-center">
-        <div className="max-w-5xl mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
-          
-          {/* Animated 7-Character Walking Service Carriers */}
-          <WalkingServiceCarriers />
+      {/* ── Page Header ── */}
+      <section className="relative py-10 md:py-14 text-center">
+        <div className="max-w-4xl mx-auto px-4 space-y-4 relative z-10">
+        
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif-luxury font-bold tracking-tight text-[#2D241E]">
+            Treatments & <span className="skin-gradient-text italic font-normal">Therapies</span>
+          </h1>
+
+          <p className="text-[#6B5A4E] max-w-2xl mx-auto text-sm sm:text-base leading-relaxed font-light">
+            Discover our curated menu of traditional Dry Massages, elite Signature Combos with Jacuzzi, and deeply relaxing botanical body rituals.
+          </p>
+
+          {/* 3 Main Type Category Filter Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-4 sm:pt-6">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryChange(cat.id)}
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  selectedCategory === cat.id
+                    ? "bg-[#2D241E] text-white shadow-lg shadow-[#2D241E]/20 scale-105"
+                    : "bg-white text-[#6B5A4E] border border-[#E8DFD5] hover:border-[#D4A373] hover:text-[#2D241E]"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── Category Filter Pills ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14 relative z-10">
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-6 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                selectedCategory === cat.id
-                  ? "bg-gradient-to-r from-[#2D241E] via-[#3D3028] to-[#2D241E] text-white shadow-lg shadow-[#2D241E]/20 scale-105"
-                  : "bg-white text-[#6B5A4E] border border-[#E8DFD5] hover:border-[#D4A373] hover:bg-[#FAF4ED] shadow-xs"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+      {/* ── Authentic Service Cards Grid (Matching Reference Screenshot) ── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-2 sm:pt-4">
+        
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 sm:mb-8 pb-3 border-b border-[#EAE0D3] text-center sm:text-left">
+          <span className="text-xs uppercase tracking-widest font-bold text-[#8C6A43]">
+            Showing {filteredServices.length} Luxury Therapies
+          </span>
+          <span className="text-xs text-[#8C7364] font-light">
+            All treatments include complimentary herbal tea & amenities
+          </span>
         </div>
-      </div>
 
-      {/* ── Services Grid with Beam Border Glows ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          layout
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence>
-            {filtered.map((service) => {
-              const ServiceIcon = service.icon || Sparkles;
-
-              return (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4 }}
-                  key={service.id}
-                  className={`bg-white rounded-[32px] overflow-hidden border border-[#EAE0D3] shadow-[0_10px_30px_rgba(45,36,30,0.06)] hover:shadow-[0_20px_45px_rgba(212,163,115,0.18)] transition-all duration-500 hover:-translate-y-2 flex flex-col group relative ${service.accentGlow}`}
-                >
-                  {/* Image with Tag & Live Star Rating */}
-                  <div className="relative h-60 overflow-hidden bg-[#2D241E]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          <AnimatePresence mode="popLayout">
+            {filteredServices.map((srv) => (
+              <motion.div
+                key={srv.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.35 }}
+                className="bg-white rounded-2xl border border-[#EAE0D3] shadow-[0_6px_25px_rgba(45,36,30,0.06)] hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group hover:-translate-y-1.5"
+              >
+                <div>
+                  {/* Top Image with Floating Heart Badge */}
+                  <div className="relative h-56 w-full overflow-hidden bg-[#FAF7F2]">
                     <img
-                      src={service.image}
-                      alt={service.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter brightness-[0.92]"
+                      src={srv.image}
+                      alt={srv.title}
+                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
                     
-                    {/* Category / Ritual Pill Badge */}
-                    {service.badge && (
-                      <span className={`absolute top-4 left-4 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-sm border backdrop-blur-md ${service.badgeTheme}`}>
-                        {service.badge}
-                      </span>
-                    )}
-
-                    {/* Floating Emblem Medallion */}
-                    <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#E3BA8F] shadow-md group-hover:scale-110 transition-transform">
-                      <ServiceIcon className="w-4 h-4" />
-                    </div>
-
-                    {/* Rating & Duration in Bottom Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
-                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-xs font-medium border border-white/10">
-                        <Star className="w-3.5 h-3.5 text-[#E3BA8F] fill-[#E3BA8F]" />
-                        <span>{service.rating}</span>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-xs font-medium border border-white/10 text-white/90">
-                        <Clock className="w-3.5 h-3.5 text-[#E3BA8F]" />
-                        <span>{service.duration}</span>
-                      </div>
+                    {/* Pink/Coral Heart Badge */}
+                    <div className="absolute top-3.5 left-3.5 w-8 h-8 rounded-full bg-[#FF5A76] text-white flex items-center justify-center shadow-md">
+                      <Heart className="w-4 h-4 fill-white text-white" />
                     </div>
                   </div>
 
-                  {/* Card Body */}
-                  <div className="p-7 flex-1 flex flex-col justify-between space-y-6">
-                    <div className="space-y-3.5">
-                      
-                      {/* Title & Price */}
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="text-xl font-serif-luxury font-bold text-[#2D241E] group-hover:text-[#8C6A43] transition-colors leading-snug">
-                          {service.title}
-                        </h3>
-                        <span className="text-2xl font-serif-luxury font-bold text-[#8C6A43] shrink-0">
-                          {service.price}
-                        </span>
+                  {/* Content Info */}
+                  <div className="p-5 pb-2 text-center space-y-3">
+                    
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-bold font-sans text-[#E61E5C] tracking-tight group-hover:text-[#C40E48] transition-colors leading-snug min-h-[3rem] flex items-center justify-center">
+                      {srv.title}
+                    </h3>
+
+                    {/* Amber / Gold Duration & Price Badge (Exact 2-Line Format from Reference) */}
+                    <div className="w-full py-2.5 px-3 rounded-md bg-[#FFE8CC] text-[#2D241E] font-sans font-bold shadow-xs text-center space-y-1">
+                      <div className="flex items-center justify-center gap-1.5 text-xs sm:text-[12.5px] font-bold">
+                        <Clock className="w-3.5 h-3.5 text-[#2D241E] shrink-0 stroke-[2.5]" />
+                        <span>{srv.duration}</span>
                       </div>
-
-                      {/* Description */}
-                      <p className="text-xs sm:text-sm text-[#6B5A4E] leading-relaxed line-clamp-3 font-light">
-                        {service.description}
-                      </p>
-
-                      {/* Benefit Highlights */}
-                      <div className="space-y-2 pt-2 border-t border-[#F0E8DE]">
-                        {service.highlights.map((hl, i) => (
-                          <div key={i} className="flex items-center gap-2.5 text-xs text-[#5C4D44]">
-                            <CheckCircle2 className="w-4 h-4 text-[#8C6A43] shrink-0" />
-                            <span>{hl}</span>
-                          </div>
-                        ))}
+                      <div className="text-xs sm:text-[13px] font-extrabold text-[#2D241E] tracking-tight">
+                        {srv.pricing}
                       </div>
                     </div>
 
-                    {/* Booking Action Button */}
-                    <button
-                      onClick={() => handleBook(service.title)}
-                      className="w-full py-4 rounded-full bg-gradient-to-r from-[#2D241E] via-[#3A2E26] to-[#2D241E] hover:from-[#4A3B31] hover:to-[#3A2E26] text-white font-bold text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-2.5 shadow-md shadow-[#2D241E]/10 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                    >
-                      <Calendar className="w-4 h-4 text-[#E3BA8F]" />
-                      <span>Book This Treatment</span>
-                    </button>
+                    {/* Description */}
+                    <p className="text-xs text-[#6B5A4E] leading-relaxed font-light line-clamp-3 pt-1">
+                      {srv.description}
+                    </p>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+
+                {/* Coral Book Now Button */}
+                <div className="p-5 pt-3">
+                  <button
+                    onClick={() => handleOpenBooking(srv.title)}
+                    className="w-full py-3 rounded-lg bg-[#FF6565] hover:bg-[#E04F4F] text-white font-sans font-bold text-sm uppercase tracking-wider shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 active:scale-98"
+                  >
+                    <span>Book Now</span>
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </AnimatePresence>
-        </motion.div>
-      </div>
+        </div>
+
+      </section>
 
       {/* Global Booking Modal */}
       <BookingModal

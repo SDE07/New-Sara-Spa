@@ -66,81 +66,94 @@ export default function Contactus() {
       </section>
 
       {/* ── 2. MAIN CONTACT & INQUIRY SECTION ── */}
-      <section className="py-16 md:py-24 relative">
+      <section className="pt-8 pb-4 md:pt-12 md:pb-6 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             
-            {/* LEFT: Deep Dark Emerald VIP Sanctuary Location Card */}
+            {/* LEFT: Compact Deep Dark Emerald VIP Sanctuary Location Card */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-5 rounded-[32px] bg-gradient-to-b from-[#0E241B] via-[#0A1A13] to-[#050D09] text-white p-8 sm:p-10 border border-[#1E4D39] shadow-[0_20px_50px_rgba(14,36,27,0.4)] relative overflow-hidden flex flex-col justify-between space-y-8"
+              transition={{ duration: 0.5 }}
+              className="lg:col-span-4 rounded-3xl bg-gradient-to-b from-[#0E241B] via-[#0A1A13] to-[#050D09] text-white p-6 sm:p-7 border border-[#1E4D39] shadow-[0_15px_40px_rgba(14,36,27,0.35)] relative overflow-hidden flex flex-col justify-between space-y-6"
             >
               {/* Emerald & Gold Ambient Halos */}
-              <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#52B788]/20 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-[#D4A373]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#52B788]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-[#D4A373]/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="relative z-10 space-y-6">
-                <div className="space-y-2">
-                  <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white">
-                    Beverly Hills Sanctuary
+              <div className="relative z-10 space-y-5">
+                <div className="space-y-1.5">
+                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#E3BA8F] block">
+                    Beauty, Cosmetic & Personal Care
+                  </span>
+                  <h3 className="text-2xl font-serif-luxury font-bold text-white leading-snug">
+                    NEW Sara Spa Wakad
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#A7E8CD] leading-relaxed font-light">
-                    A private enclave of calm and therapeutic serenity nestled in the heart of the luxury wellness district.
+                  <p className="text-xs text-[#A7E8CD] leading-relaxed font-light">
+                    Best massage spa in Wakad, Pune. A sanctuary of authentic Ayurvedic therapies, private Jacuzzis, and deep relaxation.
                   </p>
                 </div>
 
                 {/* Contact Coordinates */}
-                <div className="space-y-4 pt-2">
-                  <div className="flex items-start gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <div className="w-10 h-10 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0">
-                      <MapPin className="w-5 h-5" />
+                <div className="space-y-3 pt-1">
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
+                      <MapPin className="w-4 h-4" />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[11px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Location</div>
-                      <div className="text-sm font-medium text-white">450 North Rodeo Drive, Suite 300, Beverly Hills, CA 90210</div>
+                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Location & Address</div>
+                      <div className="text-xs font-medium text-white leading-relaxed">
+                        Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <div className="w-10 h-10 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0">
-                      <Phone className="w-5 h-5" />
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
+                      <Phone className="w-4 h-4" />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[11px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Concierge Line</div>
-                      <div className="text-sm font-medium text-white">+1 (310) 855-SARA / +1 (800) 555-7272</div>
+                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Direct Call & WhatsApp</div>
+                      <a href="tel:+919834366828" className="text-xs font-medium text-white hover:text-[#E3BA8F] transition-colors block">
+                        +91 98343 66828
+                      </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <div className="w-10 h-10 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0">
-                      <Mail className="w-5 h-5" />
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
+                      <Mail className="w-4 h-4" />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[11px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Inquiry & VIP Reservations</div>
-                      <div className="text-sm font-medium text-white">concierge@saraspa.com</div>
+                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Inquiry & Appointments</div>
+                      <a href="mailto:saranewspa@gmail.com" className="text-xs font-medium text-white hover:text-[#E3BA8F] transition-colors block">
+                        saranewspa@gmail.com
+                      </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-3.5 rounded-2xl bg-white/5 border border-white/10">
-                    <div className="w-10 h-10 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0">
-                      <Clock className="w-5 h-5" />
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
+                      <Clock className="w-4 h-4" />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[11px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Sanctuary Hours</div>
-                      <div className="text-sm font-medium text-white">Mon – Sun: 8:00 AM – 10:00 PM (PST)</div>
+                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Sanctuary Hours</div>
+                      <div className="text-xs font-medium text-white flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#52B788] animate-pulse"></span>
+                        <span>Open 24 Hours (Mon – Sun)</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Bottom Quick Reserve Button */}
-              <div className="relative z-10 pt-4 border-t border-[#1E4D39]/80">
+              <div className="relative z-10 pt-3 border-t border-[#1E4D39]/80">
                 <button
+                  type="button"
                   onClick={() => setIsBookingOpen(true)}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-lg hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Calendar className="w-4 h-4" />
                   <span>Book Online Instantly</span>
@@ -148,131 +161,154 @@ export default function Contactus() {
               </div>
             </motion.div>
 
-            {/* RIGHT: Spacious Inquiry Form */}
+            {/* RIGHT: Spacious Balanced Inquiry Form */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="lg:col-span-7 rounded-[32px] bg-white p-8 sm:p-12 lg:p-14 border border-[#EAE0D3] shadow-[0_15px_45px_rgba(45,36,30,0.06)] relative"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="lg:col-span-8 rounded-3xl bg-white p-6 sm:p-10 border border-[#EAE0D3] shadow-[0_15px_45px_rgba(45,36,30,0.06)] relative overflow-hidden flex flex-col justify-between"
             >
-              <div className="space-y-3 mb-8">
-                <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#2D241E]">
-                  Send an Inquiry
-                </h3>
-                <p className="text-sm text-[#6B5A4E] font-light leading-relaxed">
-                  Have a bespoke request, corporate retreat, or private VIP booking question? Leave a message and our concierge will respond within 2 hours.
-                </p>
-              </div>
-
-              {submitted ? (
-                <div className="py-16 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-[#EAF7EE] text-[#2D6A4F] mx-auto flex items-center justify-center shadow-inner">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-2xl font-serif-luxury font-bold text-[#2D241E]">
-                    Inquiry Received
-                  </h4>
-                  <p className="text-sm text-[#6B5A4E] max-w-md mx-auto font-light">
-                    Thank you. A dedicated Sara Spa wellness concierge will connect with you shortly with tailored options.
+              <div>
+                <div className="space-y-2 mb-6">
+                  <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#2D241E]">
+                    Send an Inquiry
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#6B5A4E] font-light leading-relaxed">
+                    Have a bespoke request, corporate retreat, or private VIP booking question? Leave a message and our concierge will respond within 2 hours.
                   </p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div className="space-y-2">
+
+                {submitted ? (
+                  <div className="py-14 text-center space-y-4">
+                    <div className="w-16 h-16 rounded-full bg-[#EAF7EE] text-[#2D6A4F] mx-auto flex items-center justify-center shadow-inner">
+                      <CheckCircle2 className="w-8 h-8" />
+                    </div>
+                    <h4 className="text-2xl font-serif-luxury font-bold text-[#2D241E]">
+                      Inquiry Received
+                    </h4>
+                    <p className="text-sm text-[#6B5A4E] max-w-md mx-auto font-light">
+                      Thank you. A dedicated Sara Spa wellness concierge will connect with you shortly with tailored options.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          placeholder="Lady Evelyn Sinclair"
+                          className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="evelyn@sanctuary.com"
+                          className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                          Phone Number
+                        </label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+91 98343 66828"
+                          className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        />
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                          Preferred Service / Package
+                        </label>
+                        <select
+                          value={formData.preferredService}
+                          onChange={(e) => setFormData({ ...formData, preferredService: e.target.value })}
+                          className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        >
+                          <optgroup label="── 1. DRY MASSAGES ──">
+                            <option>Head Massages (Indian Champ)</option>
+                            <option>Foot Reflexology</option>
+                            <option>Back Massages</option>
+                            <option>Thai Dry Stretch Massage</option>
+                          </optgroup>
+                          <optgroup label="── 2. SIGNATURE MASSAGE ──">
+                            <option>Hammam Massage + Scrub</option>
+                            <option>Body Thai Massage + Scrub</option>
+                            <option>Body Massage + Scrub + Jacuzzi</option>
+                            <option>Thai Massage + Jacuzzi</option>
+                            <option>Four Hand Massage + Jacuzzi</option>
+                            <option>Four Hand Massage + Jacuzzi + Scrub</option>
+                          </optgroup>
+                          <optgroup label="── 3. REJUVENATE AND RELAXING ──">
+                            <option>Lomi Lomi Massage</option>
+                            <option>Sandalwood Scrub + Massage</option>
+                            <option>Special Couple Treatment</option>
+                            <option>Couple Treatment + Jacuzzi</option>
+                            <option>Heritage Ladies Special</option>
+                            <option>French Aroma Massage</option>
+                            <option>Swedish Massage</option>
+                            <option>Deep Tissue Massage</option>
+                            <option>Baliness Massage</option>
+                            <option>Jasmin Scrub</option>
+                            <option>Mud Wraps</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
-                        Full Name *
+                        Message / Special Requests
                       </label>
-                      <input
-                        type="text"
+                      <textarea
+                        rows={3}
                         required
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        placeholder="Lady Evelyn Sinclair"
-                        className="w-full px-4 py-3.5 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Share your preferred date, timing, or specific therapy requirements..."
+                        className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none resize-none"
                       />
                     </div>
 
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="evelyn@sanctuary.com"
-                        className="w-full px-4 py-3.5 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+1 (310) 000-0000"
-                        className="w-full px-4 py-3.5 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
-                        Preferred Service / Package
-                      </label>
-                      <select
-                        value={formData.preferredService}
-                        onChange={(e) => setFormData({ ...formData, preferredService: e.target.value })}
-                        className="w-full px-4 py-3.5 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
-                      >
-                        <option>Ayurvedic Herbal Hot Stone Ritual</option>
-                        <option>Shirodhara Bliss Stream Therapy</option>
-                        <option>Hydrothermal VIP Jacuzzi Suite</option>
-                        <option>Royal Couple's Aromatherapy Sanctuary</option>
-                        <option>24K Gold Luminosity Facial</option>
-                        <option>Full Sanctuary Day Retreat</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
-                      Message / Special Requests
-                    </label>
-                    <textarea
-                      rows={4}
-                      required
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Share your preferred date, party size, or specific health goals..."
-                      className="w-full px-4 py-3.5 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none resize-none"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-4 rounded-xl bg-[#2D241E] hover:bg-[#4A3B32] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Send className="w-4 h-4 text-[#D4A373]" />
-                    <span>Send Message to Concierge</span>
-                  </button>
-                </form>
-              )}
+                    <button
+                      type="submit"
+                      className="w-full py-3.5 rounded-xl bg-[#2D241E] hover:bg-[#4A3B32] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Send className="w-4 h-4 text-[#D4A373]" />
+                      <span>Send Message to Concierge</span>
+                    </button>
+                  </form>
+                )}
+              </div>
             </motion.div>
 
           </div>
         </div>
       </section>
 
-      {/* ── 3. INTERACTIVE BEVERLY HILLS MAP SECTION ── */}
-      <section className="py-12 md:py-16 relative">
+      {/* ── 3. INTERACTIVE WAKAD PUNE GOOGLE MAP SECTION ── */}
+      <section className="pt-2 pb-12 md:pt-4 md:pb-16 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-[32px] overflow-hidden bg-white border border-[#EAE0D3] shadow-[0_15px_40px_rgba(45,36,30,0.06)]">
             
@@ -284,9 +320,9 @@ export default function Contactus() {
                 </div>
                 <div>
                   <h4 className="font-serif-luxury font-bold text-lg text-[#2D241E]">
-                    Beverly Hills Sanctuary Map
+                    NEW Sara Spa Wakad Pune Location Map
                   </h4>
-                  <p className="text-xs text-[#6B5A4E]">450 N Rodeo Dr, Beverly Hills, CA 90210</p>
+                  <p className="text-xs text-[#6B5A4E]">Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057</p>
                 </div>
               </div>
 
@@ -322,8 +358,8 @@ export default function Contactus() {
             {/* Embedded Responsive Google Map */}
             <div className="relative h-[420px] sm:h-[500px] w-full bg-[#EAE0D3]/40">
               <iframe
-                title="Sara Spa Beverly Hills Location"
-                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.887968595563!2d-118.40685992384738!3d34.07238211666718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc04ce9df6f1%3A0x6b9d62ec1c87a20c!2sRodeo%20Dr%2C%20Beverly%20Hills%2C%20CA%2090210!5e${mapType === "satellite" ? "1" : "0"}!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus`}
+                title="NEW Sara Spa Wakad Pune Google Maps Location"
+                src={`https://maps.google.com/maps?q=NEW%20Sara%20Spa%20Wakad%20Pune%20-%20Best%20Massage%20Spa%20In%20Wakad%20Office%20No%20213%20Wbiz%20Next%20To%20Ginger%20Hotel%20Bhumkar%20Chowk%20Pune%20Wakad%20411057&t=${mapType === "satellite" ? "k" : "m"}&z=16&ie=UTF8&iwloc=&output=embed`}
                 className="w-full h-full border-0"
                 allowFullScreen=""
                 loading="lazy"

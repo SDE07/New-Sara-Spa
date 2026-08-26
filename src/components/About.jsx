@@ -37,19 +37,18 @@ export default function About({ onOpenBooking }) {
   });
 
   const stats = [
-    { value: "12+", label: "Years of Mastery", sub: "Since 2012" },
-    { value: "100%", label: "Organic Botanicals", sub: "Pure Cold-Pressed Oils" },
-    { value: "15+", label: "Master Therapists", sub: "Certified Practitioners" },
-    { value: "4.9 ★", label: "Guest Satisfaction", sub: "Over 1,200+ Reviews" },
+    { value: "10+", label: "Spa Specialist", sub: "Certified Therapists" },
+    { value: "1000+", label: "Happy Clients", sub: "Satisfied Guests" },
+    { value: "4.6+ ★", label: "Rating", sub: "Google Reviews" },
   ];
 
-  // Exact card structures matching New Sara Spa signature standards
+  // Exact card structures matching NEW Sara Spa signature standards
   const diagonalCards = [
     {
       tag: "PERSONALIZED THERAPY",
       tagBg: "bg-[#E3BA8F]/30 text-[#4A2406]",
-      title: "Customized Pressure & Body Rhythm Alignment",
-      desc: "Certified master therapists tailoring every stroke and pressure point to dissolve deep physiological fatigue.",
+      title: "Traditional Thai & Deep Tissue Alignment",
+      desc: "Certified master therapists tailoring every stroke, pressure point, and passive stretch to dissolve deep physiological fatigue.",
       image: spa6Img,
       bg: "bg-[#FDF6EE]",
       titleColor: "text-[#3D1E08]",
@@ -58,10 +57,10 @@ export default function About({ onOpenBooking }) {
       badge: "Master Certified"
     },
     {
-      tag: "HERBAL ALCHEMY",
+      tag: "HERBAL POTLI RITUAL",
       tagBg: "bg-[#A7E8CD] text-[#0D3B26]",
-      title: "100% Organic Ayurvedic Botanical Poultices",
-      desc: "Pure cold-pressed mountain herbs, warm sesame oils, and botanical poultices prepared fresh daily.",
+      title: "Ayurvedic Potli & Cold-Pressed Herbal Oils",
+      desc: "Warm botanical herbal poultices and pure cold-pressed oils prepared fresh to soothe muscle soreness and boost vitality.",
       image: spa7Img,
       bg: "bg-[#EAF7F0]",
       titleColor: "text-[#0F291E]",
@@ -73,7 +72,7 @@ export default function About({ onOpenBooking }) {
       tag: "SENSORY SANCTUARY",
       tagBg: "bg-[#D4EAF7] text-[#133A52]",
       title: "Acoustically Tuned Private VIP Suites",
-      desc: "Alabaster ambient lighting, soft botanical aromatherapy mist, and uninterrupted soundscape meditation.",
+      desc: "Private climate-controlled sanctuary suites in Wakad with ambient lighting, soothing spa music, and complete acoustic calm.",
       image: spa2Img,
       bg: "bg-[#EBF5FB]",
       titleColor: "text-[#122E40]",
@@ -84,8 +83,8 @@ export default function About({ onOpenBooking }) {
     {
       tag: "HYDRO & THERMAL",
       tagBg: "bg-[#FDE2D0] text-[#5C2B09]",
-      title: "Private Jacuzzi & Eucalyptus Steam Rituals",
-      desc: "Mineral magnesium hydrotherapy soaking tub followed by soothing infrared cedar sauna detoxification.",
+      title: "Bangkok Jacuzzi & Eucalyptus Steam Bath",
+      desc: "Hydrotherapy Jacuzzi milk & honey bath followed by detoxifying eucalyptus steam bath with every session.",
       image: spa4Img,
       bg: "bg-[#FEF5ED]",
       titleColor: "text-[#4A2406]",
@@ -94,10 +93,10 @@ export default function About({ onOpenBooking }) {
       badge: "Hydrothermal"
     },
     {
-      tag: "BIO-ENERGETIC FLOW",
+      tag: "COUPLES HARMONY",
       tagBg: "bg-[#FAD2E1] text-[#5C162E]",
-      title: "Synchronized Couples Harmony & Floral Bath",
-      desc: "Secluded sanctuary suite with dual-therapist synchronized massage and fresh aromatic petal immersion.",
+      title: "Synchronized Couples Massage & Petal Bath",
+      desc: "Romantic private suite with dual-therapist synchronized Balinese or Swedish massage and aromatic floral immersion.",
       image: spa1Img,
       bg: "bg-[#FDF0F5]",
       titleColor: "text-[#450F22]",
@@ -106,10 +105,10 @@ export default function About({ onOpenBooking }) {
       badge: "Couples Ritual"
     },
     {
-      tag: "RADIANCE ALCHEMY",
+      tag: "BODY SCRUB & GLOW",
       tagBg: "bg-[#E8D7F1] text-[#3E1F52]",
-      title: "Warm Shirodhara & Botanical Facial Care",
-      desc: "Warm herb-infused oil stream over the third eye paired with cold-pressed botanical lymphatic facial drainage.",
+      title: "Full Body Massage & Herbal Body Scrub",
+      desc: "Rejuvenating full body massage paired with organic exfoliating body scrub for radiant, glowing skin and complete wellness.",
       image: spa3Img,
       bg: "bg-[#F8F2FC]",
       titleColor: "text-[#2C123D]",
@@ -121,46 +120,46 @@ export default function About({ onOpenBooking }) {
 
   const milestones = [
     {
-      year: "2012",
-      tag: "BRIGHT BEGINNINGS",
-      title: "The Vision Born",
-      desc: "A spark of ancient Ayurvedic wisdom ignited our first holistic healing sanctuary.",
+      year: "2024",
+      tag: "SANCTUARY FOUNDED",
+      title: "Wakad Grand Opening",
+      desc: "Inaugurated NEW Sara Spa at Wbiz, Bhumkar Chowk, bringing authentic holistic wellness to Wakad, Pune.",
       icon: Sparkles,
       color: "#B07D54",
       bgGradient: "from-[#8C6A43] to-[#B07D54]"
     },
     {
-      year: "2015",
-      tag: "SANCTUARY EXPANSION",
-      title: "Private Suites",
-      desc: "Expanded to 12 temperature-controlled VIP suites with custom teakwood tables.",
+      year: "2024",
+      tag: "VIP EXPANSION",
+      title: "Acoustic VIP Suites",
+      desc: "Unveiled private climate-controlled treatment suites tailored for individual and couples relaxation.",
       icon: Leaf,
       color: "#2E5A44",
       bgGradient: "from-[#204231] to-[#3B6E52]"
     },
     {
-      year: "2018",
+      year: "2025",
       tag: "HYDROTHERAPY",
-      title: "Jacuzzi Chambers",
-      desc: "Introduced magnesium mineral soaking jets & eucalyptus restorative steam.",
+      title: "Bangkok Jacuzzi Chambers",
+      desc: "Introduced therapeutic Jacuzzi hydro-massage baths and eucalyptus detox steam sessions.",
       icon: Droplets,
       color: "#C59B6D",
       bgGradient: "from-[#9E7245] to-[#C59B6D]"
     },
     {
-      year: "2021",
-      tag: "SHINING MASTERY",
-      title: "National Acclaim",
-      desc: "Recognized as premier destination for couples therapy & Shirodhara rituals.",
+      year: "2025",
+      tag: "AYURVEDIC MASTERY",
+      title: "Herbal Potli Rituals",
+      desc: "Curated 100% organic cold-pressed oil therapies, Thai passive stretching, and deep tissue programs.",
       icon: Award,
       color: "#8A3A40",
       bgGradient: "from-[#632227] to-[#993E46]"
     },
     {
-      year: "2024",
-      tag: "ACOUSTIC ADVANCEMENT",
-      title: "Soundscape Suites",
-      desc: "Unveiled state-of-the-art acoustic meditation suites & botanical apothecary.",
+      year: "2025",
+      tag: "COMMUNITY ACCLAIM",
+      title: "1,000+ Happy Guests",
+      desc: "Celebrated top 4.6+ rating on Google Maps with over 1,000+ satisfied clients across Pune.",
       icon: Compass,
       color: "#6B5A4E",
       bgGradient: "from-[#4A3B32] to-[#735C4E]"
@@ -168,8 +167,8 @@ export default function About({ onOpenBooking }) {
     {
       year: "2026",
       tag: "MODERN HORIZON",
-      title: "Sanctuary Standard",
-      desc: "Setting the gold standard in bespoke body, mind & spirit rejuvenation.",
+      title: "24/7 Sanctuary Standard",
+      desc: "Elevating wellness with 24-hour round-the-clock bespoke therapies and certified master care in Wakad.",
       icon: Star,
       color: "#B07D54",
       bgGradient: "from-[#B07D54] to-[#E3BA8F]"
@@ -249,25 +248,25 @@ export default function About({ onOpenBooking }) {
             </Link>
           </motion.div>
 
-          {/* Interactive Floating Stats Bar */}
+          {/* Interactive Floating Stats Bar - 3 Cards */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-6 max-w-4xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-6 max-w-3xl mx-auto"
           >
             {stats.map((stat, i) => (
               <div
                 key={i}
-                className="p-5 sm:p-6 rounded-3xl bg-white/90 backdrop-blur-md border border-[#EFE6DC] shadow-sm hover:shadow-xl hover:shadow-[#D4A373]/15 hover:-translate-y-1 transition-all duration-300 group text-center"
+                className="p-6 rounded-3xl bg-white/90 backdrop-blur-md border border-[#EFE6DC] shadow-sm hover:shadow-xl hover:shadow-[#D4A373]/15 hover:-translate-y-1 transition-all duration-300 group text-center"
               >
-                <div className="text-3xl sm:text-4xl font-serif-luxury font-bold text-[#B07D54] group-hover:scale-105 transition-transform">
+                <div className="text-3xl sm:text-4xl font-sans font-extrabold tracking-tight text-[#B07D54] group-hover:scale-105 transition-transform">
                   {stat.value}
                 </div>
-                <div className="text-xs sm:text-sm font-semibold text-[#2D241E] mt-1">
+                <div className="text-sm font-bold text-[#2D241E] mt-1.5 font-serif-luxury">
                   {stat.label}
                 </div>
-                <div className="text-[10px] sm:text-[11px] text-[#8C7364] mt-0.5">
+                <div className="text-[11px] text-[#8C7364] mt-0.5 font-medium">
                   {stat.sub}
                 </div>
               </div>
@@ -370,118 +369,109 @@ export default function About({ onOpenBooking }) {
       {/* ─────────────────────────────────────────────────────────────────────────
           3. THE FOUR PILLARS — Rich Brown Diagonal Sweeper Section
       ───────────────────────────────────────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-[#2C1F16] via-[#221710] to-[#160E0A] text-white relative overflow-hidden border-y border-[#544133] shadow-[0_20px_50px_rgba(44,31,22,0.35)]">
+      <section className="py-10 md:py-20 bg-gradient-to-b from-[#2C1F16] via-[#221710] to-[#160E0A] text-white relative overflow-hidden border-y border-[#544133] shadow-[0_20px_50px_rgba(44,31,22,0.35)]">
         {/* Luxury Warm Amber & Gold Radial Glows */}
         <div className="absolute top-1/4 left-10 w-[500px] h-[500px] bg-[#D4A373]/15 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-10 right-10 w-[600px] h-[600px] bg-[#B07D54]/12 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-[1580px] mx-auto px-4 sm:px-6 lg:pl-12 lg:pr-0 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
 
             {/* Left: Section Brand, Display Heading & Info */}
-            <div className="lg:col-span-4 space-y-7 lg:pr-6">
+            <div className="lg:col-span-4 space-y-4 sm:space-y-6 lg:pr-6">
 
               {/* Brand Pill */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/10 border border-[#D4A373]/30 backdrop-blur-md shadow-inner">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 border border-[#D4A373]/30 backdrop-blur-md shadow-inner">
                 <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#D4A373] to-[#B07D54] flex items-center justify-center text-white font-bold text-xs">
                   S
                 </div>
-                <span className="text-xs font-semibold tracking-wider text-[#E3BA8F] uppercase">
+                <span className="text-[11px] sm:text-xs font-semibold tracking-wider text-[#E3BA8F] uppercase">
                   Guiding Principles
                 </span>
               </div>
 
               {/* Big Display Title matching New Sara Spa Standards */}
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif-luxury font-bold tracking-tight text-white leading-[1.05]">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif-luxury font-bold tracking-tight text-white leading-[1.08]">
                 The Sara <br />
                 <span className="gold-gradient-text italic font-normal">
                   Sanctuary Pillars
                 </span>
               </h2>
 
-              <p className="text-sm sm:text-base text-[#D4C4B7] leading-relaxed font-light">
-                Discover the foundational pillars that define New Sara Spa: certified master care, organic botanical alchemy, private hydrothermal Jacuzzis, and acoustically tuned treatment sanctuaries.
+              <p className="text-xs sm:text-sm md:text-base text-[#D4C4B7] leading-relaxed font-light">
+                Discover the foundational pillars that define NEW Sara Spa: certified master therapists, authentic Ayurvedic potli therapies, Bangkok-style private Jacuzzis, and acoustically insulated treatment suites in Wakad, Pune.
               </p>
 
               {/* Bottom Feature Badges & Action */}
-              <div className="pt-2 space-y-5">
+              <div className="pt-1 space-y-4">
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-[#D4A373]/20 text-xs text-[#E3BA8F] font-medium">
+                  <span className="px-3 py-1 rounded-full bg-white/10 border border-[#D4A373]/20 text-[11px] sm:text-xs text-[#E3BA8F] font-medium">
                     100% Organic
                   </span>
-                  <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-[#D4A373]/20 text-xs text-[#E3BA8F] font-medium">
+                  <span className="px-3 py-1 rounded-full bg-white/10 border border-[#D4A373]/20 text-[11px] sm:text-xs text-[#E3BA8F] font-medium">
                     Master Certified
                   </span>
-                  <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-[#D4A373]/20 text-xs text-[#E3BA8F] font-medium">
+                  <span className="px-3 py-1 rounded-full bg-white/10 border border-[#D4A373]/20 text-[11px] sm:text-xs text-[#E3BA8F] font-medium">
                     VIP Suites
                   </span>
                 </div>
 
-                <div className="pt-2">
+                <div>
                   <button
                     onClick={onOpenBooking}
-                    className="px-8 py-4 rounded-full bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl shadow-black/40 hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
+                    className="px-7 py-3 rounded-full bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-[#2D241E] font-bold text-xs uppercase tracking-[0.2em] shadow-xl shadow-black/40 hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
                   >
                     <span>Reserve Treatment</span>
-                    <ArrowUpRight className="w-4 h-4 text-white" />
+                    <ArrowUpRight className="w-4 h-4 text-[#2D241E]" />
                   </button>
                 </div>
               </div>
 
             </div>
 
-            {/* Right: Diagonal Showcase Sweeper Deck (Right Bleed & Zero Right Padding) */}
-            <div className="lg:col-span-8 relative h-[650px] sm:h-[720px] overflow-hidden lg:-mr-8 xl:-mr-16" style={{ touchAction: 'pan-y' }}>
+            {/* Right: Diagonal Showcase Sweeper Deck (Minimized for Mobile, Spacious for Desktop) */}
+            <div className="lg:col-span-8 relative h-[440px] sm:h-[520px] md:h-[620px] overflow-hidden" style={{ touchAction: 'pan-y' }}>
 
               {/* Top & Bottom Soft Fading Masks for Seamless Endless Flow */}
-              <div className="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-[#2C1F16] to-transparent z-20 pointer-events-none" />
-              <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-[#160E0A] to-transparent z-20 pointer-events-none" />
+              <div className="absolute top-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-b from-[#2C1F16] to-transparent z-20 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-t from-[#160E0A] to-transparent z-20 pointer-events-none" />
 
-              {/* Diagonal Container Tilted Right-to-Left (Positive Rotate) Bleeding Out */}
-              <div className="relative rotate-[3deg] md:rotate-[6deg] lg:rotate-[8deg] transform scale-95 sm:scale-100 origin-center w-full lg:w-[110%]">
+              {/* Refined Perspective Container (Ensures 100% text and card visibility on both columns) */}
+              <div className="relative rotate-0 md:rotate-[2deg] transform origin-center w-full px-2 sm:px-4">
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
 
                   {/* Column 1 — Continuous Seamless Upward Scroll */}
                   <motion.div
                     animate={{ y: ["0%", "-50%"] }}
-                    transition={{ repeat: Infinity, duration: 26, ease: "linear" }}
-                    className="space-y-5 md:space-y-6 pointer-events-none"
+                    transition={{ repeat: Infinity, duration: 28, ease: "linear" }}
+                    className="space-y-3 sm:space-y-4 md:space-y-5 pointer-events-none"
                   >
                     {[...diagonalCards, ...diagonalCards].map((c, i) => (
                       <div
                         key={i}
                         onClick={onOpenBooking}
-                        className={`group relative rounded-[28px] p-6 sm:p-7 ${c.bg} shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden flex flex-col justify-between min-h-[250px] border border-black/5 pointer-events-auto`}
+                        className={`group relative rounded-[20px] sm:rounded-[26px] p-3.5 sm:p-5 ${c.bg} shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer overflow-hidden flex flex-col justify-between min-h-[145px] sm:min-h-[180px] md:min-h-[200px] border border-black/5 pointer-events-auto`}
                       >
                         {/* Top Tag */}
-                        <div className="flex items-center justify-between mb-3">
-                          <span className={`px-3 py-1 rounded-md text-[10px] uppercase font-bold tracking-widest ${c.tagBg}`}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className={`px-2 py-0.5 rounded-md text-[8.5px] sm:text-[9.5px] uppercase font-bold tracking-wider ${c.tagBg}`}>
                             {c.tag}
                           </span>
                         </div>
 
                         {/* Title & Desc */}
-                        <div className="space-y-2 relative z-10 max-w-[68%]">
-                          <h3 className={`text-lg sm:text-xl font-bold leading-tight ${c.titleColor}`}>
+                        <div className="space-y-1 sm:space-y-2 relative z-10 max-w-[62%] sm:max-w-[64%]">
+                          <h3 className={`text-xs sm:text-base font-bold leading-snug ${c.titleColor}`}>
                             {c.title}
                           </h3>
-                          <p className={`text-xs leading-relaxed line-clamp-2 ${c.descColor}`}>
+                          <p className={`text-[10px] sm:text-xs leading-relaxed line-clamp-2 ${c.descColor}`}>
                             {c.desc}
                           </p>
                         </div>
 
-                        {/* Bottom Learn More Button */}
-                        <div className="pt-4 mt-auto flex items-center justify-between relative z-10">
-                          <button
-                            className={`px-5 py-2 rounded-full text-xs font-bold transition-transform group-hover:scale-105 ${c.btnStyle}`}
-                          >
-                            Learn more
-                          </button>
-                        </div>
-
                         {/* Right Photo Illustration */}
-                        <div className="absolute -bottom-2 -right-2 w-32 sm:w-40 h-32 sm:h-40 rounded-full overflow-hidden border-4 border-white/60 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                        <div className="absolute -bottom-1 -right-1 w-20 sm:w-28 md:w-32 h-20 sm:h-28 md:h-32 rounded-full overflow-hidden border-2 sm:border-4 border-white/80 shadow-md group-hover:scale-105 transition-transform duration-500">
                           <img
                             src={c.image}
                             alt={c.title}
@@ -492,46 +482,37 @@ export default function About({ onOpenBooking }) {
                     ))}
                   </motion.div>
 
-                  {/* Column 2 — Continuous Seamless Downward Scroll */}
+                  {/* Column 2 — Continuous Seamless Downward Scroll (Offset Therapies for Variety) */}
                   <motion.div
                     animate={{ y: ["-50%", "0%"] }}
-                    transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
-                    className="space-y-5 md:space-y-6 pointer-events-none"
+                    transition={{ repeat: Infinity, duration: 32, ease: "linear" }}
+                    className="space-y-3 sm:space-y-4 md:space-y-5 pointer-events-none"
                   >
-                    {[...diagonalCards.slice(3, 6), ...diagonalCards.slice(0, 3), ...diagonalCards.slice(3, 6), ...diagonalCards.slice(0, 3)].map((c, i) => (
+                    {[...diagonalCards.slice(3), ...diagonalCards.slice(0, 3), ...diagonalCards.slice(3), ...diagonalCards.slice(0, 3)].map((c, i) => (
                       <div
                         key={i}
                         onClick={onOpenBooking}
-                        className={`group relative rounded-[28px] p-6 sm:p-7 ${c.bg} shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden flex flex-col justify-between min-h-[250px] border border-black/5 pointer-events-auto`}
+                        className={`group relative rounded-[20px] sm:rounded-[26px] p-3.5 sm:p-5 ${c.bg} shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer overflow-hidden flex flex-col justify-between min-h-[145px] sm:min-h-[180px] md:min-h-[200px] border border-black/5 pointer-events-auto`}
                       >
                         {/* Top Tag */}
-                        <div className="flex items-center justify-between mb-3">
-                          <span className={`px-3 py-1 rounded-md text-[10px] uppercase font-bold tracking-widest ${c.tagBg}`}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className={`px-2 py-0.5 rounded-md text-[8.5px] sm:text-[9.5px] uppercase font-bold tracking-wider ${c.tagBg}`}>
                             {c.tag}
                           </span>
                         </div>
 
                         {/* Title & Desc */}
-                        <div className="space-y-2 relative z-10 max-w-[68%]">
-                          <h3 className={`text-lg sm:text-xl font-bold leading-tight ${c.titleColor}`}>
+                        <div className="space-y-1 sm:space-y-2 relative z-10 max-w-[62%] sm:max-w-[64%]">
+                          <h3 className={`text-xs sm:text-base font-bold leading-snug ${c.titleColor}`}>
                             {c.title}
                           </h3>
-                          <p className={`text-xs leading-relaxed line-clamp-2 ${c.descColor}`}>
+                          <p className={`text-[10px] sm:text-xs leading-relaxed line-clamp-2 ${c.descColor}`}>
                             {c.desc}
                           </p>
                         </div>
 
-                        {/* Bottom Learn More Button */}
-                        <div className="pt-4 mt-auto flex items-center justify-between relative z-10">
-                          <button
-                            className={`px-5 py-2 rounded-full text-xs font-bold transition-transform group-hover:scale-105 ${c.btnStyle}`}
-                          >
-                            Learn more
-                          </button>
-                        </div>
-
                         {/* Right Photo Illustration */}
-                        <div className="absolute -bottom-2 -right-2 w-32 sm:w-40 h-32 sm:h-40 rounded-full overflow-hidden border-4 border-white/60 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                        <div className="absolute -bottom-1 -right-1 w-20 sm:w-28 md:w-32 h-20 sm:h-28 md:h-32 rounded-full overflow-hidden border-2 sm:border-4 border-white/80 shadow-md group-hover:scale-105 transition-transform duration-500">
                           <img
                             src={c.image}
                             alt={c.title}
@@ -555,9 +536,9 @@ export default function About({ onOpenBooking }) {
       {/* ─────────────────────────────────────────────────────────────────────────
           4. VISUAL HERITAGE GALLERY — Master Rituals & Sanctuary Spaces
       ───────────────────────────────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-[#FAF7F2] relative border-t border-[#EAE0D3]">
+      <section className="py-12 md:py-20 bg-[#FAF7F2] relative border-t border-[#EAE0D3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+          <div className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E]">
               Moments of <span className="italic font-normal skin-gradient-text">Pure Serenity</span>
             </h2>
@@ -693,7 +674,7 @@ export default function About({ onOpenBooking }) {
               {/* ─────────────────────────────────────────────────────────────────────────
           5. MILESTONES OF EXCELLENCE — Rich Dark Brown Infographic Pathway
       ───────────────────────────────────────────────────────────────────────── */}
-      <section className="pt-20 pb-8 md:pt-24 md:pb-10 bg-gradient-to-b from-[#2C1F16] via-[#221710] to-[#160E0A] relative text-white border-t border-[#544133] shadow-[0_20px_50px_rgba(44,31,22,0.35)] mb-8 md:mb-12 z-20">
+      <section className="pt-12 pb-8 md:pt-16 md:pb-10 bg-gradient-to-b from-[#2C1F16] via-[#221710] to-[#160E0A] relative text-white border-t border-[#544133] shadow-[0_20px_50px_rgba(44,31,22,0.35)] mb-8 md:mb-12 z-20">
         
         {/* Warm Golden Spa Ambient Glow in Background */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-to-r from-[#D4A373]/20 via-[#B07D54]/12 to-transparent rounded-full blur-[140px] pointer-events-none" />
@@ -708,7 +689,7 @@ export default function About({ onOpenBooking }) {
               Milestones of <span className="gold-gradient-text italic font-normal">Excellence</span>
             </h2>
             <p className="text-sm sm:text-base text-[#D4C4B7] max-w-xl mx-auto font-light">
-              Over a decade of dedication, clinical mastery, and continuous innovation in holistic wellness.
+              Our dedicated journey of certified mastery, continuous innovation, and pure holistic wellness in Wakad, Pune.
             </p>
           </div>
 
@@ -849,19 +830,19 @@ export default function About({ onOpenBooking }) {
                   </div>
 
                   {/* Right Content Card */}
-                  <div className="flex-1 p-4 sm:p-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 shadow-md group-hover:border-[#D4A373] transition-all space-y-1.5 text-white">
+                  <div className="flex-1 p-4 sm:p-5 rounded-2xl bg-white/12 backdrop-blur-md border border-white/20 shadow-lg group-hover:border-[#D4A373] transition-all space-y-1.5 text-white">
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-serif-luxury font-bold text-white">
+                      <span className="text-xl font-serif-luxury font-bold text-white drop-shadow-xs">
                         {m.year}
                       </span>
-                      <span className="text-[9px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-white/15 text-[#E3BA8F] border border-white/20">
+                      <span className="text-[9.5px] uppercase tracking-widest font-bold px-2.5 py-0.5 rounded-full bg-white/15 text-[#FFE3C2] border border-[#D4A373]/40">
                         {m.tag}
                       </span>
                     </div>
-                    <h4 className="text-sm font-serif-luxury font-bold text-[#2D241E]">
+                    <h4 className="text-sm sm:text-base font-serif-luxury font-bold text-[#FAF7F2] drop-shadow-xs">
                       {m.title}
                     </h4>
-                    <p className="text-xs text-[#6B5A4E] leading-relaxed font-light">
+                    <p className="text-xs text-[#F3E7D8] leading-relaxed font-normal">
                       {m.desc}
                     </p>
                   </div>

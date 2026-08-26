@@ -39,7 +39,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-[#FDFAF6] text-[#2D241E] antialiased selection:bg-[#D4A373] selection:text-white">
+      <div className="min-h-screen flex flex-col bg-[#211A15] text-[#2D241E] antialiased selection:bg-[#D4A373] selection:text-white">
         
         {/* Entrance Luxury Animated Morphing SVG Page Loader */}
         <PageLoader />
@@ -53,7 +53,7 @@ function App() {
         {/* Transparent-to-Blurred Luxury Navbar */}
         <Navbar onOpenBooking={() => setIsBookingOpen(true)} />
         
-        <main className="flex-1">
+        <main className="flex-1 bg-[#FDFAF6]">
           <Suspense fallback={<PageFallback />}>
             <Routes>
               {/* ── Main Navbar Routes ── */}

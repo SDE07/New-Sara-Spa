@@ -75,7 +75,7 @@ export default function ImageSlider3D({
 
   return (
     <div
-      className={`grid w-full max-w-full h-full min-h-[500px] overflow-hidden place-items-center ${containerClassName}`}
+      className={`grid w-full max-w-full h-full min-h-[360px] sm:min-h-[460px] md:min-h-[500px] overflow-hidden place-items-center ${containerClassName}`}
       style={{
         perspective: perspective,
         touchAction: 'pan-y',

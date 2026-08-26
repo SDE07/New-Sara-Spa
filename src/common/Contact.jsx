@@ -33,20 +33,20 @@ export default function Contact() {
               <div>
                 <h3 className="text-xl font-bold mb-4">Contact Information</h3>
                 <p className="text-teal-100 text-sm leading-relaxed mb-6">
-                  Our management and support team is available Monday through Saturday.
+                  NEW Sara Spa Wakad Pune — Best Massage Spa In Wakad. Open 24 Hours.
                 </p>
                 <div className="space-y-4 text-sm">
                   <div className="flex items-center gap-3">
                     <Phone className="w-4 h-4 text-teal-300" />
-                    <span>+1 (800) 555-SARA</span>
+                    <span>+91 98343 66828</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <Mail className="w-4 h-4 text-teal-300" />
-                    <span>support@saraspa.com</span>
+                    <span>saranewspa@gmail.com</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="w-4 h-4 text-teal-300 mt-0.5" />
-                    <span>5th Avenue, Suite 100, New York, NY</span>
+                    <span>Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057</span>
                   </div>
                 </div>
               </div>

@@ -34,14 +34,14 @@ function LotusPetal({ rotation, scale = 1, tier = 1 }) {
       >
         <extrudeGeometry args={[petalShape, extrudeSettings]} />
         <meshPhysicalMaterial
-          color={tier === 1 ? "#F5D2AC" : tier === 2 ? "#E3BA8F" : "#D4A373"}
-          emissive="#613612"
-          emissiveIntensity={0.55}
-          roughness={0.18}
-          metalness={0.82}
-          clearcoat={0.9}
-          clearcoatRoughness={0.15}
-          reflectivity={0.9}
+          color={tier === 1 ? "#D4A373" : tier === 2 ? "#E3BA8F" : "#F5D2AC"}
+          emissive="#A07248"
+          emissiveIntensity={0.5}
+          roughness={0.12}
+          metalness={0.85}
+          clearcoat={1.0}
+          clearcoatRoughness={0.08}
+          reflectivity={1.0}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -151,10 +151,11 @@ export default function Loader3DCanvas() {
         gl={{ antialias: true, alpha: true }}
         className="w-full h-full"
       >
-        <ambientLight intensity={1.5} />
-        <pointLight position={[4, 6, 4]} intensity={2.8} color="#F8DBB9" />
-        <pointLight position={[-4, -3, -2]} intensity={2.2} color="#FB8305" />
-        <directionalLight position={[0, 5, 2]} intensity={1.8} color="#FFFFFF" />
+        <ambientLight intensity={2.4} />
+        <directionalLight position={[0, 4, 3]} intensity={2.8} color="#FFF8EE" />
+        <pointLight position={[3, 5, 3]} intensity={3.0} color="#F8DBB9" />
+        <pointLight position={[-3, 2, 2]} intensity={2.2} color="#E3BA8F" />
+        <pointLight position={[0, -2, 2]} intensity={1.8} color="#D4A373" />
 
         <SpaBloomingLotus />
       </Canvas>

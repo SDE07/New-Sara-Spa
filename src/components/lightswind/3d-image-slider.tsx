@@ -41,6 +41,9 @@ interface Slider3DProps {
   rotationDirection?: "left" | "right";
   /** Whether to apply a gradient fade mask on the edges */
   withMask?: boolean;
+  /** Whether to pause the rotation when hovered */
+  pauseOnHover?: boolean;
+  onCardClick?: (item: Slider3DItem | string, index: number) => void;
 }
 
 export default function ImageSlider3D({
@@ -56,11 +59,13 @@ export default function ImageSlider3D({
   imageClassName = "",
   rotationDirection = "left",
   withMask = true,
+  pauseOnHover = true,
 }: Slider3DProps) {
   const dataList = items || images || [];
   const n = dataList.length || 1;
   const prefersReducedMotion = useReducedMotion();
   const animationDuration = prefersReducedMotion ? duration * 4 : duration;
+  const [isHovered, setIsHovered] = React.useState(false);
 
   // rotation angles based on direction
   const rotationValues = rotationDirection === "left" ? [0, 360] : [360, 0];
@@ -68,15 +73,17 @@ export default function ImageSlider3D({
   const maskStyles = withMask
     ? {
       WebkitMaskImage:
-        "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.95) 24%, #000 50%, rgba(0,0,0,0.95) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)",
+        "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.6) 4%, rgba(0,0,0,1) 12%, #000 50%, rgba(0,0,0,1) 88%, rgba(0,0,0,0.6) 96%, transparent 100%)",
       maskImage:
-        "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.95) 24%, #000 50%, rgba(0,0,0,0.95) 76%, rgba(0,0,0,0.2) 90%, transparent 100%)",
+        "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.6) 4%, rgba(0,0,0,1) 12%, #000 50%, rgba(0,0,0,1) 88%, rgba(0,0,0,0.6) 96%, transparent 100%)",
     }
     : {};
 
   return (
     <div
-      className={`grid w-full max-w-full h-full min-h-[360px] sm:min-h-[460px] md:min-h-[500px] overflow-hidden place-items-center ${containerClassName}`}
+      onMouseEnter={() => pauseOnHover && setIsHovered(true)}
+      onMouseLeave={() => pauseOnHover && setIsHovered(false)}
+      className={`relative grid w-full max-w-full h-full min-h-[360px] sm:min-h-[460px] md:min-h-[500px] overflow-hidden place-items-center ${containerClassName}`}
       style={{
         perspective: perspective,
         touchAction: 'pan-y',
@@ -95,6 +102,7 @@ export default function ImageSlider3D({
           duration: animationDuration,
           ease: "linear",
           repeat: Infinity,
+          ...(isHovered ? { duration: animationDuration * 4 } : {}),
         }}
       >
         {dataList.map((item, i) => (

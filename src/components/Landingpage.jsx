@@ -32,7 +32,12 @@ import {
   Sun,
   Moon,
   Gem,
-  Wind
+  Wind,
+  Eye,
+  Check,
+  Coffee,
+  Volume2,
+  Thermometer
 } from "lucide-react";
 import Hero3DCanvas from "./3d/Hero3DCanvas";
 import BookingModal from "./BookingModal";
@@ -45,6 +50,7 @@ import spa4Img from "../assets/spa4.png";
 import spa5Img from "../assets/spa5.png";
 import spa6Img from "../assets/spa6.png";
 import spa7Img from "../assets/spa7.png";
+import spa8Img from "../assets/spa8.png";
 import thaiStretchImg from "../assets/service-thai-stretch.png";
 import fourHandJacuzziScrubImg from "../assets/service-four-hand-jacuzzi-scrub.jpg";
 import specialCoupleImg from "../assets/service-special-couple.png";
@@ -54,6 +60,8 @@ export default function Landingpage() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("Signature Experience");
   const [activeCardDetail, setActiveCardDetail] = useState(null);
+  const [selectedSpaceModal, setSelectedSpaceModal] = useState(null);
+  const [activeSpaceFilter, setActiveSpaceFilter] = useState("all");
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const categoryCarouselRef = useRef(null);
   const [isCategoryPaused, setIsCategoryPaused] = useState(false);
@@ -133,142 +141,160 @@ export default function Landingpage() {
     return () => clearInterval(interval);
   }, [isCategoryPaused]);
 
-  // 9 Signature Experience Cards in Section 4
+  // 9 Signature Experience Cards in Section 4 with Rich 3D Base Colors & Lighting
   const experienceCards = [
     {
       num: "01",
       tag: "Ancient Thai Ritual",
-      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      tagBg: "bg-amber-500/20 text-amber-200 border-amber-400/40",
       title: "Thai Massage",
       desc: "Traditional passive yoga stretches and rhythmic acupressure along energy pathways to restore full vitality.",
       badge: "Energy & Flexibility",
       icon: Flame,
-      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-      badgeColor: "text-[#E3BA8F]",
-      haloGlow: "bg-[#D4A373]/25",
-      accentBorder: "from-transparent via-[#D4A373] to-transparent",
-      iconColor: "text-[#E3BA8F]",
+      cardBg: "from-[#2A180E] via-[#1D1008] to-[#120904]",
+      borderColor: "border-[#C59B6D]/50 hover:border-[#F5DEB3]",
+      glowColor: "rgba(212, 163, 115, 0.45)",
+      badgeColor: "text-amber-200",
+      haloGlow: "bg-amber-500/35",
+      accentBorder: "from-transparent via-[#F5DEB3] to-transparent",
+      iconColor: "text-amber-300",
+      accentHex: "#D4A373",
     },
     {
       num: "02",
       tag: "Deep Tension Relief",
-      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      tagBg: "bg-emerald-500/20 text-emerald-200 border-emerald-400/40",
       title: "Deep Tissue Massage",
       desc: "Targeted slow strokes and firm pressure on deeper muscle layers to alleviate chronic soreness and knots.",
       badge: "Chronic Pain Relief",
       icon: Shield,
-      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-      badgeColor: "text-[#A7E8CD]",
-      haloGlow: "bg-[#52B788]/25",
-      accentBorder: "from-transparent via-[#52B788] to-transparent",
-      iconColor: "text-[#A7E8CD]",
+      cardBg: "from-[#0A2618] via-[#061B10] to-[#03100A]",
+      borderColor: "border-emerald-600/50 hover:border-emerald-300",
+      glowColor: "rgba(82, 183, 136, 0.45)",
+      badgeColor: "text-emerald-200",
+      haloGlow: "bg-emerald-500/35",
+      accentBorder: "from-transparent via-emerald-300 to-transparent",
+      iconColor: "text-emerald-300",
+      accentHex: "#52B788",
     },
     {
       num: "03",
       tag: "Private Romantic Suite",
-      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      tagBg: "bg-rose-500/20 text-rose-200 border-rose-400/40",
       title: "Couples Massage",
       desc: "Side-by-side restorative massage rituals in a candlelit luxury suite accompanied by aromatic botanicals.",
       badge: "Private Couples Sanctuary",
       icon: Heart,
-      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-      badgeColor: "text-[#E3BA8F]",
-      haloGlow: "bg-[#D4A373]/25",
-      accentBorder: "from-transparent via-[#D4A373] to-transparent",
-      iconColor: "text-[#E3BA8F]",
+      cardBg: "from-[#2C0D18] via-[#1D0810] to-[#110309]",
+      borderColor: "border-rose-700/50 hover:border-rose-300",
+      glowColor: "rgba(244, 63, 94, 0.4)",
+      badgeColor: "text-rose-200",
+      haloGlow: "bg-rose-500/35",
+      accentBorder: "from-transparent via-rose-300 to-transparent",
+      iconColor: "text-rose-300",
+      accentHex: "#FB7185",
     },
     {
       num: "04",
       tag: "Holistic Healing",
-      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      tagBg: "bg-teal-500/20 text-teal-200 border-teal-400/40",
       title: "Balinese Massage",
       desc: "Gentle palm pressure, skin rolling, and floral essential oils boosting circulation and relieving tension.",
       badge: "Deep Circulation",
       icon: Flower2,
-      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-      badgeColor: "text-[#A7E8CD]",
-      haloGlow: "bg-[#52B788]/25",
-      accentBorder: "from-transparent via-[#52B788] to-transparent",
-      iconColor: "text-[#A7E8CD]",
+      cardBg: "from-[#082627] via-[#051A1B] to-[#021011]",
+      borderColor: "border-teal-600/50 hover:border-teal-300",
+      glowColor: "rgba(45, 212, 191, 0.4)",
+      badgeColor: "text-teal-200",
+      haloGlow: "bg-teal-500/35",
+      accentBorder: "from-transparent via-teal-300 to-transparent",
+      iconColor: "text-teal-300",
+      accentHex: "#2DD4BF",
     },
     {
       num: "05",
       tag: "Dual Therapist",
-      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      tagBg: "bg-amber-400/20 text-amber-100 border-amber-300/40",
       title: "Four Hand Massage",
       desc: "Synchronized dual-therapist choreography creating an immersive wave of deep full-body relaxation.",
       badge: "2 Master Therapists",
       icon: Sparkles,
-      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-      badgeColor: "text-[#E3BA8F]",
-      haloGlow: "bg-[#D4A373]/25",
-      accentBorder: "from-transparent via-[#D4A373] to-transparent",
-      iconColor: "text-[#E3BA8F]",
+      cardBg: "from-[#2E1D0B] via-[#1F1306] to-[#130B03]",
+      borderColor: "border-amber-600/50 hover:border-amber-300",
+      glowColor: "rgba(245, 158, 11, 0.45)",
+      badgeColor: "text-amber-200",
+      haloGlow: "bg-amber-400/35",
+      accentBorder: "from-transparent via-amber-300 to-transparent",
+      iconColor: "text-amber-300",
+      accentHex: "#F59E0B",
     },
     {
       num: "06",
       tag: "Royal Hydro Luxury",
-      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      tagBg: "bg-sky-500/20 text-sky-200 border-sky-400/40",
       title: "Jacuzzi Milk & Honey Bath",
       desc: "Whirlpool hydro-massage soak infused with raw golden honey, nourishing botanicals, and warm mineral milk.",
       badge: "Private Jacuzzi Hydro Soak",
       icon: Gem,
-      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-      badgeColor: "text-[#A7E8CD]",
-      haloGlow: "bg-[#52B788]/25",
-      accentBorder: "from-transparent via-[#52B788] to-transparent",
-      iconColor: "text-[#A7E8CD]",
+      cardBg: "from-[#082239] via-[#041627] to-[#020D18]",
+      borderColor: "border-sky-600/50 hover:border-sky-300",
+      glowColor: "rgba(56, 189, 248, 0.4)",
+      badgeColor: "text-sky-200",
+      haloGlow: "bg-sky-500/35",
+      accentBorder: "from-transparent via-sky-300 to-transparent",
+      iconColor: "text-sky-300",
+      accentHex: "#38BDF8",
     },
     {
       num: "07",
       tag: "Volcanic Warmth",
-      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      tagBg: "bg-orange-500/20 text-orange-200 border-orange-400/40",
       title: "Hot Stone Massage",
       desc: "Heated volcanic basalt stones placed along energy points to melt away stiffness and restore harmony.",
       badge: "Basalt Thermal Stones",
       icon: Flame,
-      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-      badgeColor: "text-[#E3BA8F]",
-      haloGlow: "bg-[#D4A373]/25",
-      accentBorder: "from-transparent via-[#D4A373] to-transparent",
-      iconColor: "text-[#E3BA8F]",
+      cardBg: "from-[#301407] via-[#200B03] to-[#120501]",
+      borderColor: "border-orange-600/50 hover:border-orange-300",
+      glowColor: "rgba(249, 115, 22, 0.45)",
+      badgeColor: "text-orange-200",
+      haloGlow: "bg-orange-500/35",
+      accentBorder: "from-transparent via-orange-300 to-transparent",
+      iconColor: "text-orange-300",
+      accentHex: "#F97316",
     },
     {
       num: "08",
       tag: "Botanical Essence",
-      tagBg: "bg-[#A7E8CD]/15 text-[#A7E8CD] border-[#A7E8CD]/30",
+      tagBg: "bg-purple-500/20 text-purple-200 border-purple-400/40",
       title: "Aromatherapy Massage",
       desc: "Custom blends of pure organic essential oils curated to soothe the nervous system and calm the mind.",
       badge: "100% Organic Oils",
       icon: Droplets,
-      cardBg: "from-[#0A1F14] via-[#0D1A10] to-[#071209]",
-      borderColor: "border-[#1B4332]/80 hover:border-[#52B788]",
-      badgeColor: "text-[#A7E8CD]",
-      haloGlow: "bg-[#52B788]/25",
-      accentBorder: "from-transparent via-[#52B788] to-transparent",
-      iconColor: "text-[#A7E8CD]",
+      cardBg: "from-[#1E1130] via-[#130A20] to-[#0B0513]",
+      borderColor: "border-purple-600/50 hover:border-purple-300",
+      glowColor: "rgba(168, 85, 247, 0.4)",
+      badgeColor: "text-purple-200",
+      haloGlow: "bg-purple-500/35",
+      accentBorder: "from-transparent via-purple-300 to-transparent",
+      iconColor: "text-purple-300",
+      accentHex: "#A855F7",
     },
     {
       num: "09",
       tag: "Herbal Poultice",
-      tagBg: "bg-[#E3BA8F]/15 text-[#E3BA8F] border-[#E3BA8F]/30",
+      tagBg: "bg-amber-600/20 text-amber-200 border-amber-500/40",
       title: "Potli Massage",
       desc: "Warm muslin pouches packed with therapeutic herbs rhythmically stamped to relieve joint stiffness.",
       badge: "Warm Herbal Poultice",
       icon: Layers,
-      cardBg: "from-[#221710] via-[#1A110B] to-[#100A06]",
-      borderColor: "border-[#4A382A]/80 hover:border-[#D4A373]",
-      badgeColor: "text-[#E3BA8F]",
-      haloGlow: "bg-[#D4A373]/25",
-      accentBorder: "from-transparent via-[#D4A373] to-transparent",
-      iconColor: "text-[#E3BA8F]",
+      cardBg: "from-[#2C1A0E] via-[#1D1007] to-[#110803]",
+      borderColor: "border-amber-700/50 hover:border-amber-300",
+      glowColor: "rgba(217, 119, 6, 0.45)",
+      badgeColor: "text-amber-200",
+      haloGlow: "bg-amber-600/35",
+      accentBorder: "from-transparent via-amber-300 to-transparent",
+      iconColor: "text-amber-300",
+      accentHex: "#D97706",
     },
   ];
 
@@ -312,18 +338,27 @@ export default function Landingpage() {
     <div className="bg-[#FAF7F2] text-[#2D241E] selection:bg-[#D4A373] selection:text-white">
 
       {/* ─────────────────────────────────────────────────────────────────────────
-          HERO SECTION — Split Layout: Typography Left + 3D Organic Visual Right
+          HERO SECTION — Fresh Radiant Warm Sunset Glow & Compact Luxury Layout
       ───────────────────────────────────────────────────────────────────────── */}
       <section
         id="hero"
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
-        className="relative min-h-[90vh] lg:min-h-screen w-full flex items-center overflow-hidden pt-28 sm:pt-32 md:pt-36 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 bg-gradient-to-b from-[#FDFAF6] via-[#FAF4ED] to-[#FDFAF6]"
+        className="relative min-h-[83vh] lg:min-h-[90vh] w-full flex items-center overflow-hidden pt-22 sm:pt-32 md:pt-36 lg:pt-28 pb-12 sm:pb-16 bg-[#FFFFFF] text-[#2D241E]"
       >
-        {/* Luminous Warm Spa Ambient Glow */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-1/4 right-1/4 w-[650px] h-[650px] bg-gradient-to-br from-[#D4A373]/15 to-[#F5D0B5]/10 rounded-full blur-[140px]" />
-          <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-[#E3BA8F]/12 to-[#F9EDE0]/30 rounded-full blur-[120px]" />
+        {/* Fresh Radiant Ambient Sunburst Backdrop */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Base Pure Crisp Canvas */}
+          <div className="absolute inset-0 bg-[#FFFFFF]" />
+
+          {/* Golden Sun Radiance Flare behind center & right */}
+          <div className="absolute top-1/2 right-0 lg:right-16 -translate-y-1/2 w-[700px] h-[700px] bg-radial from-[#F59E0B]/25 via-[#D4A373]/15 to-transparent rounded-full blur-[90px]" />
+
+          {/* Warm Champagne Horizon Glow across bottom */}
+          <div className="absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-[#FDF6ED]/80 via-[#FFF9F2]/40 to-transparent" />
+
+          {/* Soft Silk Peach Light Flare on Left */}
+          <div className="absolute top-1/4 left-4 -translate-y-1/2 w-[480px] h-[480px] bg-gradient-to-tr from-[#FED7AA]/35 via-[#FDE68A]/20 to-transparent rounded-full blur-[100px]" />
         </div>
 
         {/* 3D Three.js Floating Ambient Particles */}
@@ -331,21 +366,21 @@ export default function Landingpage() {
           <Hero3DCanvas />
         </Suspense>
 
-        {/* ── Main Two-Column Grid ── */}
-        <div className="relative z-[15] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        {/* ── Main Two-Column Grid (Tightly Balanced Proportions) ── */}
+        <div className="relative z-[15] max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto pt-3 sm:pt-4">
+          <div className="grid lg:grid-cols-12 gap-4 lg:gap-6 items-center">
 
             {/* ── LEFT: Text Content ── */}
-            <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left order-2 lg:order-1">
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left order-2 lg:order-1">
 
               {/* Main Heading */}
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[3.8rem] xl:text-[4.2rem] font-serif-luxury font-bold tracking-tight text-[#2D241E] leading-[1.12]">
-                Where Beauty Meets <br className="hidden sm:block" />{' '}
-                <span className="skin-gradient-text italic font-normal">Relaxation</span>
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[3.6rem] xl:text-[4rem] font-serif-luxury font-bold tracking-tight text-[#2D241E] leading-[1.12]">
+                Where Beauty Meets <br className="hidden sm:block" />
+                <span className="italic font-normal bg-gradient-to-r from-[#B07D54] via-[#D4A373] to-[#8C6A43] bg-clip-text text-transparent">Relaxation</span>
               </h1>
 
               {/* Description */}
-              <p className="max-w-lg mx-auto lg:mx-0 text-sm sm:text-base md:text-lg text-[#615147] font-sans font-normal leading-relaxed">
+              <p className="max-w-md lg:max-w-lg mx-auto lg:mx-0 text-sm sm:text-base md:text-lg text-[#5F4E42] font-sans font-normal leading-relaxed">
                 Step away from the everyday and discover a peaceful spa experience designed for relaxation, rejuvenation and complete wellness.
               </p>
 
@@ -353,33 +388,23 @@ export default function Landingpage() {
               <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3.5 sm:gap-4 pt-1">
                 <button
                   onClick={() => handleOpenBooking("Signature Experience")}
-                  className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-3.5 rounded-full bg-[#2D241E] hover:bg-[#4A3B32] text-white font-sans font-bold text-xs uppercase tracking-[0.2em] shadow-lg shadow-[#2D241E]/15 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
+                  className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-3.5 rounded-full bg-[#2D241E] hover:bg-[#4A3B32] text-white font-sans font-bold text-xs uppercase tracking-[0.2em] shadow-lg shadow-[#2D241E]/15 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
                 >
-                  BOOK APPOINTMENT
+                  <span>Book Appointment</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#E3BA8F]" />
                 </button>
 
                 <Link
                   to="/services"
-                  className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-3.5 rounded-full bg-white hover:bg-[#F8F3ED] text-[#2D241E] border border-[#E5D6C4] hover:border-[#B07D54] font-sans font-semibold text-xs uppercase tracking-[0.2em] shadow-xs transition-all duration-300 text-center"
+                  className="w-full sm:w-auto px-7 py-3.5 sm:px-8 sm:py-3.5 rounded-full bg-white/90 hover:bg-[#FAF7F2] text-[#2D241E] border border-[#E5D6C4] hover:border-[#B07D54] font-sans font-semibold text-xs uppercase tracking-[0.2em] shadow-xs hover:scale-105 transition-all duration-300 text-center backdrop-blur-md"
                 >
                   EXPLORE SERVICES
                 </Link>
               </div>
-
-              {/* Small Bottom Information */}
-              <div className="pt-2">
-                <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-4 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/85 border border-[#EDE4D9] backdrop-blur-md text-[11px] sm:text-xs text-[#6B4E3D] font-medium tracking-wide shadow-xs">
-                  <span>Premium Treatments</span>
-                  <span className="text-[#C59B6D]">•</span>
-                  <span>Professional Care</span>
-                  <span className="text-[#C59B6D]">•</span>
-                  <span>Relaxing Ambience</span>
-                </div>
-              </div>
             </div>
 
             {/* ── RIGHT: 3D Luxury Fluid Morphing Visual with Interactive Parallax ── */}
-            <div className="lg:col-span-5 flex items-center justify-center order-1 lg:order-2">
+            <div className="lg:col-span-5 flex items-center justify-center lg:justify-end order-1 lg:order-2">
               <div
                 className="hero-visual-container"
                 style={{
@@ -391,19 +416,8 @@ export default function Landingpage() {
                 <div className="blob-aura-wave-1" />
                 <div className="blob-aura-wave-2" />
 
-                {/* Floating Badge Top-Right */}
-                <div className="floating-spa-badge floating-spa-badge-1 hidden sm:flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-[#D4A373]/20 flex items-center justify-center text-[#B07D54]">
-                    <Sparkles className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-[#2D241E] leading-none">100% Natural</div>
-                    <div className="text-[9px] text-[#8C7364] leading-none mt-0.5">Spa Wellness</div>
-                  </div>
-                </div>
-
-                {/* Floating Badge Bottom-Left */}
-                <div className="floating-spa-badge floating-spa-badge-2 hidden sm:flex items-center gap-2.5">
+                {/* Floating Rating Badge */}
+                <div className="floating-spa-badge floating-spa-badge-2 hidden sm:flex items-center gap-2.5 bg-white/95 border border-[#E8DFD5] text-[#2D241E] backdrop-blur-md shadow-lg">
                   <div className="w-6 h-6 rounded-full bg-[#E3BA8F]/30 flex items-center justify-center text-[#B07D54]">
                     <Star className="w-3.5 h-3.5 fill-[#B07D54]" />
                   </div>
@@ -423,7 +437,6 @@ export default function Landingpage() {
                   <div className="hero-image-overlay" />
                   <div className="blob-sheen" />
                 </div>
-
               </div>
             </div>
 
@@ -612,48 +625,55 @@ export default function Landingpage() {
                         exit={{ opacity: 0, scale: 0.96, y: -10 }}
                         transition={{ duration: 0.3 }}
                         onClick={() => setActiveCardDetail(c)}
-                        className={`w-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-300 min-h-[420px] backdrop-blur-md`}
+                        style={{
+                          boxShadow: `0 20px 45px -10px rgba(0,0,0,0.65), 0 0 25px -5px ${c.glowColor || 'rgba(212,163,115,0.4)'}, inset 0 1.5px 1.5px 0 rgba(255,255,255,0.35), inset 0 -2px 5px 0 rgba(0,0,0,0.55)`,
+                        }}
+                        className={`w-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-300 min-h-[420px] backdrop-blur-md`}
                       >
-                        {/* Top Accent Border */}
-                        <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-60`} />
+                        {/* 3D Glass Sheen Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/12 via-transparent to-black/40 pointer-events-none rounded-[28px]" />
+
+                        {/* Top 3D Luminous Accent Border */}
+                        <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-80`} />
 
                         {/* Watermark Numeral */}
-                        <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/10 select-none pointer-events-none">
+                        <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/15 select-none pointer-events-none drop-shadow-sm">
                           {c.num}
                         </span>
 
                         {/* Top Tag & Header */}
                         <div className="space-y-3 relative z-10">
                           <div className="flex items-center justify-between">
-                            <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-xs`}>
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9.5px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-sm backdrop-blur-sm`}>
+                              <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
                               {c.tag}
                             </span>
                           </div>
 
-                          <h3 className="text-2xl font-serif-luxury font-bold text-white leading-snug">
+                          <h3 className="text-2xl font-serif-luxury font-bold text-white leading-snug drop-shadow-md">
                             {c.title}
                           </h3>
 
-                          <p className="text-xs text-white/75 font-light leading-relaxed">
+                          <p className="text-xs text-white/80 font-light leading-relaxed">
                             {c.desc}
                           </p>
                         </div>
 
                         {/* Middle Lucide Icon Luxury Medallion Emblem */}
                         <div className="my-4 relative flex items-center justify-center">
-                          <div className="relative w-22 h-22 rounded-full bg-gradient-to-b from-white/10 via-white/[0.03] to-transparent border border-white/20 flex items-center justify-center shadow-2xl backdrop-blur-md">
-                            <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-40 pointer-events-none`} />
-                            <IconComponent className={`w-10 h-10 ${c.iconColor} relative z-10 drop-shadow-md`} />
+                          <div className="relative w-22 h-22 rounded-full bg-gradient-to-b from-white/15 via-white/[0.04] to-transparent border border-white/25 flex items-center justify-center shadow-[0_12px_28px_rgba(0,0,0,0.6)] backdrop-blur-md">
+                            <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-50 pointer-events-none`} />
+                            <IconComponent className={`w-10 h-10 ${c.iconColor} relative z-10 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]`} />
                           </div>
                         </div>
 
                         {/* Bottom Feature Badge & Action */}
-                        <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 text-[11px]">
-                          <div className={`flex items-center gap-1.5 font-medium ${c.badgeColor}`}>
-                            <Sparkles className="w-3 h-3" />
+                        <div className="pt-3 border-t border-white/15 flex items-center justify-between relative z-10 text-[11px]">
+                          <div className={`flex items-center gap-1.5 font-semibold ${c.badgeColor}`}>
+                            <Sparkles className="w-3.5 h-3.5 shrink-0" />
                             <span className="truncate max-w-[150px]">{c.badge}</span>
                           </div>
-                          <span className="px-3.5 py-1 rounded-full bg-white/15 text-white text-[10.5px] font-bold uppercase tracking-wider flex items-center gap-1">
+                          <span className="px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-white text-[10.5px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
                             Details <ArrowRight className="w-3 h-3" />
                           </span>
                         </div>
@@ -679,14 +699,15 @@ export default function Landingpage() {
                 </div>
               </div>
 
-              {/* DESKTOP VIEW (≥ md:): Rich 3D Cylindrical Experience Card Slider */}
+              {/* DESKTOP VIEW (≥ md:): Rich 3D Cylindrical Experience Card Slider with Base Pedestal */}
               <div className="hidden md:flex w-full flex-col items-center justify-center relative min-h-[460px] md:min-h-[540px] overflow-hidden" style={{ touchAction: 'pan-y' }}>
                 <ImageSlider3D
                   duration={48}
                   cardWidth="17.5em"
                   cardAspectRatio="7.5/10"
-                  perspective="40em"
+                  perspective="42em"
                   withMask={true}
+                  pauseOnHover={true}
                   onCardClick={(c) => setActiveCardDetail(c)}
                   items={experienceCards}
                   renderItem={(c) => {
@@ -697,57 +718,68 @@ export default function Landingpage() {
                         style={{
                           backfaceVisibility: "hidden",
                           WebkitBackfaceVisibility: "hidden",
+                          boxShadow: `0 25px 50px -12px rgba(0,0,0,0.7), 0 0 25px -5px ${c.glowColor || 'rgba(212,163,115,0.4)'}, inset 0 1.5px 1.5px 0 rgba(255,255,255,0.35), inset 0 -2px 5px 0 rgba(0,0,0,0.55)`,
                         }}
-                        className={`w-full h-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 shadow-2xl flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-700 hover:shadow-[0_25px_60px_-10px_rgba(0,0,0,0.6)] backdrop-blur-md`}
+                        className={`w-full h-full rounded-[28px] bg-gradient-to-b ${c.cardBg} border ${c.borderColor} p-6 flex flex-col justify-between overflow-hidden relative group cursor-pointer transition-all duration-500 hover:shadow-[0_30px_60px_-10px_rgba(0,0,0,0.8)] backdrop-blur-md`}
                       >
-                        {/* Top Accent Border */}
-                        <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-40 group-hover:opacity-100 transition-opacity duration-500`} />
+                        {/* 3D Glass Sheen Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/12 via-transparent to-black/40 pointer-events-none rounded-[28px]" />
+
+                        {/* Top 3D Luminous Accent Border */}
+                        <div className={`absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${c.accentBorder} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
 
                         {/* Watermark Numeral */}
-                        <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/10 group-hover:text-white/20 transition-colors select-none pointer-events-none">
+                        <span className="absolute top-2 right-4 text-4xl font-serif-luxury font-bold text-white/15 group-hover:text-white/30 transition-colors select-none pointer-events-none drop-shadow-sm">
                           {c.num}
                         </span>
 
                         {/* Top Tag & Header */}
                         <div className="space-y-3 relative z-10">
                           <div className="flex items-center justify-between">
-                            <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-xs`}>
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-bold tracking-[0.2em] uppercase border ${c.tagBg} shadow-sm backdrop-blur-sm`}>
+                              <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
                               {c.tag}
                             </span>
                           </div>
 
-                          <h3 className="text-xl font-serif-luxury font-bold text-white leading-snug group-hover:text-white transition-colors duration-300">
+                          <h3 className="text-xl font-serif-luxury font-bold text-white leading-snug group-hover:text-white transition-colors duration-300 drop-shadow-md">
                             {c.title}
                           </h3>
 
-                          <p className="text-xs text-white/70 font-light leading-relaxed line-clamp-3">
+                          <p className="text-xs text-white/75 font-light leading-relaxed line-clamp-3">
                             {c.desc}
                           </p>
                         </div>
 
                         {/* Middle Lucide Icon Luxury Medallion Emblem */}
                         <div className="my-2 relative flex items-center justify-center">
-                          <div className="relative w-22 h-22 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-white/10 via-white/[0.03] to-transparent border border-white/20 group-hover:border-white/40 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500 backdrop-blur-md">
+                          <div className="relative w-22 h-22 sm:w-24 sm:h-24 rounded-full bg-gradient-to-b from-white/15 via-white/[0.04] to-transparent border border-white/25 group-hover:border-white/50 flex items-center justify-center shadow-[0_12px_28px_rgba(0,0,0,0.6)] group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 backdrop-blur-md">
                             {/* Soft Ambient Glow Halo */}
-                            <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-                            <IconComponent className={`w-10 h-10 ${c.iconColor} group-hover:text-white transition-colors relative z-10 drop-shadow-md`} />
+                            <div className={`absolute inset-0 ${c.haloGlow} rounded-full blur-xl opacity-40 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
+                            <IconComponent className={`w-10 h-10 ${c.iconColor} group-hover:text-white transition-colors relative z-10 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]`} />
                           </div>
                         </div>
 
                         {/* Bottom Feature Badge & Action */}
-                        <div className="pt-3 border-t border-white/10 flex items-center justify-between relative z-10 text-[11px]">
-                          <div className={`flex items-center gap-1.5 font-medium ${c.badgeColor}`}>
-                            <Sparkles className="w-3 h-3" />
+                        <div className="pt-3 border-t border-white/15 flex items-center justify-between relative z-10 text-[11px]">
+                          <div className={`flex items-center gap-1.5 font-semibold ${c.badgeColor}`}>
+                            <Sparkles className="w-3.5 h-3.5 shrink-0" />
                             <span className="truncate max-w-[120px]">{c.badge}</span>
                           </div>
-                          <span className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 whitespace-nowrap">
-                            Details <ArrowRight className="w-2.5 h-2.5" />
+                          <span className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 whitespace-nowrap shadow-sm group-hover:border-white/40">
+                            Details <ArrowRight className="w-2.5 h-2.5 group-hover:translate-x-0.5 transition-transform" />
                           </span>
                         </div>
                       </div>
                     );
                   }}
                 />
+
+                {/* 3D Realistic Ground Pedestal Shadow Base */}
+                <div className="w-[85%] max-w-[500px] h-6 -mt-3 pointer-events-none relative flex items-center justify-center">
+                  <div className="w-full h-full bg-[#2D241E]/25 rounded-full blur-lg" />
+                  <div className="absolute w-2/3 h-2.5 bg-[#B07D54]/20 rounded-full blur-md" />
+                </div>
               </div>
             </div>
 
@@ -770,7 +802,6 @@ export default function Landingpage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-serif-luxury font-bold text-[#2D241E]">Master Therapists</h4>
-
                   </div>
                 </div>
 
@@ -780,7 +811,6 @@ export default function Landingpage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-serif-luxury font-bold text-[#14261C]">Private Luxury Suites</h4>
-
                   </div>
                 </div>
               </div>
@@ -800,10 +830,9 @@ export default function Landingpage() {
           </div>
         </div>
 
-        {/* Smooth Luxury Modal Popup for Clicked 3D Experience Card (Dynamic Green/Brown Theme) */}
+        {/* Smooth Luxury Modal Popup for Clicked 3D Experience Card (Dynamic Rich 3D Theme) */}
         <AnimatePresence>
           {activeCardDetail && (() => {
-            const isGreen = activeCardDetail.cardBg?.includes("#142318") || activeCardDetail.tagBg?.includes("#A7E8CD");
             const ModalIcon = activeCardDetail.icon || Sparkles;
 
             return (
@@ -824,21 +853,20 @@ export default function Landingpage() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.94, y: 20 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className={`relative w-full max-w-2xl rounded-[32px] overflow-hidden shadow-2xl z-10 text-white border ${isGreen ? "bg-[#0D1A12] border-[#244230]" : "bg-[#1F1712] border-[#5A4333]"
-                    }`}
+                  style={{
+                    boxShadow: `0 30px 70px -15px rgba(0,0,0,0.85), 0 0 35px -5px ${activeCardDetail.glowColor || 'rgba(212,163,115,0.4)'}, inset 0 1.5px 1.5px 0 rgba(255,255,255,0.25)`,
+                  }}
+                  className={`relative w-full max-w-2xl rounded-[32px] overflow-hidden z-10 text-white border ${activeCardDetail.borderColor} bg-gradient-to-b ${activeCardDetail.cardBg}`}
                 >
                   {/* Top Accent Line */}
                   <div
-                    className={`h-1.5 bg-gradient-to-r ${isGreen
-                      ? "from-[#2D6A4F] via-[#74C69D] to-[#2D6A4F]"
-                      : "from-[#D4A373] via-[#F3D7B8] to-[#B07D54]"
-                      }`}
+                    className={`h-1.5 bg-gradient-to-r ${activeCardDetail.accentBorder}`}
                   />
 
                   {/* Close Button */}
                   <button
                     onClick={() => setActiveCardDetail(null)}
-                    className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/80 hover:text-white transition-all cursor-pointer z-20 hover:scale-105 active:scale-95"
+                    className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white/80 hover:text-white transition-all cursor-pointer z-20 hover:scale-105 active:scale-95 border border-white/15"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -847,16 +875,13 @@ export default function Landingpage() {
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
                       {/* Glowing Lucide Icon Emblem */}
                       <div
-                        className={`w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-white/15 via-white/[0.05] to-transparent border-2 shrink-0 shadow-2xl shadow-black/50 flex items-center justify-center relative backdrop-blur-md ${isGreen ? "border-[#52B788]" : "border-[#D4A373]"
-                          }`}
+                        className={`w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-white/15 via-white/[0.05] to-transparent border-2 shrink-0 shadow-2xl shadow-black/50 flex items-center justify-center relative backdrop-blur-md ${activeCardDetail.borderColor}`}
                       >
                         <div
-                          className={`absolute inset-0 rounded-3xl blur-lg pointer-events-none ${isGreen ? "bg-[#52B788]/25" : "bg-[#D4A373]/25"
-                            }`}
+                          className={`absolute inset-0 rounded-3xl blur-lg pointer-events-none ${activeCardDetail.haloGlow}`}
                         />
                         <ModalIcon
-                          className={`w-12 h-12 relative z-10 drop-shadow-md ${isGreen ? "text-[#A7E8CD]" : "text-[#E3BA8F]"
-                            }`}
+                          className={`w-12 h-12 relative z-10 drop-shadow-md ${activeCardDetail.iconColor}`}
                         />
                       </div>
 
@@ -866,12 +891,11 @@ export default function Landingpage() {
                         >
                           {activeCardDetail.tag}
                         </span>
-                        <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white">
+                        <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white drop-shadow-md">
                           {activeCardDetail.title}
                         </h3>
                         <div
-                          className={`flex items-center justify-center sm:justify-start gap-2 text-xs font-semibold ${isGreen ? "text-[#A7E8CD]" : "text-[#E3BA8F]"
-                            }`}
+                          className={`flex items-center justify-center sm:justify-start gap-2 text-xs font-semibold ${activeCardDetail.badgeColor}`}
                         >
                           <Sparkles className="w-3.5 h-3.5" />
                           <span>{activeCardDetail.badge}</span>
@@ -879,7 +903,7 @@ export default function Landingpage() {
                       </div>
                     </div>
 
-                    <p className="text-sm sm:text-base text-white/80 leading-relaxed font-light">
+                    <p className="text-sm sm:text-base text-white/85 leading-relaxed font-light">
                       {activeCardDetail.desc}
                     </p>
 
@@ -892,8 +916,7 @@ export default function Landingpage() {
                       <div>
                         <div className="text-[10px] text-white/50 uppercase tracking-wider">Therapist</div>
                         <div
-                          className={`text-sm font-semibold mt-0.5 ${isGreen ? "text-[#A7E8CD]" : "text-[#E3BA8F]"
-                            }`}
+                          className={`text-sm font-semibold mt-0.5 ${activeCardDetail.badgeColor}`}
                         >
                           Master Certified
                         </div>
@@ -919,7 +942,7 @@ export default function Landingpage() {
                       </button>
                       <button
                         onClick={() => setActiveCardDetail(null)}
-                        className="py-3.5 px-6 rounded-full bg-white/10 hover:bg-white/15 text-white/80 hover:text-white font-medium text-xs tracking-wider transition-all cursor-pointer"
+                        className="py-3.5 px-6 rounded-full bg-white/10 hover:bg-white/15 text-white/80 hover:text-white font-medium text-xs tracking-wider transition-all cursor-pointer border border-white/10"
                       >
                         Close
                       </button>
@@ -1311,112 +1334,420 @@ export default function Landingpage() {
 
 
       {/* ─────────────────────────────────────────────────────────────────────────
-          SECTION 7: SPA EXPERIENCE / FACILITIES — Stacked & Grid Layout
+          SECTION 7: SPA EXPERIENCE / SANCTUARY SPACES — Interactive 3D Showcase
       ───────────────────────────────────────────────────────────────────────── */}
-      <section id="facilities" className="py-24 md:py-32 bg-[#FAF7F2] relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="facilities" className="py-24 md:py-32 bg-[#FAF7F2] relative overflow-hidden">
+        {/* Soft Ambient Radiance in Background */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[550px] bg-[#D4A373]/12 rounded-full blur-[170px] pointer-events-none" />
+        <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#52B788]/10 rounded-full blur-[150px] pointer-events-none" />
 
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E]">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E3BA8F]/15 border border-[#D4A373]/30 text-[#8C6A43] text-xs font-bold uppercase tracking-[0.2em] shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#B07D54]" />
+              <span>Sanctuary Spaces & Suites</span>
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E] leading-tight">
               Designed for Complete Relaxation
             </h2>
-            <p className="text-sm sm:text-base text-[#6B5A4E] max-w-xl mx-auto">
-              Every space at Sara Spa is thoughtfully designed to create a calm and comfortable environment from the moment you arrive.
+            <p className="text-sm sm:text-base text-[#6B5A4E] max-w-xl mx-auto font-light leading-relaxed">
+              Every space at Sara Spa is thoughtfully designed to create a calm and comfortable environment from the moment you arrive. Click any suite to explore virtual room details.
             </p>
+
+            {/* Interactive Space Filter Tabs */}
+          
           </div>
 
-          {/* Masonry / Stacked Gallery Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Interactive 3D Sanctuary Cards Grid */}
+          {(() => {
+            const spaSanctuarySpaces = [
+              {
+                id: "suite-01",
+                category: "suites",
+                tag: "Suite 01",
+                title: "Luxury Treatment Rooms",
+                desc: "Private temperature-controlled suites with organic aroma diffusers & teakwood beds.",
+                longDesc: "Individually customized private sanctuaries featuring bespoke soundproofing, dimmable amber mood lighting, handcrafted Indonesian teakwood massage tables, and therapeutic ultrasonic aroma diffusers emitting pure botanical essences.",
+                image: spa2Img,
+                colSpan: "md:col-span-8",
+                minHeight: "min-h-[360px] md:min-h-[440px]",
+                previewPills: ["Teakwood Beds", "Aroma Diffusers", "Climate Controlled"],
+                specs: {
+                  climate: "Individually Controlled (22°C–25°C)",
+                  aroma: "Wild Mountain Lavender & Royal Sandalwood",
+                  sound: "432Hz Solfeggio Healing Frequencies",
+                  capacity: "Private Single & Dual Suites",
+                },
+                amenities: [
+                  "Handcrafted Indonesian Teakwood Massage Beds",
+                  "Private Ensuite Rainfall Shower",
+                  "Ultrasonic Medical-Grade Aroma Diffuser",
+                  "Egyptian 800-Thread Organic Cotton Linens",
+                  "Custom Thermal Heated Mattress Pads",
+                ],
+                popularTreatments: ["Thai Massage", "Deep Tissue Therapy", "Balinese Massage"],
+              },
+              {
+                id: "lounge",
+                category: "lounges",
+                tag: "Lounge",
+                title: "Private Relaxation Spaces",
+                desc: "Candlelit head & facial serenity with organic flower teas.",
+                longDesc: "A tranquil post-treatment sanctuary designed for gentle awakening. Sink into oversized zero-gravity daybeds while sipping slow-brewed organic chrysanthemum and jasmine flower teas in a soothing, candlelit atmosphere.",
+                image: spa3Img,
+                colSpan: "md:col-span-4",
+                minHeight: "min-h-[280px] md:min-h-[440px]",
+                previewPills: ["Zero-Gravity Beds", "Artisanal Teas", "Candlelit"],
+                specs: {
+                  climate: "Soft Warmth & Calming Airflow",
+                  aroma: "Warm Chamomile & Bergamot Petals",
+                  sound: "Gentle Flowing Water Streams",
+                  capacity: "Private Semi-Enclosed Daybeds",
+                },
+                amenities: [
+                  "Ergonomic Zero-Gravity Reclining Daybeds",
+                  "Artisanal Herbal Tea & Infusion Bar",
+                  "Warmed Flaxseed Eye Pillows",
+                  "Tibetan Singing Bowl Meditation Nooks",
+                  "Organic Roasted Nuts & Dried Golden Fruits",
+                ],
+                popularTreatments: ["Head Champi Serenity", "Express Foot Ritual", "Floral Relaxation"],
+              },
+              {
+                id: "rituals",
+                category: "rituals",
+                tag: "Rituals",
+                title: "Signature Holistic Rituals",
+                desc: "Multi-sensory hot stone, flower bath & botanical care.",
+                longDesc: "A dedicated ritual room engineered for immersive holistic therapies. Features heated volcanic basalt stone stations, deep copper soaking tubs laden with fresh rose and jasmine petals, and singing bowl acoustic therapy.",
+                image: spa4Img,
+                colSpan: "md:col-span-4",
+                minHeight: "min-h-[290px]",
+                previewPills: ["Volcanic Stones", "Flower Baths", "Multi-Sensory"],
+                specs: {
+                  climate: "Deep Thermal Radiance (26°C)",
+                  aroma: "Smoked Frankincense & Sweet Orange",
+                  sound: "Chakra Resonant Chimes & Chants",
+                  capacity: "Single & Couples Ceremony Layout",
+                },
+                amenities: [
+                  "Hand-Carved Volcanic Basalt Heating Wells",
+                  "Solid Copper Foot & Body Soaking Tubs",
+                  "Warm Herbal Muslin Compress Steamers",
+                  "Organic Cold-Pressed Seed Oils",
+                  "Acoustic Wind Gongs & Brass Singing Bowls",
+                ],
+                popularTreatments: ["Hot Stone Massage", "Potli Herbal Massage", "Full Body Scrub"],
+              },
+              {
+                id: "apothecary",
+                category: "rituals",
+                tag: "Apothecary",
+                title: "Botanical Care & Beauty",
+                desc: "100% natural tropical flower essences & soothing vapor.",
+                longDesc: "Our organic beauty dispensary and botanical treatment lab where master herbalists blend fresh cold-pressed oils, wild honey, organic sea salts, and floral extracts right before each session.",
+                image: spa8Img,
+                colSpan: "md:col-span-4",
+                minHeight: "min-h-[290px]",
+                previewPills: ["100% Organic", "Steam Vapor", "Custom Blends"],
+                specs: {
+                  climate: "Purified Clean Air Humidity Zone",
+                  aroma: "Fresh Lemongrass & Crushed Jasmine",
+                  sound: "Forest Canopy Ambient Acoustics",
+                  capacity: "Formulation Bar & Private Treatment",
+                },
+                amenities: [
+                  "Certified 100% Organic Botanical Extracts",
+                  "Live Essential Oil Distillation Display",
+                  "Herbal Facial Steam Micro-Vaporizers",
+                  "Wild Himalayan Mineral Salts & Clays",
+                  "Fresh Honey & Crushed Flower Blending Station",
+                ],
+                popularTreatments: ["Aromatherapy Massage", "Botanical Scrub", "Mud Body Wrap"],
+              },
+              {
+                id: "sanctuary",
+                category: "suites",
+                tag: "Sanctuary",
+                title: "Couples Rejuvenation",
+                desc: "Synchronized restorative therapy & acoustic peace.",
+                longDesc: "The ultimate couples sanctuary featuring synchronized dual therapist tables, a private oversized hydrothermal jacuzzi with milk and rose-petal infusions, champagne service, and private ensuite rain showers.",
+                image: spa1Img,
+                colSpan: "md:col-span-4",
+                minHeight: "min-h-[290px]",
+                previewPills: ["Private Jacuzzi", "Dual Master Beds", "Couples Suite"],
+                specs: {
+                  climate: "Balmy Warmth & Controlled Jet Temperature",
+                  aroma: "Damask Rose & French Vanilla",
+                  sound: "Harmonic Acoustic Duo Resonance",
+                  capacity: "Exclusive VIP Couple Suite",
+                },
+                amenities: [
+                  "Dual Hydrotherapy Whirlpool Jacuzzi",
+                  "Side-by-Side Synchronized Teakwood Tables",
+                  "Candlelit Rose Petal Bed Dressing",
+                  "Chilled Artisanal Elixirs & Organic Bites",
+                  "Dual Rainfall Shower Suite",
+                ],
+                popularTreatments: ["Couples Massage Ritual", "Jacuzzi Milk & Honey Bath", "Four Hand Massage"],
+              },
+            ];
 
-            {/* Big Main Image: Luxury Treatment Rooms */}
-            <div className="md:col-span-8 group relative rounded-3xl overflow-hidden min-h-[350px] md:min-h-[420px] border border-[#EFE6DC] shadow-sm bg-[#1E1712]">
-              <img
-                src={spa2Img}
-                alt="Luxury Treatment Rooms"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-xs uppercase tracking-widest text-[#E3BA8F] font-bold">Suite 01</span>
-                <h3 className="text-2xl font-serif-luxury font-bold mt-1">Luxury Treatment Rooms</h3>
-                <p className="text-xs sm:text-sm text-slate-200 mt-1">Private temperature-controlled suites with organic aroma diffusers & teakwood beds.</p>
-              </div>
-            </div>
+            const filteredSpaces = spaSanctuarySpaces.filter((s) => {
+              if (activeSpaceFilter === "all") return true;
+              return s.category === activeSpaceFilter;
+            });
 
-            {/* Stacked 1: Private Relaxation Spaces */}
-            <div className="md:col-span-4 group relative rounded-3xl overflow-hidden min-h-[250px] md:min-h-[420px] border border-[#EFE6DC] shadow-sm bg-[#1E1712]">
-              <img
-                src={spa3Img}
-                alt="Private Relaxation Spaces"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-xs uppercase tracking-widest text-[#E3BA8F] font-bold">Lounge</span>
-                <h3 className="text-xl font-serif-luxury font-bold mt-1">Private Relaxation Spaces</h3>
-                <p className="text-xs text-slate-200 mt-1">Candlelit head & facial serenity with organic flower teas.</p>
-              </div>
-            </div>
+            return (
+              <motion.div
+                layout
+                className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8"
+              >
+                {filteredSpaces.map((space) => {
+                  const isLarge = space.id === "suite-01" && activeSpaceFilter === "all";
+                  const colClass = isLarge
+                    ? "md:col-span-8"
+                    : space.id === "lounge" && activeSpaceFilter === "all"
+                      ? "md:col-span-4"
+                      : filteredSpaces.length === 2
+                        ? "md:col-span-6"
+                        : filteredSpaces.length === 1
+                          ? "md:col-span-12 max-w-2xl mx-auto"
+                          : "md:col-span-4";
 
-            {/* Bottom Row 3 Cards */}
-            {/* Signature Holistic Rituals */}
-            <div className="md:col-span-4 group relative rounded-3xl overflow-hidden min-h-[260px] border border-[#EFE6DC] shadow-sm bg-[#1E1712]">
-              <img
-                src={spa4Img}
-                alt="Signature Holistic Rituals"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-[10px] uppercase tracking-widest text-[#E3BA8F] font-bold">Rituals</span>
-                <h3 className="text-lg font-serif-luxury font-bold">Signature Holistic Rituals</h3>
-                <p className="text-xs text-slate-200">Multi-sensory hot stone, flower bath & botanical care.</p>
-              </div>
-            </div>
+                  const minHClass = isLarge
+                    ? "min-h-[360px] md:min-h-[440px]"
+                    : space.id === "lounge" && activeSpaceFilter === "all"
+                      ? "min-h-[280px] md:min-h-[440px]"
+                      : "min-h-[300px] md:min-h-[340px]";
 
-            {/* Botanical Care & Beauty */}
-            <div className="md:col-span-4 group relative rounded-3xl overflow-hidden min-h-[260px] border border-[#EFE6DC] shadow-sm bg-[#1E1712]">
-              <img
-                src={spa5Img}
-                alt="Botanical Care & Beauty"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-[10px] uppercase tracking-widest text-[#E3BA8F] font-bold">Apothecary</span>
-                <h3 className="text-lg font-serif-luxury font-bold">Botanical Care & Beauty</h3>
-                <p className="text-xs text-slate-200">100% natural tropical flower essences & soothing vapor.</p>
-              </div>
-            </div>
+                  return (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.35 }}
+                      key={space.id}
+                      onClick={() => setSelectedSpaceModal(space)}
+                      style={{
+                        boxShadow: "0 20px 45px -12px rgba(45,36,30,0.22), inset 0 1px 1px 0 rgba(255,255,255,0.4)",
+                      }}
+                      className={`${colClass} group relative rounded-[32px] overflow-hidden ${minHClass} border border-[#E5D7C7] hover:border-[#D4A373] bg-[#1E1712] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_32px_65px_-15px_rgba(176,125,84,0.4)] cursor-pointer flex flex-col justify-between`}
+                    >
+                      {/* Realistic Photo with Smooth Parallax Scale */}
+                      <img
+                        src={space.image}
+                        alt={space.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out filter brightness-95"
+                      />
 
-            {/* Calm Couples & Jacuzzi Ambience */}
-            <div className="md:col-span-4 group relative rounded-3xl overflow-hidden min-h-[260px] border border-[#EFE6DC] shadow-sm bg-[#1E1712]">
-              <img
-                src={spa1Img}
-                alt="Couples Jacuzzi & Suite"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-[10px] uppercase tracking-widest text-[#E3BA8F] font-bold">Sanctuary</span>
-                <h3 className="text-lg font-serif-luxury font-bold">Couples Rejuvenation</h3>
-                <p className="text-xs text-slate-200">Synchronized restorative therapy & acoustic peace.</p>
-              </div>
-            </div>
+                      {/* Multi-gradient Lighting Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1A120B]/95 via-[#1A120B]/45 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/40 pointer-events-none rounded-[32px]" />
 
-          </div>
+                      {/* Top Bar: Category Badge + Quick Explore Trigger */}
+                      <div className="relative z-20 p-5 sm:p-6 flex items-center justify-between">
+                        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#1F1813]/85 backdrop-blur-md border border-[#E3BA8F]/50 text-[#E3BA8F] text-[10px] uppercase tracking-[0.2em] font-bold shadow-md">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E3BA8F] animate-pulse" />
+                          {space.tag}
+                        </span>
+
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white text-[11px] font-bold tracking-wide group-hover:bg-[#B07D54] group-hover:border-[#E3BA8F] transition-all duration-300 shadow-md group-hover:scale-105">
+                          <Eye className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">Explore Suite</span>
+                        </div>
+                      </div>
+
+                      {/* Bottom Content Area: Title, Description & Feature Pills */}
+                      <div className="relative z-20 p-6 sm:p-7 text-white space-y-2.5">
+                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif-luxury font-bold leading-snug drop-shadow-md text-[#FFF8F0] group-hover:text-[#F3D7B8] transition-colors">
+                          {space.title}
+                        </h3>
+
+                        <p className="text-xs sm:text-sm text-[#E2D4C6] max-w-xl font-light leading-relaxed">
+                          {space.desc}
+                        </p>
+
+                        {/* Interactive Micro Pills */}
+                        <div className="pt-2 flex flex-wrap gap-1.5">
+                          {space.previewPills?.map((pill, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] text-white/90 font-medium group-hover:bg-white/20 transition-colors"
+                            >
+                              <Sparkles className="w-2.5 h-2.5 text-[#E3BA8F]" />
+                              {pill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            );
+          })()}
         </div>
+
+        {/* Interactive Virtual Suite Modal Exploration Dialog */}
+        <AnimatePresence>
+          {selectedSpaceModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              {/* Backdrop Blur */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setSelectedSpaceModal(null)}
+                className="fixed inset-0 bg-black/80 backdrop-blur-md cursor-pointer"
+              />
+
+              {/* Modal Container */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94, y: 25 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.94, y: 25 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  boxShadow: "0 35px 80px -20px rgba(0,0,0,0.9), 0 0 40px -10px rgba(212,163,115,0.45), inset 0 1.5px 1.5px 0 rgba(255,255,255,0.3)",
+                }}
+                className="relative w-full max-w-3xl rounded-[32px] overflow-hidden z-10 text-white border border-[#5A4333] bg-gradient-to-b from-[#1F1712] via-[#17100B] to-[#0F0A06] my-8"
+              >
+                {/* Top Glowing Metallic Accent */}
+                <div className="h-1.5 bg-gradient-to-r from-[#D4A373] via-[#F3D7B8] to-[#B07D54]" />
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedSpaceModal(null)}
+                  className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 flex items-center justify-center text-white/80 hover:text-white transition-all cursor-pointer z-30 hover:scale-105 active:scale-95 border border-white/15"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* Modal Header Photo Banner */}
+                <div className="relative h-64 sm:h-72 w-full overflow-hidden">
+                  <img
+                    src={selectedSpaceModal.image}
+                    alt={selectedSpaceModal.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1F1712] via-[#1F1712]/50 to-transparent" />
+                  <div className="absolute top-5 left-5 z-20">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1F1813]/85 backdrop-blur-md border border-[#E3BA8F]/50 text-[#E3BA8F] text-[10px] uppercase tracking-[0.2em] font-bold shadow-md">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E3BA8F] animate-pulse" />
+                      {selectedSpaceModal.tag}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-4 left-6 right-6 z-20">
+                    <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white drop-shadow-md">
+                      {selectedSpaceModal.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Modal Body */}
+                <div className="p-6 sm:p-8 space-y-6">
+                  <p className="text-sm sm:text-base text-white/85 leading-relaxed font-light">
+                    {selectedSpaceModal.longDesc}
+                  </p>
+
+                  {/* Room Specifications 4-Box Grid */}
+                  <div>
+                    <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-[#E3BA8F] mb-3 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#E3BA8F]" />
+                      <span>Sanctuary Environment & Specifications</span>
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#E3BA8F]/15 border border-[#E3BA8F]/30 flex items-center justify-center text-[#E3BA8F] shrink-0 mt-0.5">
+                          <Thermometer className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-[10.5px] uppercase tracking-wider text-white/50 font-bold">Climate Control</div>
+                          <div className="text-xs font-semibold text-white mt-0.5">{selectedSpaceModal.specs?.climate}</div>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#E3BA8F]/15 border border-[#E3BA8F]/30 flex items-center justify-center text-[#E3BA8F] shrink-0 mt-0.5">
+                          <Droplets className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-[10.5px] uppercase tracking-wider text-white/50 font-bold">Aromatherapy</div>
+                          <div className="text-xs font-semibold text-white mt-0.5">{selectedSpaceModal.specs?.aroma}</div>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#E3BA8F]/15 border border-[#E3BA8F]/30 flex items-center justify-center text-[#E3BA8F] shrink-0 mt-0.5">
+                          <Volume2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-[10.5px] uppercase tracking-wider text-white/50 font-bold">Acoustic Soundscape</div>
+                          <div className="text-xs font-semibold text-white mt-0.5">{selectedSpaceModal.specs?.sound}</div>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[#E3BA8F]/15 border border-[#E3BA8F]/30 flex items-center justify-center text-[#E3BA8F] shrink-0 mt-0.5">
+                          <Shield className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="text-[10.5px] uppercase tracking-wider text-white/50 font-bold">Capacity & Privacy</div>
+                          <div className="text-xs font-semibold text-white mt-0.5">{selectedSpaceModal.specs?.capacity}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Included Suite Amenities Checklist */}
+                  <div>
+                    <h4 className="text-xs uppercase tracking-[0.2em] font-bold text-[#E3BA8F] mb-3 flex items-center gap-1.5">
+                      <Gem className="w-3.5 h-3.5 text-[#E3BA8F]" />
+                      <span>Included Luxury Suite Amenities</span>
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {selectedSpaceModal.amenities?.map((amenity, i) => (
+                        <div key={i} className="flex items-center gap-2.5 text-xs text-white/80 py-1">
+                          <div className="w-4 h-4 rounded-full bg-[#E3BA8F]/20 border border-[#E3BA8F]/40 flex items-center justify-center text-[#E3BA8F] shrink-0">
+                            <Check className="w-2.5 h-2.5" />
+                          </div>
+                          <span>{amenity}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Action CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-3 pt-3 border-t border-white/10">
+                    <button
+                      onClick={() => {
+                        const targetTherapy = selectedSpaceModal.popularTreatments?.[0] || selectedSpaceModal.title;
+                        setSelectedSpaceModal(null);
+                        handleOpenBooking(targetTherapy);
+                      }}
+                      className="flex-1 py-4 px-6 rounded-full text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center flex items-center justify-center gap-2 bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] shadow-[0_10px_30px_rgba(212,163,115,0.4)]"
+                    >
+                      <span>Reserve Treatment in This Space</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setSelectedSpaceModal(null)}
+                      className="py-4 px-6 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white font-medium text-xs tracking-wider transition-all cursor-pointer border border-white/10"
+                    >
+                      Close Overview
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </section>
 
 
@@ -1575,35 +1906,74 @@ export default function Landingpage() {
 
 
       {/* ─────────────────────────────────────────────────────────────────────────
-          SECTION 9: COUPLE EXPERIENCE — Wide Romantic / Luxury Section
+          SECTION 9: COUPLE EXPERIENCE — Moving Canvas of Color & Radiant Glow
       ───────────────────────────────────────────────────────────────────────── */}
-      <section className="relative py-28 md:py-36 overflow-hidden bg-[#2D241E] text-white">
-        {/* Wide Romantic Luxury Backdrop */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=85"
-            alt="Sara Spa Couple Experience"
-            className="w-full h-full object-cover filter brightness-[0.38]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#2D241E]/95 via-[#2D241E]/70 to-[#2D241E]/95" />
+      <section className="relative py-32 md:py-44 overflow-hidden bg-[#140D08] text-white select-none">
+        
+        {/* MOVING CANVAS OF COLOR BACKGROUND (Organic Morphing Chromatic Light Orbs) */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Base Dark Luxury Vignette */}
+          <div className="absolute inset-0 bg-radial from-[#22150D] via-[#140D08] to-[#0A0604]" />
+
+          {/* Floating Chromatic Light Orb 1: Magma Amber Glow */}
+          <div className="animate-canvas-1 absolute -top-1/4 -left-1/4 w-[650px] h-[650px] md:w-[850px] md:h-[850px] rounded-full bg-gradient-to-tr from-[#EA580C]/45 via-[#F59E0B]/35 to-transparent blur-[100px] opacity-80" />
+
+          {/* Floating Chromatic Light Orb 2: Velvet Ruby Rose Glow */}
+          <div className="animate-canvas-2 absolute -bottom-1/3 -right-1/4 w-[700px] h-[700px] md:w-[900px] md:h-[900px] rounded-full bg-gradient-to-bl from-[#E11D48]/40 via-[#BE185D]/30 to-transparent blur-[110px] opacity-75" />
+
+          {/* Floating Chromatic Light Orb 3: Radiant Golden Honey Center */}
+          <div className="animate-canvas-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] md:w-[750px] md:h-[750px] rounded-full bg-gradient-to-r from-[#FBBF24]/30 via-[#D97706]/25 to-[#FB7185]/20 blur-[90px] opacity-90" />
+
+          {/* Floating Chromatic Light Orb 4: Subtle Ocean Teal Aura Refraction */}
+          <div className="animate-canvas-1 absolute bottom-1/4 left-1/3 w-[450px] h-[450px] rounded-full bg-[#14B8A6]/20 blur-[120px] opacity-60" />
+
+          {/* Optical Bokeh Circles */}
+          <div className="absolute top-1/4 right-1/4 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+          <div className="absolute bottom-1/3 left-1/5 w-40 h-40 rounded-full bg-[#FDE68A]/15 blur-2xl" />
+
+          {/* Film Grain & Soft Radial Contrast Mask */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#140D08]/60 via-transparent to-[#140D08]/80 pointer-events-none" />
+          <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black/60 pointer-events-none" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif-luxury font-bold text-white leading-tight">
+        {/* Giant Translucent Watermark Typography in Background */}
+        <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none select-none overflow-hidden">
+          <span className="text-[18vw] font-sans font-black tracking-widest text-white/[0.04] uppercase leading-none blur-[1px]">
+            LIGHT
+          </span>
+        </div>
+
+        {/* Foreground Content */}
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8">
+          
+          {/* Subtitle Tag */}
+          <div className="inline-block space-y-1">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.35em] font-semibold text-[#F5DEB3] opacity-90 drop-shadow-sm block">
+              Couples Sanctuary
+            </span>
+            <span className="text-[9.5px] uppercase tracking-[0.25em] text-white/50 block font-light">
+              Background Experience
+            </span>
+          </div>
+
+          {/* Main Headline */}
+          <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight text-white leading-[1.08] drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
             Relax Together
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl text-[#EAE0D3] max-w-2xl mx-auto font-sans font-normal leading-relaxed">
-            Share a peaceful moment away from the everyday with a specially curated couple spa experience.
+          {/* Poetic Uppercase Description with Wide Tracking */}
+          <p className="text-xs sm:text-sm md:text-base text-white/80 max-w-2xl mx-auto uppercase tracking-[0.18em] font-medium leading-relaxed drop-shadow-md">
+            It glows with warmth. Dissolves in color. And leaves only a trace of silence behind. Share a peaceful moment away from the everyday with a specially curated couple spa experience.
           </p>
 
-          <div className="pt-4">
+          {/* Radiant Glowing Pill Button */}
+          <div className="pt-6 sm:pt-8 flex justify-center">
             <button
               onClick={() => handleOpenBooking("Couple Experience")}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#E3BA8F] hover:bg-[#C59B6D] text-[#2D241E] font-bold text-xs uppercase tracking-[0.2em] shadow-xl hover:scale-105 transition-all duration-300"
+              className="btn-glowing-glow relative group inline-flex items-center gap-3 px-9 sm:px-11 py-4 sm:py-4.5 rounded-full bg-white/95 hover:bg-white text-[#1C120B] font-bold text-xs uppercase tracking-[0.22em] transition-all duration-500 hover:scale-105 active:scale-95 cursor-pointer shadow-2xl"
             >
-              <span>Explore Couple Experience</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Explore the Glow</span>
+              <ArrowRight className="w-4 h-4 text-[#8C6A43] group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
@@ -1620,7 +1990,7 @@ export default function Landingpage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14 text-center space-y-4 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E8DFD5] shadow-xs text-xs font-semibold text-[#8C6A43]">
-            <Star className="w-3.5 h-3.5 fill-[#E3BA8F] text-[#E3BA8F]" />
+            {/* <Star className="w-3.5 h-3.5 fill-[#E3BA8F] text-[#E3BA8F]" /> */}
             <span>4.6+ ★ Rating on Google Maps (Wakad, Pune)</span>
           </div>
 

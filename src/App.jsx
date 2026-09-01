@@ -6,7 +6,6 @@ import CommonCTA from "./common/CommonCTA";
 import PageLoader from "./common/PageLoader";
 import BookingModal from "./components/BookingModal";
 import CustomCursor from "./common/CustomCursor";
-import ScrollProgressBar from "./common/ScrollProgressBar";
 import FloatingServiceWidget from "./common/FloatingServiceWidget";
 
 // ── Lazy-loaded page components ──────────────────────────────────────────────
@@ -26,10 +25,10 @@ const Leadership              = lazy(() => import("./components/Leadershippage")
 // Lightweight luxury fallback shown while a lazy chunk is downloading
 function PageFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0E100F] text-white">
+    <div className="min-h-screen flex items-center justify-center bg-[#FAF7F2] text-[#2D241E]">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-2 border-[#FB8305] border-t-transparent rounded-full animate-spin shadow-[0_0_15px_#FB8305]" />
-        <p className="text-[#F8DBB9] font-serif-luxury text-sm tracking-[0.25em] uppercase">Entering Sanctuary…</p>
+        <div className="w-12 h-12 border-2 border-[#B07D54] border-t-transparent rounded-full animate-spin shadow-[0_0_15px_rgba(212,163,115,0.6)]" />
+        <p className="text-[#8C6A43] font-serif-luxury text-sm tracking-[0.25em] uppercase font-semibold">Entering Sanctuary…</p>
       </div>
     </div>
   );
@@ -44,9 +43,6 @@ function App() {
         
         {/* Entrance Luxury Animated Morphing SVG Page Loader */}
         <PageLoader />
-
-        {/* YouTube-Style Luxury Top Scroll & Route Progress Bar */}
-        <ScrollProgressBar />
 
         {/* Luxury Interactive Spa Custom Cursor */}
         <CustomCursor />

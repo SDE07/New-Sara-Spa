@@ -5,13 +5,44 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 4000);
+    setLoading(true);
+
+    try {
+      await fetch("https://clientwebsite.blog/email-api/api/send.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer f6fd8e29605d39b351560af0bd3ed0c6",
+        },
+        body: JSON.stringify({
+          to: "saranewspa@gmail.com",
+          from_name: "NEW SARA SPA",
+          reply_to: formData.email,
+          subject: `NEW SARA SPA — Support Inquiry: ${formData.name} (${formData.subject})`,
+          body: `<div style="font-family: sans-serif; padding: 20px;">
+            <h2>NEW SARA SPA — Support Inquiry</h2>
+            <p><strong>Name:</strong> ${formData.name}</p>
+            <p><strong>Email:</strong> ${formData.email}</p>
+            <p><strong>Subject:</strong> ${formData.subject}</p>
+            <p><strong>Message:</strong><br/>${formData.message}</p>
+          </div>`,
+          is_html: true,
+        }),
+      });
+    } catch (err) {
+      console.error("Contact send error:", err);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }, 4000);
+    }
   };
 
   return (

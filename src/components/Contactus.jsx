@@ -62,136 +62,127 @@ export default function Contactus() {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>New Sara Spa Consultation Inquiry</title>
+        <title>New Website Inquiry</title>
         <style>
-          body { margin: 0; padding: 0; background-color: #F5EFEB; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-text-size-adjust: 100%; }
-          .btn-primary { background: linear-gradient(135deg, #2D241E 0%, #1A120B 100%); color: #FFFFFF !important; text-decoration: none; padding: 12px 24px; border-radius: 9999px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; display: inline-block; }
-          .btn-whatsapp { background: #25D366; color: #FFFFFF !important; text-decoration: none; padding: 12px 24px; border-radius: 9999px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; display: inline-block; }
+          body { margin: 0; padding: 0; background-color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-text-size-adjust: 100%; color: #0F172A; }
+          .btn-primary { background-color: #0F172A; color: #FFFFFF !important; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+          .btn-whatsapp { background-color: #059669; color: #FFFFFF !important; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
           @media only screen and (max-width: 600px) {
             .email-container { width: 100% !important; padding: 12px 6px !important; }
-            .email-card { width: 100% !important; border-radius: 14px !important; }
-            .header-padding { padding: 26px 16px !important; }
-            .content-padding { padding: 24px 16px !important; }
-            .responsive-col { display: block !important; width: 100% !important; margin-bottom: 10px !important; }
+            .email-card { width: 100% !important; border-radius: 8px !important; }
+            .header-padding { padding: 20px 16px !important; }
+            .content-padding { padding: 18px 16px !important; }
           }
         </style>
       </head>
       <body>
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-container" style="background-color: #F5EFEB; padding: 36px 12px;">
+        <!-- Hidden Preheader for Gmail Primary Tab -->
+        <div style="display: none; font-size: 1px; color: #f8fafc; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
+          New website lead notification from ${formData.fullName} (${formData.phone || "No phone"}).
+          &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+        </div>
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-container" style="background-color: #F8FAFC; padding: 28px 12px;">
           <tr>
             <td align="center">
               
-              <!-- Main Luxury Card -->
-              <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-card" style="max-width: 640px; background-color: #ffffff; border-radius: 22px; overflow: hidden; box-shadow: 0 16px 50px rgba(45,36,30,0.14); border: 1px solid #E8DFD5;">
+              <!-- Main Transactional Card -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-card" style="max-width: 580px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #E2E8F0;">
 
-                <!-- ── 1. LUXURY GOLD HEADER ── -->
+                <!-- ── 1. CLEAN HEADER WITH BRAND LOGO ── -->
                 <tr>
-                  <td align="center" class="header-padding" style="background: linear-gradient(180deg, #1A120B 0%, #2A1D13 100%); padding: 36px 28px; text-align: center; border-bottom: 3px solid #D4A373; position: relative;">
-                    
-                    <!-- Official Brand Logo Medallion -->
-                    <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto 16px auto;">
-                      <tr>
-                        <td align="center" style="background: #2D241E; border: 1.5px solid #D4A373; border-radius: 9999px; padding: 6px 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-                          <table border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                              <td style="width: 28px; height: 28px; background: linear-gradient(135deg, #E3BA8F 0%, #B07D54 100%); border-radius: 50%; text-align: center; vertical-align: middle; color: #1A120B; font-family: Georgia, serif; font-size: 14px; font-weight: 900; line-height: 28px;">
-                                ✦
-                              </td>
-                              <td style="color: #FAF7F2; font-family: 'Times New Roman', Georgia, serif; font-size: 15px; font-weight: 800; letter-spacing: 3px; padding-left: 10px; vertical-align: middle; text-transform: uppercase;">
-                                NEW SARA SPA
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-
-                    <h1 style="color: #FFFFFF; margin: 6px 0 6px 0; font-family: 'Times New Roman', Georgia, serif; font-size: 24px; font-weight: 700; letter-spacing: 0.8px; line-height: 1.25;">
-                      New Guest Consultation Inquiry
-                    </h1>
-                    
-                    <p style="color: #D4A373; margin: 0; font-size: 11px; text-transform: uppercase; letter-spacing: 2.8px; font-weight: 600;">
-                      Sanctuary of Holistic Wellness • Wakad, Pune
-                    </p>
-                  </td>
-                </tr>
-
-                <!-- ── 2. STAT PILLS BAR ── -->
-                <tr>
-                  <td style="background-color: #FAF7F2; padding: 12px 20px; border-bottom: 1px solid #EDE4D9; text-align: center;">
+                  <td class="header-padding" style="padding: 24px 28px; border-bottom: 1px solid #E2E8F0; background-color: #FFFFFF;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
-                        <td align="center" style="font-size: 11px; color: #6B503F; font-weight: 600; letter-spacing: 0.5px;">
-                          <span>⭐ 4.6★ Rated</span>
-                          <span style="color: #D4A373; margin: 0 8px;">•</span>
-                          <span>🌿 Authentic Ayurveda</span>
-                          <span style="color: #D4A373; margin: 0 8px;">•</span>
-                          <span>🕒 Open 24/7 Hours</span>
+                        <td style="vertical-align: middle; width: 52px;">
+                          <img src="https://iili.io/n9ydFZN.png" alt="NEW SARA SPA" width="48" height="48" style="display: block; width: 48px; height: 48px; border-radius: 50%; border: 1px solid #E2E8F0;" />
+                        </td>
+                        <td style="vertical-align: middle; padding-left: 14px;">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 700; color: #8C6A43; text-transform: uppercase; letter-spacing: 1px;">
+                            NEW SARA SPA &bull; Website Concierge
+                          </div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 18px; font-weight: 700; color: #0F172A; margin-top: 2px;">
+                            New Client Inquiry Received
+                          </div>
+                        </td>
+                        <td align="right" style="vertical-align: middle;">
+                          <span style="background-color: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                            ● Direct Lead
+                          </span>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
 
-                <!-- ── 3. CONTENT BODY ── -->
+                <!-- ── 2. CONTENT BODY ── -->
                 <tr>
-                  <td class="content-padding" style="padding: 36px 30px; background-color: #ffffff;">
-                    
-                    <p style="margin: 0 0 22px 0; color: #2D241E; font-size: 15px; font-weight: 600; line-height: 1.5;">
-                      A new guest has submitted an inquiry from the official website:
+                  <td class="content-padding" style="padding: 24px 28px;">
+                    <p style="margin: 0 0 16px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #334155; line-height: 1.5;">
+                      A new inquiry has been submitted through the website contact form:
                     </p>
 
                     <!-- Client Details Card Table -->
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #FAF7F2; border-radius: 12px; border: 1px solid #E8DFD5; overflow: hidden; margin-bottom: 24px; border-collapse: separate;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; overflow: hidden; margin-bottom: 20px;">
                       
                       <!-- Name -->
-                      <tr style="border-bottom: 1px solid #EFE6DC;">
-                        <td style="padding: 14px 18px; width: 145px; font-weight: 600; color: #7A6352; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          Guest Name
+                      <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 11px 14px; width: 130px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 600; color: #64748B;">
+                          Client Name
                         </td>
-                        <td style="padding: 14px 18px; color: #1F1712; font-size: 14.5px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 700; color: #0F172A;">
                           ${formData.fullName}
                         </td>
                       </tr>
 
-                      <!-- Email -->
-                      <tr style="border-bottom: 1px solid #EFE6DC;">
-                        <td style="padding: 14px 18px; font-weight: 600; color: #7A6352; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          Email Address
+                      <!-- Phone -->
+                      <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 600; color: #64748B;">
+                          Phone Number
                         </td>
-                        <td style="padding: 14px 18px; font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          <a href="mailto:${formData.email}" style="color: #8C6A43; text-decoration: none; font-weight: 600;">${formData.email}</a>
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600;">
+                          ${formData.phone ? `<a href="tel:${formData.phone}" style="color: #0F172A; text-decoration: none; font-weight: 700;">${formData.phone}</a>` : '<span style="color: #94A3B8;">Not provided</span>'}
                         </td>
                       </tr>
 
-                      <!-- Phone -->
-                      <tr style="border-bottom: 1px solid #EFE6DC;">
-                        <td style="padding: 14px 18px; font-weight: 600; color: #7A6352; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          Phone Number
+                      <!-- Email -->
+                      <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 600; color: #64748B;">
+                          Email Address
                         </td>
-                        <td style="padding: 14px 18px; font-size: 14.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          ${formData.phone ? `<a href="tel:${formData.phone}" style="color: #1F1712; text-decoration: none; font-weight: 600;">${formData.phone}</a>` : '<span style="color: #998577;">Not provided</span>'}
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600;">
+                          <a href="mailto:${formData.email}" style="color: #0284C7; text-decoration: none;">${formData.email}</a>
                         </td>
                       </tr>
 
                       <!-- Therapy -->
-                      <tr style="border-bottom: 1px solid #EFE6DC;">
-                        <td style="padding: 14px 18px; font-weight: 600; color: #7A6352; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          Selected Therapy
+                      <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 600; color: #64748B;">
+                          Service Requested
                         </td>
-                        <td style="padding: 14px 18px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          <span style="display: inline-block; background-color: #EBF5F0; color: #1E4D39; border: 1px solid #B8DEC9; padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">
-                            ${formData.preferredService}
-                          </span>
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #0F172A;">
+                          ${formData.preferredService}
                         </td>
                       </tr>
 
+                      ${formData.preferredDate ? `
+                      <!-- Preferred Date -->
+                      <tr style="border-bottom: 1px solid #E2E8F0;">
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 600; color: #64748B;">
+                          Preferred Date
+                        </td>
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600; color: #0F172A;">
+                          ${formData.preferredDate}
+                        </td>
+                      </tr>
+                      ` : ''}
+
                       <!-- Timestamp -->
                       <tr>
-                        <td style="padding: 14px 18px; font-weight: 600; color: #7A6352; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                          Submission Time
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 600; color: #64748B;">
+                          Received Time
                         </td>
-                        <td style="padding: 14px 18px; color: #6B503F; font-size: 13px; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <td style="padding: 11px 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 12px; font-weight: 500; color: #64748B;">
                           ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })} IST
                         </td>
                       </tr>
@@ -199,65 +190,45 @@ export default function Contactus() {
                     </table>
 
                     <!-- Message Container -->
-                    <div style="padding: 18px 20px; background-color: #FAF7F2; border: 1px solid #E8DFD5; border-left: 4px solid #D4A373; border-radius: 10px; margin-bottom: 24px;">
-                      <p style="margin: 0 0 6px 0; font-weight: 700; color: #7A6352; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                        Guest Note / Special Requests:
-                      </p>
-                      <p style="margin: 0; color: #1F1712; font-size: 14px; line-height: 1.6; white-space: pre-wrap; font-weight: 500; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                    <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-left: 3px solid #0F172A; border-radius: 6px; padding: 14px 16px; margin-bottom: 20px;">
+                      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 4px;">
+                        Message from Client:
+                      </div>
+                      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; color: #1E293B; line-height: 1.5; white-space: pre-wrap;">
                         ${formData.message}
-                      </p>
+                      </div>
                     </div>
 
-                    <!-- ── 4. QUICK ACTION BUTTONS ── -->
-                    ${cleanPhone ? `
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px;">
+                    <!-- ── 3. QUICK ACTION BUTTONS ── -->
+                    <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td align="center">
-                          <table border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                              <td style="padding: 4px 8px;">
-                                <a href="https://wa.me/${waPhone}?text=Hello%20${encodeURIComponent(formData.fullName)},%20thank%20you%20for%20contacting%20NEW%20SARA%20SPA%20Wakad.%20Regarding%20your%20inquiry%20for%20${encodeURIComponent(formData.preferredService)}..." class="btn-whatsapp" target="_blank">
-                                  💬 WhatsApp Guest
-                                </a>
-                              </td>
-                              <td style="padding: 4px 8px;">
-                                <a href="tel:${formData.phone}" class="btn-primary">
-                                  📞 Call Guest
-                                </a>
-                              </td>
-                            </tr>
-                          </table>
+                        ${cleanPhone ? `
+                        <td style="padding-right: 8px;">
+                          <a href="https://wa.me/${waPhone}?text=Hello%20${encodeURIComponent(formData.fullName)},%20thank%20you%20for%20contacting%20NEW%20SARA%20SPA%20Wakad." class="btn-whatsapp" target="_blank">
+                            💬 WhatsApp Client
+                          </a>
                         </td>
-                      </tr>
-                    </table>
-                    ` : ''}
-
-                  </td>
-                </tr>
-
-                <!-- ── 5. LUXURY FOOTER ── -->
-                <tr>
-                  <td align="center" style="background-color: #FAF7F2; padding: 24px 24px; text-align: center; border-top: 1px solid #EDE4D9;">
-                    <p style="margin: 0 0 6px 0; font-size: 12px; color: #2D241E; font-weight: 700;">
-                      NEW SARA SPA — A Sanctuary of Holistic Wellness
-                    </p>
-                    <p style="margin: 0 0 8px 0; font-size: 11px; color: #6B503F; line-height: 1.5;">
-                      Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057
-                    </p>
-                    <p style="margin: 0 0 14px 0; font-size: 11px; color: #B07D54; font-weight: 600;">
-                      Direct Helpline: +91 98343 66828 • Email: saranewspa@gmail.com
-                    </p>
-
-                    <!-- Official Website Link Button -->
-                    <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
-                      <tr>
-                        <td align="center">
-                          <a href="https://saraspa.com" style="background: #2D241E; color: #E3BA8F; border: 1px solid #D4A373; border-radius: 9999px; padding: 7px 20px; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; display: inline-block;">
-                            🌐 Visit Official Website →
+                        <td style="padding-right: 8px;">
+                          <a href="tel:${formData.phone}" class="btn-primary">
+                            📞 Call Client
+                          </a>
+                        </td>
+                        ` : ''}
+                        <td>
+                          <a href="mailto:${formData.email}" style="background-color: #F1F5F9; color: #334155; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: 13px; display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; border: 1px solid #E2E8F0;">
+                            ✉️ Reply Email
                           </a>
                         </td>
                       </tr>
                     </table>
+
+                  </td>
+                </tr>
+
+                <!-- ── 4. FOOTER ── -->
+                <tr>
+                  <td style="padding: 16px 28px; background-color: #F8FAFC; border-top: 1px solid #E2E8F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; color: #64748B; text-align: center;">
+                    This is an automated operational notification from NEW SARA SPA website inquiry system.
                   </td>
                 </tr>
 
@@ -278,8 +249,11 @@ export default function Contactus() {
         },
         body: JSON.stringify({
           to: "saranewspa@gmail.com",
-          subject: `NEW SARA SPA — Consultation Inquiry from ${formData.fullName}`,
+          from_name: "NEW SARA SPA Alerts",
+          reply_to: formData.email,
+          subject: `[New Lead Alert] Website Inquiry from ${formData.fullName}`,
           body: emailBodyHtml,
+          is_html: true,
         }),
       });
 

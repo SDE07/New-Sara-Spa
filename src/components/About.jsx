@@ -202,7 +202,7 @@ export default function About({ onOpenBooking }) {
           <About3DCanvas />
         </Suspense>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-7">
+        <div className="relative z-10 max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center space-y-7">
 
           {/* Main Heading */}
           <motion.h1
@@ -279,7 +279,7 @@ export default function About({ onOpenBooking }) {
           2. THE SARA ESSENCE — Traditional Thai & Ayurvedic Stretching (spa6.png)
       ───────────────────────────────────────────────────────────────────────── */}
       <section className="py-24 md:py-32 relative bg-[#FAF7F2]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
             {/* Left: Interactive Layered 3D Frames Featuring spa6.png */}
@@ -537,7 +537,7 @@ export default function About({ onOpenBooking }) {
           4. VISUAL HERITAGE GALLERY — Master Rituals & Sanctuary Spaces
       ───────────────────────────────────────────────────────────────────────── */}
       <section className="py-12 md:py-20 bg-[#FAF7F2] relative border-t border-[#EAE0D3]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-8 sm:mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif-luxury font-bold text-[#2D241E]">
               Moments of <span className="italic font-normal skin-gradient-text">Pure Serenity</span>
@@ -681,7 +681,7 @@ export default function About({ onOpenBooking }) {
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#C59B6D]/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#D4A373]/12 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
           
           {/* Header */}
           <div className="text-center space-y-3 mb-12 md:mb-14">

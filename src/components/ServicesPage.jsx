@@ -326,7 +326,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Authentic Service Cards Grid (Matching Reference Screenshot) ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-2 sm:pt-4">
+      <section className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 pt-2 sm:pt-4">
         
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6 sm:mb-8 pb-3 border-b border-[#EAE0D3] text-center sm:text-left">
           <span className="text-xs uppercase tracking-widest font-bold text-[#8C6A43]">

@@ -524,6 +524,18 @@ body::-webkit-scrollbar,
   }
 }
 
+@media (min-width: 1280px) {
+  .hero-visual-container {
+    max-width: 530px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .hero-visual-container {
+    max-width: 580px;
+  }
+}
+
 /* ══════════════════════════════════════════════════════════════════════
    MOVING CANVAS OF COLOR & RADIANT GLOW
    ══════════════════════════════════════════════════════════════════════ */

@@ -15,6 +15,7 @@ const ServicesPage            = lazy(() => import("./components/ServicesPage"));
 const PackagesPage            = lazy(() => import("./components/PackagesPage"));
 const GalleryPage             = lazy(() => import("./components/GalleryPage"));
 const Contactus               = lazy(() => import("./components/Contactus"));
+const Thankyou                = lazy(() => import("./components/Thankyou"));
 const ProductsPage            = lazy(() => import("./components/Productpage"));
 const QualityPage             = lazy(() => import("./components/Qualitypage"));
 const ExportPage              = lazy(() => import("./components/Exportpage"));
@@ -61,6 +62,8 @@ function App() {
               <Route path="/contact" element={<Contactus />} />
               <Route path="/contactus" element={<Contactus />} />
               <Route path="/Contact" element={<Contactus />} />
+              <Route path="/thank-you" element={<Thankyou />} />
+              <Route path="/thankyou" element={<Thankyou />} />
 
               {/* ── Secondary Pages ── */}
               <Route path="/leadership" element={<Leadership />} />

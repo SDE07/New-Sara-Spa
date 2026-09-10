@@ -50,8 +50,8 @@ export default function Navbar({ onOpenBooking }) {
   };
 
   return (
-    <header className="fixed top-3 sm:top-5 inset-x-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none transition-all duration-300">
-      <div className={`pointer-events-auto relative w-full max-w-6xl rounded-full backdrop-blur-2xl px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-500 overflow-hidden ${
+    <header className="fixed top-3 sm:top-5 inset-x-0 z-50 flex justify-center px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-300">
+      <div className={`pointer-events-auto relative w-full max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] rounded-full backdrop-blur-2xl px-4 sm:px-8 py-2 sm:py-2.5 flex items-center justify-between transition-all duration-500 overflow-hidden ${
         isScrolled
           ? "bg-[#1A120B]/95 hover:bg-[#1A120B]/98 border border-white/15 shadow-[0_14px_45px_rgba(0,0,0,0.45)]"
           : "bg-white/70 hover:bg-white/85 border border-[#E8DFD5]/90 shadow-[0_6px_25px_rgba(212,163,115,0.12)]"
@@ -124,11 +124,15 @@ export default function Navbar({ onOpenBooking }) {
               >
                 <span>{item.name}</span>
                 {active && (
-                  <span className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    isScrolled
-                      ? "bg-[#E3BA8F] shadow-[0_0_8px_rgba(227,186,143,1)]"
-                      : "bg-[#B07D54] shadow-[0_0_8px_rgba(176,125,84,0.8)]"
-                  }`} />
+                  <motion.span
+                    layoutId="activeNavIndicator"
+                    className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-5 h-[2.5px] rounded-full transition-colors duration-300 ${
+                      isScrolled
+                        ? "bg-[#E3BA8F] shadow-[0_0_8px_rgba(227,186,143,1)]"
+                        : "bg-[#B07D54] shadow-[0_0_8px_rgba(176,125,84,0.8)]"
+                    }`}
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
                 )}
               </Link>
             );
@@ -170,7 +174,7 @@ export default function Navbar({ onOpenBooking }) {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className={`pointer-events-auto absolute top-full mt-2 inset-x-3 sm:inset-x-6 max-w-6xl mx-auto rounded-3xl backdrop-blur-2xl px-6 pt-4 pb-6 space-y-4 shadow-2xl transition-all duration-300 ${
+        <div className={`pointer-events-auto absolute top-full mt-2 inset-x-3 sm:inset-x-6 max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto rounded-3xl backdrop-blur-2xl px-6 pt-4 pb-6 space-y-4 shadow-2xl transition-all duration-300 ${
           isScrolled
             ? "bg-[#1A120B]/98 border border-white/15 text-white"
             : "bg-[#FAF7F2]/98 border border-[#E8DFD5] text-[#2D241E]"

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Phone,
@@ -19,8 +20,10 @@ import {
 import useSEO from "../hooks/useSEO";
 import BookingModal from "./BookingModal";
 import logo from "../assets/logo.png";
+import { cn } from "../lib/utils";
 
 export default function Contactus() {
+  const navigate = useNavigate();
   useSEO({
     title: "Contact Us | NEW SARA SPA Wakad Pune",
     description: "Get in touch with NEW SARA SPA in Wakad Pune for appointments, private couple jacuzzi suites, authentic Ayurvedic therapies, and holistic wellness consultations.",
@@ -257,13 +260,16 @@ export default function Contactus() {
         }),
       });
 
-      const resData = await response.json();
-      console.log("Email API response:", resData);
+      const submissionData = {
+        type: "contact",
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        preferredService: formData.preferredService,
+        preferredDate: formData.preferredDate,
+        message: formData.message,
+      };
 
-      setStatus({
-        type: "success",
-        text: `Thank you, ${formData.fullName}! Your inquiry has been sent to our concierge team. We will contact you within 2 hours.`,
-      });
       setFormData({
         fullName: "",
         email: "",
@@ -272,12 +278,20 @@ export default function Contactus() {
         preferredDate: "",
         message: "",
       });
+
+      navigate("/thank-you", { state: submissionData });
     } catch (err) {
       console.error("Failed to send email:", err);
-      setStatus({
-        type: "success",
-        text: `Thank you, ${formData.fullName}! Your inquiry has been submitted. Our concierge team will reach out to you shortly.`,
-      });
+      const submissionData = {
+        type: "contact",
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        preferredService: formData.preferredService,
+        preferredDate: formData.preferredDate,
+        message: formData.message,
+      };
+
       setFormData({
         fullName: "",
         email: "",
@@ -286,38 +300,40 @@ export default function Contactus() {
         preferredDate: "",
         message: "",
       });
+
+      navigate("/thank-you", { state: submissionData });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#2D241E] pt-24 pb-20 selection:bg-[#D4A373] selection:text-white">
+    <div className={cn('min-h-screen', 'bg-[#FAF7F2]', 'text-[#2D241E]', 'pt-24', 'pb-20', 'selection:bg-[#D4A373]', 'selection:text-white')}>
       
       {/* ── 1. HERO SECTION ── */}
-      <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-b from-[#F2ECE4] via-[#FAF7F2] to-[#FAF7F2] border-b border-[#EAE0D3]">
-        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#D4A373]/15 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-[#52B788]/10 rounded-full blur-[100px] pointer-events-none" />
+      <section className={cn('relative', 'py-16', 'md:py-24', 'overflow-hidden', 'bg-gradient-to-b', 'from-[#F2ECE4]', 'via-[#FAF7F2]', 'to-[#FAF7F2]', 'border-b', 'border-[#EAE0D3]')}>
+        <div className={cn('absolute', 'top-1/3', 'left-1/4', 'w-96', 'h-96', 'bg-[#D4A373]/15', 'rounded-full', 'blur-[120px]', 'pointer-events-none')} />
+        <div className={cn('absolute', 'bottom-10', 'right-1/4', 'w-80', 'h-80', 'bg-[#52B788]/10', 'rounded-full', 'blur-[100px]', 'pointer-events-none')} />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#D4A373]/50 bg-white/80 backdrop-blur-md px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#8C6A43] shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#B07D54]" />
+        <div className={cn('max-w-7xl', 'xl:max-w-[1400px]', '2xl:max-w-[1536px]', 'mx-auto', 'px-4', 'sm:px-6', 'lg:px-8', 'xl:px-12', 'text-center', 'relative', 'z-10', 'space-y-4')}>
+          <span className={cn('inline-flex', 'items-center', 'gap-2', 'rounded-full', 'border', 'border-[#D4A373]/50', 'bg-white/80', 'backdrop-blur-md', 'px-5', 'py-2', 'text-xs', 'font-bold', 'uppercase', 'tracking-[0.2em]', 'text-[#8C6A43]', 'shadow-xs')}>
+            <Sparkles className={cn('w-3.5', 'h-3.5', 'text-[#B07D54]')} />
             <span>We Would Love to Welcome You</span>
           </span>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif-luxury font-bold tracking-tight text-[#2D241E]">
-            Contact Our <span className="skin-gradient-text italic font-normal">Sanctuary</span>
+          <h1 className={cn('text-4xl', 'sm:text-5xl', 'md:text-6xl', 'font-serif-luxury', 'font-bold', 'tracking-tight', 'text-[#2D241E]')}>
+            Contact Our <span className={cn('skin-gradient-text', 'italic', 'font-normal')}>Sanctuary</span>
           </h1>
-          <p className="text-base sm:text-lg text-[#6B5A4E] max-w-2xl mx-auto font-light leading-relaxed">
+          <p className={cn('text-base', 'sm:text-lg', 'text-[#6B5A4E]', 'max-w-2xl', 'mx-auto', 'font-light', 'leading-relaxed')}>
             Begin your journey into restorative wellness. Our master therapists and concierge team are at your service for appointments, consultations, and private jacuzzi suite bookings.
           </p>
         </div>
       </section>
 
       {/* ── 2. MAIN CONTACT & INQUIRY SECTION ── */}
-      <section className="pt-8 pb-4 md:pt-12 md:pb-6 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+      <section className={cn('pt-8', 'pb-4', 'md:pt-12', 'md:pb-6', 'relative')}>
+        <div className={cn('max-w-7xl', 'xl:max-w-[1400px]', '2xl:max-w-[1536px]', 'mx-auto', 'px-4', 'sm:px-6', 'lg:px-8', 'xl:px-12')}>
+          <div className={cn('grid', 'grid-cols-1', 'lg:grid-cols-12', 'gap-6', 'lg:gap-8', 'items-stretch')}>
             
             {/* LEFT: Compact Deep Dark Emerald VIP Sanctuary Location Card */}
             <motion.div
@@ -325,71 +341,71 @@ export default function Contactus() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="lg:col-span-4 rounded-3xl bg-gradient-to-b from-[#0E241B] via-[#0A1A13] to-[#050D09] text-white p-6 sm:p-7 border border-[#1E4D39] shadow-[0_15px_40px_rgba(14,36,27,0.35)] relative overflow-hidden flex flex-col justify-between space-y-6"
+              className={cn('lg:col-span-4', 'rounded-3xl', 'bg-gradient-to-b', 'from-[#0E241B]', 'via-[#0A1A13]', 'to-[#050D09]', 'text-white', 'p-6', 'sm:p-7', 'border', 'border-[#1E4D39]', 'shadow-[0_15px_40px_rgba(14,36,27,0.35)]', 'relative', 'overflow-hidden', 'flex', 'flex-col', 'justify-between', 'space-y-6')}
             >
               {/* Emerald & Gold Ambient Halos */}
-              <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#52B788]/15 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-[#D4A373]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className={cn('absolute', '-top-16', '-right-16', 'w-48', 'h-48', 'bg-[#52B788]/15', 'rounded-full', 'blur-3xl', 'pointer-events-none')} />
+              <div className={cn('absolute', '-bottom-16', '-left-16', 'w-48', 'h-48', 'bg-[#D4A373]/10', 'rounded-full', 'blur-3xl', 'pointer-events-none')} />
 
-              <div className="relative z-10 space-y-5">
+              <div className={cn('relative', 'z-10', 'space-y-5')}>
                 <div className="space-y-1.5">
-                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#E3BA8F] block">
+                  <span className={cn('text-[10px]', 'uppercase', 'font-bold', 'tracking-[0.2em]', 'text-[#E3BA8F]', 'block')}>
                     Beauty, Cosmetic & Personal Care
                   </span>
-                  <h3 className="text-2xl font-serif-luxury font-bold text-white leading-snug">
+                  <h3 className={cn('text-2xl', 'font-serif-luxury', 'font-bold', 'text-white', 'leading-snug')}>
                     NEW Sara Spa Wakad
                   </h3>
-                  <p className="text-xs text-[#A7E8CD] leading-relaxed font-light">
+                  <p className={cn('text-xs', 'text-[#A7E8CD]', 'leading-relaxed', 'font-light')}>
                     Best massage spa in Wakad, Pune. A sanctuary of authentic Ayurvedic therapies, private Jacuzzis, and deep relaxation.
                   </p>
                 </div>
 
                 {/* Contact Coordinates */}
-                <div className="space-y-3 pt-1">
-                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
-                      <MapPin className="w-4 h-4" />
+                <div className={cn('space-y-3', 'pt-1')}>
+                  <div className={cn('flex', 'items-start', 'gap-3', 'p-3', 'rounded-xl', 'bg-white/5', 'border', 'border-white/10')}>
+                    <div className={cn('w-8', 'h-8', 'rounded-full', 'bg-[#1E4D39]', 'text-[#A7E8CD]', 'flex', 'items-center', 'justify-center', 'shrink-0', 'mt-0.5')}>
+                      <MapPin className={cn('w-4', 'h-4')} />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Location & Address</div>
-                      <div className="text-xs font-medium text-white leading-relaxed">
+                      <div className={cn('text-[10px]', 'uppercase', 'tracking-wider', 'text-[#A7E8CD]', 'font-semibold')}>Location & Address</div>
+                      <div className={cn('text-xs', 'font-medium', 'text-white', 'leading-relaxed')}>
                         Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
-                      <Phone className="w-4 h-4" />
+                  <div className={cn('flex', 'items-start', 'gap-3', 'p-3', 'rounded-xl', 'bg-white/5', 'border', 'border-white/10')}>
+                    <div className={cn('w-8', 'h-8', 'rounded-full', 'bg-[#1E4D39]', 'text-[#A7E8CD]', 'flex', 'items-center', 'justify-center', 'shrink-0', 'mt-0.5')}>
+                      <Phone className={cn('w-4', 'h-4')} />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Direct Call & WhatsApp</div>
-                      <a href="tel:+919834366828" className="text-xs font-medium text-white hover:text-[#E3BA8F] transition-colors block">
+                      <div className={cn('text-[10px]', 'uppercase', 'tracking-wider', 'text-[#A7E8CD]', 'font-semibold')}>Direct Call & WhatsApp</div>
+                      <a href="tel:+919834366828" className={cn('text-xs', 'font-medium', 'text-white', 'hover:text-[#E3BA8F]', 'transition-colors', 'block')}>
                         +91 98343 66828
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
-                      <Mail className="w-4 h-4" />
+                  <div className={cn('flex', 'items-start', 'gap-3', 'p-3', 'rounded-xl', 'bg-white/5', 'border', 'border-white/10')}>
+                    <div className={cn('w-8', 'h-8', 'rounded-full', 'bg-[#1E4D39]', 'text-[#A7E8CD]', 'flex', 'items-center', 'justify-center', 'shrink-0', 'mt-0.5')}>
+                      <Mail className={cn('w-4', 'h-4')} />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Inquiry & Appointments</div>
-                      <a href="mailto:saranewspa@gmail.com" className="text-xs font-medium text-white hover:text-[#E3BA8F] transition-colors block">
+                      <div className={cn('text-[10px]', 'uppercase', 'tracking-wider', 'text-[#A7E8CD]', 'font-semibold')}>Inquiry & Appointments</div>
+                      <a href="mailto:saranewspa@gmail.com" className={cn('text-xs', 'font-medium', 'text-white', 'hover:text-[#E3BA8F]', 'transition-colors', 'block')}>
                         saranewspa@gmail.com
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                    <div className="w-8 h-8 rounded-full bg-[#1E4D39] text-[#A7E8CD] flex items-center justify-center shrink-0 mt-0.5">
-                      <Clock className="w-4 h-4" />
+                  <div className={cn('flex', 'items-start', 'gap-3', 'p-3', 'rounded-xl', 'bg-white/5', 'border', 'border-white/10')}>
+                    <div className={cn('w-8', 'h-8', 'rounded-full', 'bg-[#1E4D39]', 'text-[#A7E8CD]', 'flex', 'items-center', 'justify-center', 'shrink-0', 'mt-0.5')}>
+                      <Clock className={cn('w-4', 'h-4')} />
                     </div>
                     <div className="space-y-0.5">
-                      <div className="text-[10px] uppercase tracking-wider text-[#A7E8CD] font-semibold">Sanctuary Hours</div>
-                      <div className="text-xs font-medium text-white flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-[#52B788] animate-pulse"></span>
+                      <div className={cn('text-[10px]', 'uppercase', 'tracking-wider', 'text-[#A7E8CD]', 'font-semibold')}>Sanctuary Hours</div>
+                      <div className={cn('text-xs', 'font-medium', 'text-white', 'flex', 'items-center', 'gap-2')}>
+                        <span className={cn('w-2', 'h-2', 'rounded-full', 'bg-[#52B788]', 'animate-pulse')}></span>
                         <span>Open 24 Hours (Mon – Sun)</span>
                       </div>
                     </div>
@@ -398,13 +414,13 @@ export default function Contactus() {
               </div>
 
               {/* Bottom Quick Reserve Button */}
-              <div className="relative z-10 pt-3 border-t border-[#1E4D39]/80">
+              <div className={cn('relative', 'z-10', 'pt-3', 'border-t', 'border-[#1E4D39]/80')}>
                 <button
                   type="button"
                   onClick={() => setIsBookingOpen(true)}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D4A373] to-[#B07D54] hover:from-[#E3BA8F] hover:to-[#C59B6D] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-lg hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className={cn('w-full', 'py-3.5', 'rounded-xl', 'bg-gradient-to-r', 'from-[#D4A373]', 'to-[#B07D54]', 'hover:from-[#E3BA8F]', 'hover:to-[#C59B6D]', 'text-white', 'font-bold', 'text-xs', 'uppercase', 'tracking-[0.2em]', 'shadow-lg', 'hover:scale-[1.02]', 'transition-all', 'flex', 'items-center', 'justify-center', 'gap-2', 'cursor-pointer')}
                 >
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className={cn('w-4', 'h-4')} />
                   <span>Book Online Instantly</span>
                 </button>
               </div>
@@ -416,14 +432,14 @@ export default function Contactus() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="lg:col-span-8 rounded-3xl bg-white p-6 sm:p-10 border border-[#EAE0D3] shadow-[0_15px_45px_rgba(45,36,30,0.06)] relative overflow-hidden flex flex-col justify-between"
+              className={cn('lg:col-span-8', 'rounded-3xl', 'bg-white', 'p-6', 'sm:p-10', 'border', 'border-[#EAE0D3]', 'shadow-[0_15px_45px_rgba(45,36,30,0.06)]', 'relative', 'overflow-hidden', 'flex', 'flex-col', 'justify-between')}
             >
               <div>
-                <div className="space-y-2 mb-6">
-                  <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#2D241E]">
+                <div className={cn('space-y-2', 'mb-6')}>
+                  <h3 className={cn('text-2xl', 'sm:text-3xl', 'font-serif-luxury', 'font-bold', 'text-[#2D241E]')}>
                     Send an Inquiry
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#6B5A4E] font-light leading-relaxed">
+                  <p className={cn('text-xs', 'sm:text-sm', 'text-[#6B5A4E]', 'font-light', 'leading-relaxed')}>
                     Have a bespoke request, corporate wellness retreat, or private VIP couple suite question? Leave a message and our concierge will respond promptly.
                   </p>
                 </div>
@@ -438,18 +454,18 @@ export default function Contactus() {
                     }`}
                   >
                     {status.type === "success" ? (
-                      <CheckCircle2 className="w-5 h-5 text-[#2D6A4F] shrink-0 mt-0.5" />
+                      <CheckCircle2 className={cn('w-5', 'h-5', 'text-[#2D6A4F]', 'shrink-0', 'mt-0.5')} />
                     ) : (
-                      <AlertCircle className="w-5 h-5 text-[#DC2626] shrink-0 mt-0.5" />
+                      <AlertCircle className={cn('w-5', 'h-5', 'text-[#DC2626]', 'shrink-0', 'mt-0.5')} />
                     )}
-                    <span className="font-medium leading-relaxed">{status.text}</span>
+                    <span className={cn('font-medium', 'leading-relaxed')}>{status.text}</span>
                   </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className={cn('grid', 'grid-cols-1', 'sm:grid-cols-2', 'gap-4')}>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                      <label className={cn('text-xs', 'font-semibold', 'text-[#8C6A43]', 'uppercase', 'tracking-wider', 'block')}>
                         Full Name *
                       </label>
                       <input
@@ -459,12 +475,12 @@ export default function Contactus() {
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="e.g. Rahul Sharma"
-                        className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        className={cn('w-full', 'px-4', 'py-3', 'rounded-xl', 'border', 'border-[#EAE0D3]', 'bg-[#FAF7F2]/50', 'text-[#2D241E]', 'text-sm', 'focus:bg-white', 'focus:border-[#D4A373]', 'focus:ring-2', 'focus:ring-[#D4A373]/20', 'transition-all', 'outline-none')}
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                      <label className={cn('text-xs', 'font-semibold', 'text-[#8C6A43]', 'uppercase', 'tracking-wider', 'block')}>
                         Email Address *
                       </label>
                       <input
@@ -474,14 +490,14 @@ export default function Contactus() {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="rahul@example.com"
-                        className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        className={cn('w-full', 'px-4', 'py-3', 'rounded-xl', 'border', 'border-[#EAE0D3]', 'bg-[#FAF7F2]/50', 'text-[#2D241E]', 'text-sm', 'focus:bg-white', 'focus:border-[#D4A373]', 'focus:ring-2', 'focus:ring-[#D4A373]/20', 'transition-all', 'outline-none')}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className={cn('grid', 'grid-cols-1', 'sm:grid-cols-2', 'gap-4')}>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                      <label className={cn('text-xs', 'font-semibold', 'text-[#8C6A43]', 'uppercase', 'tracking-wider', 'block')}>
                         Phone Number
                       </label>
                       <input
@@ -490,19 +506,19 @@ export default function Contactus() {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="+91 98343 66828"
-                        className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        className={cn('w-full', 'px-4', 'py-3', 'rounded-xl', 'border', 'border-[#EAE0D3]', 'bg-[#FAF7F2]/50', 'text-[#2D241E]', 'text-sm', 'focus:bg-white', 'focus:border-[#D4A373]', 'focus:ring-2', 'focus:ring-[#D4A373]/20', 'transition-all', 'outline-none')}
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                      <label className={cn('text-xs', 'font-semibold', 'text-[#8C6A43]', 'uppercase', 'tracking-wider', 'block')}>
                         Preferred Therapy / Package
                       </label>
                       <select
                         name="preferredService"
                         value={formData.preferredService}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none"
+                        className={cn('w-full', 'px-4', 'py-3', 'rounded-xl', 'border', 'border-[#EAE0D3]', 'bg-[#FAF7F2]/50', 'text-[#2D241E]', 'text-sm', 'focus:bg-white', 'focus:border-[#D4A373]', 'focus:ring-2', 'focus:ring-[#D4A373]/20', 'transition-all', 'outline-none')}
                       >
                         <optgroup label="── 1. DRY MASSAGES ──">
                           <option>Head Massages (Indian Champ)</option>
@@ -536,7 +552,7 @@ export default function Contactus() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-[#8C6A43] uppercase tracking-wider block">
+                    <label className={cn('text-xs', 'font-semibold', 'text-[#8C6A43]', 'uppercase', 'tracking-wider', 'block')}>
                       Message / Special Requests *
                     </label>
                     <textarea
@@ -546,23 +562,23 @@ export default function Contactus() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Share your preferred date, timing, or therapy preferences..."
-                      className="w-full px-4 py-3 rounded-xl border border-[#EAE0D3] bg-[#FAF7F2]/50 text-[#2D241E] text-sm focus:bg-white focus:border-[#D4A373] focus:ring-2 focus:ring-[#D4A373]/20 transition-all outline-none resize-none"
+                      className={cn('w-full', 'px-4', 'py-3', 'rounded-xl', 'border', 'border-[#EAE0D3]', 'bg-[#FAF7F2]/50', 'text-[#2D241E]', 'text-sm', 'focus:bg-white', 'focus:border-[#D4A373]', 'focus:ring-2', 'focus:ring-[#D4A373]/20', 'transition-all', 'outline-none', 'resize-none')}
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-[#2D241E] hover:bg-[#4A3B32] text-white font-bold text-xs uppercase tracking-[0.2em] shadow-xl hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+                    className={cn('w-full', 'py-4', 'rounded-xl', 'bg-[#2D241E]', 'hover:bg-[#4A3B32]', 'text-white', 'font-bold', 'text-xs', 'uppercase', 'tracking-[0.2em]', 'shadow-xl', 'hover:scale-[1.01]', 'transition-all', 'flex', 'items-center', 'justify-center', 'gap-2', 'cursor-pointer', 'disabled:opacity-75')}
                   >
                     {loading ? (
                       <>
-                        <Loader2 className="w-4 h-4 animate-spin text-[#E3BA8F]" />
+                        <Loader2 className={cn('w-4', 'h-4', 'animate-spin', 'text-[#E3BA8F]')} />
                         <span>Sending Inquiry to Concierge…</span>
                       </>
                     ) : (
                       <>
-                        <Send className="w-4 h-4 text-[#D4A373]" />
+                        <Send className={cn('w-4', 'h-4', 'text-[#D4A373]')} />
                         <span>Send Message to Concierge</span>
                       </>
                     )}
@@ -576,26 +592,26 @@ export default function Contactus() {
       </section>
 
       {/* ── 3. INTERACTIVE WAKAD PUNE GOOGLE MAP SECTION ── */}
-      <section className="pt-2 pb-12 md:pt-4 md:pb-16 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[32px] overflow-hidden bg-white border border-[#EAE0D3] shadow-[0_15px_40px_rgba(45,36,30,0.06)]">
+      <section className={cn('pt-2', 'pb-12', 'md:pt-4', 'md:pb-16', 'relative')}>
+        <div className={cn('max-w-7xl', 'xl:max-w-[1400px]', '2xl:max-w-[1536px]', 'mx-auto', 'px-4', 'sm:px-6', 'lg:px-8', 'xl:px-12')}>
+          <div className={cn('rounded-[32px]', 'overflow-hidden', 'bg-white', 'border', 'border-[#EAE0D3]', 'shadow-[0_15px_40px_rgba(45,36,30,0.06)]')}>
             
             {/* Clean Inline Header with View Switcher */}
-            <div className="px-6 sm:px-8 py-5 border-b border-[#EAE0D3] flex flex-wrap items-center justify-between gap-4 bg-[#FAF7F2]/60">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#2D241E] text-[#D4A373] flex items-center justify-center">
-                  <Compass className="w-4 h-4" />
+            <div className={cn('px-6', 'sm:px-8', 'py-5', 'border-b', 'border-[#EAE0D3]', 'flex', 'flex-wrap', 'items-center', 'justify-between', 'gap-4', 'bg-[#FAF7F2]/60')}>
+              <div className={cn('flex', 'items-center', 'gap-3')}>
+                <div className={cn('w-8', 'h-8', 'rounded-full', 'bg-[#2D241E]', 'text-[#D4A373]', 'flex', 'items-center', 'justify-center')}>
+                  <Compass className={cn('w-4', 'h-4')} />
                 </div>
                 <div>
-                  <h4 className="font-serif-luxury font-bold text-lg text-[#2D241E]">
+                  <h4 className={cn('font-serif-luxury', 'font-bold', 'text-lg', 'text-[#2D241E]')}>
                     NEW Sara Spa Wakad Pune Location Map
                   </h4>
-                  <p className="text-xs text-[#6B5A4E]">Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057</p>
+                  <p className={cn('text-xs', 'text-[#6B5A4E]')}>Office No 213 Wbiz Next To Ginger Hotel Bhumkar Chowk Pune Wakad - 411057</p>
                 </div>
               </div>
 
               {/* Map / Satellite Mode Switcher Pills */}
-              <div className="inline-flex items-center p-1 rounded-full bg-white border border-[#EAE0D3] shadow-xs">
+              <div className={cn('inline-flex', 'items-center', 'p-1', 'rounded-full', 'bg-white', 'border', 'border-[#EAE0D3]', 'shadow-xs')}>
                 <button
                   type="button"
                   onClick={() => setMapType("roadmap")}
@@ -605,7 +621,7 @@ export default function Contactus() {
                       : "text-[#6B5A4E] hover:text-[#2D241E]"
                   }`}
                 >
-                  <Compass className="w-3.5 h-3.5" />
+                  <Compass className={cn('w-3.5', 'h-3.5')} />
                   <span>Map View</span>
                 </button>
                 <button
@@ -617,18 +633,18 @@ export default function Contactus() {
                       : "text-[#6B5A4E] hover:text-[#2D241E]"
                   }`}
                 >
-                  <Globe className="w-3.5 h-3.5" />
+                  <Globe className={cn('w-3.5', 'h-3.5')} />
                   <span>Satellite</span>
                 </button>
               </div>
             </div>
 
             {/* Embedded Responsive Google Map */}
-            <div className="relative h-[420px] sm:h-[500px] w-full bg-[#EAE0D3]/40">
+            <div className={cn('relative', 'h-[420px]', 'sm:h-[500px]', 'w-full', 'bg-[#EAE0D3]/40')}>
               <iframe
                 title="NEW Sara Spa Wakad Pune Google Maps Location"
                 src={`https://maps.google.com/maps?q=NEW%20Sara%20Spa%20Wakad%20Pune%20-%20Best%20Massage%20Spa%20In%20Wakad%20Office%20No%20213%20Wbiz%20Next%20To%20Ginger%20Hotel%20Bhumkar%20Chowk%20Pune%20Wakad%20411057&t=${mapType === "satellite" ? "k" : "m"}&z=16&ie=UTF8&iwloc=&output=embed`}
-                className="w-full h-full border-0"
+                className={cn('w-full', 'h-full', 'border-0')}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

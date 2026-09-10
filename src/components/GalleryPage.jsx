@@ -66,7 +66,7 @@ export default function GalleryPage({ onOpenBooking }) {
       
       {/* Header */}
       <section className="py-16 bg-[#F5EFE6] border-b border-[#EAE0D3]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E5D6C4] text-xs uppercase tracking-[0.25em] font-semibold text-[#8C6A43]">
             <Camera className="w-3.5 h-3.5" />
             <span>Visual Tour</span>
@@ -81,7 +81,7 @@ export default function GalleryPage({ onOpenBooking }) {
       </section>
 
       {/* Gallery Filter Buttons */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      <div className="max-w-7xl xl:max-w-[1400px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-10">
         <div className="flex flex-wrap items-center justify-center gap-2.5 pb-10">
           {categories.map((cat) => (
             <button

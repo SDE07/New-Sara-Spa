@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, Sparkles, Calendar, Clock, User, Phone, Mail, CheckCircle2 } from 'lucide-react';
 
 export default function BookingModal({ isOpen, onClose, defaultService = "Signature Experience" }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -242,21 +244,29 @@ export default function BookingModal({ isOpen, onClose, defaultService = "Signat
       console.error("Booking email error:", err);
     } finally {
       setLoading(false);
-      setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          service: defaultService,
-          date: '',
-          time: '14:00',
-          guests: '1 Person',
-          notes: ''
-        });
-        onClose();
-      }, 3000);
+      const bookingData = {
+        type: 'booking',
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service: formData.service,
+        date: formData.date,
+        time: formData.time,
+        guests: formData.guests,
+        notes: formData.notes
+      };
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        service: defaultService,
+        date: '',
+        time: '14:00',
+        guests: '1 Person',
+        notes: ''
+      });
+      onClose();
+      navigate('/thank-you', { state: bookingData });
     }
   };
 

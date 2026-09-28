@@ -40,16 +40,31 @@ export default function useSEO({ title, description, canonical }) {
       }
     }
 
-    // 4. Update Canonical URL
+    // 4. Update Canonical URL & Social URLs
     if (canonical) {
+      const formattedPath = canonical === "/" ? "" : (canonical.startsWith("/") ? canonical : `/${canonical}`);
+      const fullUrl = `https://saraspa.in${formattedPath || "/"}`;
+
+      // Update <link rel="canonical">
       let canonicalLink = document.querySelector('link[rel="canonical"]');
-      const fullUrl = `https://saraspa.com${canonical}`;
       if (!canonicalLink) {
         canonicalLink = document.createElement("link");
         canonicalLink.setAttribute("rel", "canonical");
         document.head.appendChild(canonicalLink);
       }
       canonicalLink.setAttribute("href", fullUrl);
+
+      // Update OpenGraph URL
+      let ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) {
+        ogUrl.setAttribute("content", fullUrl);
+      }
+
+      // Update Twitter URL
+      let twitterUrl = document.querySelector('meta[name="twitter:url"]');
+      if (twitterUrl) {
+        twitterUrl.setAttribute("content", fullUrl);
+      }
     }
   }, [title, description, canonical]);
 }

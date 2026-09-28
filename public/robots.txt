@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://saraspa.com/sitemap.xml
+Sitemap: https://saraspa.in/sitemap.xml

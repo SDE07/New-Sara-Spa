@@ -59,6 +59,7 @@ function App() {
               <Route path="/about" element={<About onOpenBooking={() => setIsBookingOpen(true)} />} />
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/packages" element={<PackagesPage />} />
+              <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/contact" element={<Contactus />} />
               <Route path="/contactus" element={<Contactus />} />
               <Route path="/Contact" element={<Contactus />} />
